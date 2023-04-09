@@ -1,1 +1,1 @@
-# personal-finance-client
+# Personal Finance Client
