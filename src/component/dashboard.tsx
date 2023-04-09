@@ -16,9 +16,9 @@ export function Dashboard() {
     <ul>
       {entries
         .filter(({ id }) => !!id)
-        .map(({ id, type, value }) => (
-          <li key={id}>
-            <b>{type}: </b>
+        .map(({ id, type, comments, value, target }) => (
+          <li className="text-3xl font-bold underline" key={id}>
+            <b>{type || comments || target}: </b>
             {value}
           </li>
         ))}
