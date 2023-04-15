@@ -6,7 +6,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Dashboard />
+      <div className="h-screen p-0 m-0">
+        <Dashboard />
+      </div>
     </QueryClientProvider>
   );
 }

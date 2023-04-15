@@ -7,3 +7,7 @@ export interface Entry {
   value: number;
   isExpense: boolean;
 }
+
+export interface EntryDisplay extends Omit<Entry, 'value'> {
+  value: string;
+}

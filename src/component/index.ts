@@ -1,1 +1,2 @@
-export { Dashboard } from './dashboard';
+export { Dashboard } from './Dashboard';
+export { EntriesTable } from './EntriesTable';

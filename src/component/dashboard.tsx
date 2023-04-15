@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import { EntriesTable } from '.';
 import { EntryService } from '../service';
+import { toBRL } from '../utils';
 
 export function Dashboard() {
-  const { isLoading, data: entries, isError } = useQuery({ queryKey: ['entries'], queryFn: EntryService.getAll });
+  const { isLoading, data, isError } = useQuery({ queryKey: ['entries'], queryFn: EntryService.getAll });
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -12,16 +14,7 @@ export function Dashboard() {
     return <span>Error!</span>;
   }
 
-  return (
-    <ul>
-      {entries
-        .filter(({ id }) => !!id)
-        .map(({ id, type, comments, value, target }) => (
-          <li className="text-3xl font-bold underline" key={id}>
-            <b>{type || comments || target}: </b>
-            {value}
-          </li>
-        ))}
-    </ul>
-  );
+  const entries = data.filter(({ id }) => !!id).map(e => ({ ...e, value: toBRL(e.value) }));
+
+  return <EntriesTable entries={entries}></EntriesTable>;
 }
