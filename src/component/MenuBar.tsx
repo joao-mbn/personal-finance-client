@@ -14,7 +14,7 @@ const menuBarOptions = [
 ];
 
 export function MenuBar() {
-  const [value, setValue] = React.useState('recents');
+  const [value, setValue] = React.useState(menuBarOptions[0].value);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -26,7 +26,7 @@ export function MenuBar() {
       className="border-solid border-2 border-black pt-2 h-16 w-full z-10 fixed left-0 bottom-0 items-start"
       sx={{
         '.MuiBottomNavigationAction-label': {
-          fontSize: '0.6rem',
+          fontSize: '0.6rem !important',
           lineHeight: '0.75rem',
           overflowWrap: 'break-word',
           maxWidth: '80%',
