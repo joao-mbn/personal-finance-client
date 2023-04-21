@@ -22,7 +22,7 @@ export type Balances = {
 export type Debt = Pick<Entry, 'target' | 'value'>;
 
 export type Debts = {
-  totalDebt: number;
+  totalDebts: number;
   debtsPerTarget: Debt[];
 };
 
