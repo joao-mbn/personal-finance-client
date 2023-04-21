@@ -1,3 +1,3 @@
 export { Dashboard } from './Dashboard';
-export { EntriesTable } from './EntriesTable';
 export { MenuBar } from './MenuBar';
+export { WidgetsContainer } from './WidgetsContainer';

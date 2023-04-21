@@ -1,20 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { EntriesTable } from '.';
-import { EntryService } from '../service';
-import { toBRL } from '../utils';
+import { Suspense, lazy } from 'react';
+import { ptBR } from '../languages';
+
+const WidgetsContainer = lazy(() => import('./WidgetsContainer'));
 
 export function Dashboard() {
-  const { isLoading, data, isError } = useQuery({ queryKey: ['entries'], queryFn: EntryService.getAll });
-
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    return <span>Error!</span>;
-  }
-
-  const entries = data.filter(({ id }) => !!id).map(e => ({ ...e, value: toBRL(e.value) }));
-
-  return <EntriesTable entries={entries}></EntriesTable>;
+  return (
+    <div>
+      <h1 className="font-normal pb-2 text-lg">Dashboard 🚀</h1>
+      <Suspense fallback={<span className="bg-green-500">{ptBR.loadingWidgets}</span>}>
+        <WidgetsContainer />
+      </Suspense>
+    </div>
+  );
 }

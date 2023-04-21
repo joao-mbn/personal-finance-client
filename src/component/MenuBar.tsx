@@ -4,19 +4,20 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SyncIcon from '@mui/icons-material/Sync';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import * as React from 'react';
+import { SyntheticEvent, useState } from 'react';
+import { ptBR } from '../languages';
 
 const menuBarOptions = [
-  { value: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
-  { value: 'add', label: 'Entrada Manual', icon: <AddCircleIcon /> },
-  { value: 'sync', label: 'Sinc.', icon: <SyncIcon /> },
-  { value: 'configuration', label: 'Config.', icon: <SettingsIcon /> },
+  { value: 'dashboard', label: ptBR.dashboard, icon: <DashboardIcon /> },
+  { value: 'manualInput', label: ptBR.manualInput, icon: <AddCircleIcon /> },
+  { value: 'sync', label: ptBR.sync, icon: <SyncIcon /> },
+  { value: 'configuration', label: ptBR.configuration, icon: <SettingsIcon /> },
 ];
 
 export function MenuBar() {
-  const [value, setValue] = React.useState(menuBarOptions[0].value);
+  const [value, setValue] = useState(menuBarOptions[0].value);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 

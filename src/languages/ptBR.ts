@@ -1,0 +1,17 @@
+export const ptBR = {
+  balance: 'Saldo',
+  debts: 'Dívidas',
+  dueSoonBills: 'Contas Próximas ao Vencimento',
+  monthlyBalance: 'Saldo mês a mês',
+  monthlyEntries: 'Ganhos e despesas mês a mês',
+  monthlyDebts: 'Dívidas Totais mês a mês',
+  monthlyStocks: 'Saldo de ações mês a mês',
+  loading: 'Carregando ...',
+  loadingWidgets: 'Carregando seu dashboard...',
+  error: 'Erro!',
+  welcome: 'Olá, seja bem-vindo! ✌️',
+  dashboard: 'Dashboard',
+  manualInput: 'Entrada Manual',
+  sync: 'Sinc.',
+  configuration: 'Config.',
+};
