@@ -20,7 +20,9 @@ export function DebtsWidget(props: DebtsWidgetProps) {
         <h3>
           {ptBR.totalDebts}: {data?.totalDebts ?? '-'}
         </h3>
-        {data && <PieChart data={data.debtsPerTarget.map(({ target: id, value }) => ({ id, value }))} />}
+        {data && (
+          <PieChart data={data.debtsPerTarget.map(({ target: id, value }) => ({ id, value }))} />
+        )}
       </div>
     </Widget>
   );

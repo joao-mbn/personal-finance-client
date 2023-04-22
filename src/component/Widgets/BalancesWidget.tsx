@@ -20,7 +20,9 @@ export function BalancesWidget(props: BalancesWidgetProps) {
         <h3>
           {ptBR.totalBalance}: {data?.totalBalance ?? '-'}
         </h3>
-        {data && <PieChart data={data.balancePerTarget.map(({ target: id, value }) => ({ id, value }))} />}
+        {data && (
+          <PieChart data={data.balancePerTarget.map(({ target: id, value }) => ({ id, value }))} />
+        )}
       </div>
     </Widget>
   );

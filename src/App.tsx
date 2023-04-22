@@ -12,13 +12,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="h-screen p-2">
-        <MenuBar />
+      <div className="min-h-screen p-2">
         <Dashboard />
       </div>
+      <MenuBar />
     </QueryClientProvider>
   );
 }
 
 export default App;
-

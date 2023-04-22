@@ -31,7 +31,9 @@ export function WidgetsContainer() {
   return (
     <div className="flex flex-col gap-2">
       {data?.map(widget => (
-        <Suspense key={widget} fallback={<span className="bg-blue-500">{ptBR.loading}</span>}>
+        <Suspense
+          key={widget}
+          fallback={<span className="bg-blue-500">{ptBR.loading}</span>}>
           {createElement(widgetsMapper[widget])}
         </Suspense>
       ))}
