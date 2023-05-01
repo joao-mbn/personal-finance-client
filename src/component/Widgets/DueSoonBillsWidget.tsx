@@ -16,8 +16,8 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
       <div className="w-full bg-red-300 h-56">
         <ul>
           {data?.map(d => (
-            <li key={d.type}>
-              {d.type}: {d.value} - {d.dueDate.toString()}
+            <li key={d.name}>
+              {d.name}: {d.value} - {d.dueDate.toString()}
             </li>
           ))}
         </ul>

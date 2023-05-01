@@ -6,16 +6,13 @@ import { Widget } from './Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
 
-interface MonthlyStocksWidgetProps {}
+interface AssetsWidgetProps {}
 
-export function MonthlyStocksWidget(props: MonthlyStocksWidgetProps) {
-  const { data } = useQuery({
-    queryKey: ['monthlyStocks'],
-    queryFn: DashboardService.getMonthlyStocks,
-  });
+export function AssetsWidget(props: AssetsWidgetProps) {
+  const { data } = useQuery({ queryKey: ['assets'], queryFn: DashboardService.getAssets });
 
   return (
-    <Widget title={ptBR.monthlyStocks}>
+    <Widget title={ptBR.assets}>
       <div className="border-solid border-2 border-black h-48 overflow-x-scroll">
         {data?.length && (
           <BarChart
@@ -31,4 +28,4 @@ export function MonthlyStocksWidget(props: MonthlyStocksWidgetProps) {
   );
 }
 
-export default MonthlyStocksWidget;
+export default AssetsWidget;

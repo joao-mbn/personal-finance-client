@@ -7,7 +7,7 @@ export const ptBR = {
   monthlyBalance: 'Saldo mês a mês',
   monthlyEntries: 'Ganhos e despesas mês a mês',
   monthlyDebts: 'Dívidas Totais mês a mês',
-  monthlyStocks: 'Saldo de ações mês a mês',
+  assets: 'Ativos',
   loading: 'Carregando ...',
   loadingWidgets: 'Carregando seu dashboard...',
   error: 'Erro!',

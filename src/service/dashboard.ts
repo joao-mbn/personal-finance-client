@@ -1,4 +1,5 @@
 import {
+  Asset,
   Balances,
   DashboardWidget,
   Debts,
@@ -7,7 +8,6 @@ import {
   MonthBalance,
   MonthDebt,
   MonthEntry,
-  MonthStocks,
 } from '../model';
 import { api } from './api';
 
@@ -42,8 +42,8 @@ export namespace DashboardService {
     return (await api.get<MonthBalance[]>(`${CONTROLLER}/getMonthlyBalances`)).data;
   }
 
-  export async function getMonthlyStocks() {
-    return (await api.get<MonthStocks[]>(`${CONTROLLER}/getMonthlyStocks`)).data;
+  export async function getAssets() {
+    return (await api.get<Asset[]>(`${CONTROLLER}/getAssets`)).data;
   }
 
   export async function getMonthlyDebts() {

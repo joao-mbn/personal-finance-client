@@ -9,7 +9,7 @@ const DebtsWidget = lazy(() => import('./Widgets/DebtsWidget'));
 const DueSoonBillsWidget = lazy(() => import('./Widgets/DueSoonBillsWidget'));
 const MonthlyEntriesWidget = lazy(() => import('./Widgets/MonthlyEntriesWidget'));
 const MonthlyBalancesWidget = lazy(() => import('./Widgets/MonthlyBalancesWidget'));
-const MonthlyStocksWidget = lazy(() => import('./Widgets/MonthlyStocksWidget'));
+const AssetsWidget = lazy(() => import('./Widgets/AssetsWidget'));
 const MonthlyDebtsWidget = lazy(() => import('./Widgets/MonthlyDebtsWidget'));
 
 const widgetsMapper = {
@@ -18,7 +18,7 @@ const widgetsMapper = {
   [DashboardWidget.DueSoonBills]: DueSoonBillsWidget,
   [DashboardWidget.MonthlyEntries]: MonthlyEntriesWidget,
   [DashboardWidget.MonthlyBalance]: MonthlyBalancesWidget,
-  [DashboardWidget.MonthlyStocks]: MonthlyStocksWidget,
+  [DashboardWidget.Assets]: AssetsWidget,
   [DashboardWidget.MonthlyDebts]: MonthlyDebtsWidget,
 };
 

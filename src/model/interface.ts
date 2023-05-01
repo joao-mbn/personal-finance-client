@@ -12,21 +12,31 @@ export interface EntryDisplay extends Omit<Entry, 'value'> {
   value: string;
 }
 
-export type Balance = Pick<Entry, 'target' | 'value'>;
+export type Balance = {
+  name: string;
+  value: number;
+};
 
 export type Balances = {
   totalBalance: number;
-  balancePerTarget: Balance[];
+  balances: Balance[];
 };
 
-export type Debt = Pick<Entry, 'target' | 'value'>;
+export type Debt = {
+  name: string;
+  value: number;
+};
 
 export type Debts = {
   totalDebts: number;
-  debtsPerTarget: Debt[];
+  debts: Debt[];
 };
 
-export type DueSoonBill = Pick<Entry, 'type' | 'value'> & { dueDate: Date };
+export type DueSoonBill = {
+  name: string;
+  value: number;
+  dueDate: Date;
+};
 
 export type MonthBalance = { balance: number; month: Date };
 
@@ -34,4 +44,4 @@ export type MonthDebt = { debt: number; month: Date };
 
 export type MonthEntry = { earnings: number; expenses: number; netEarnings: number; month: Date };
 
-export type MonthStocks = { stocks: number; month: Date };
+export type Asset = { type: string; value: number };

@@ -4,6 +4,6 @@ export enum DashboardWidget {
   DueSoonBills = 3,
   MonthlyEntries = 4,
   MonthlyBalance = 5,
-  MonthlyStocks = 6,
+  Assets = 6,
   MonthlyDebts = 7,
 }
