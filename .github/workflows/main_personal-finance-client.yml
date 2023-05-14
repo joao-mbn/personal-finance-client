@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './dist'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '/dist'
 
 jobs:
   build:
