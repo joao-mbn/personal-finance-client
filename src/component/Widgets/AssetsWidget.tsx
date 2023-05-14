@@ -17,8 +17,8 @@ export function AssetsWidget(props: AssetsWidgetProps) {
         {data?.length && (
           <BarChart
             keys={Object.keys(data[0]).filter(k => k !== 'month')}
-            indexBy="month"
-            data={data.map(d => ({ ...d, month: new Date(d.month).getMonth() }))}
+            indexBy="type"
+            data={data}
             width={data.length * 60}
             height={184}
           />
