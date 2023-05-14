@@ -1,14 +1,11 @@
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SyncIcon from '@mui/icons-material/Sync';
 import { useState } from 'react';
 import { ptBR } from '../languages';
 import { GoogleSignIn } from './GoogleSignIn';
 
 const menuBarOptions = [
-  { value: 'dashboard', label: ptBR.dashboard, icon: <DashboardIcon /> },
-  { value: 'sync', label: ptBR.sync, icon: <SyncIcon /> },
-  { value: 'configuration', label: ptBR.configuration, icon: <SettingsIcon /> },
+  { value: 'dashboard', label: ptBR.dashboard, icon: '' },
+  { value: 'sync', label: ptBR.sync, icon: '' },
+  { value: 'configuration', label: ptBR.configuration, icon: '' },
 ];
 
 export function MenuBar() {
