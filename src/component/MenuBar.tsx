@@ -1,36 +1,28 @@
+import { Link } from '@tanstack/router';
 import { useState } from 'react';
-import { ptBR } from '../languages';
-import { GoogleSignIn } from './GoogleSignIn';
 
-const menuBarOptions = [
-  { value: 'dashboard', label: ptBR.dashboard, icon: '' },
-  { value: 'sync', label: ptBR.sync, icon: '' },
-  { value: 'configuration', label: ptBR.configuration, icon: '' },
-];
+const paths = ['/', '/dashboard', '/sync', '/config'] as const;
+type path = (typeof paths)[number];
 
 export function MenuBar() {
-  const [active, setActive] = useState(menuBarOptions[0].value);
+  const [active, setActive] = useState<path>(paths[0]);
 
-  const handleChange = (newValue: string) => {
+  const handleChange = (newValue: path) => {
     setActive(newValue);
   };
 
   return (
-    <footer className="flex items-stretch h-16 w-screen z-10 mt-2 sticky bottom-0 border-solid border-2 border-black">
-      {menuBarOptions.map(({ icon, label, value }) => {
-        return (
-          <button
-            key={value}
-            onClick={() => handleChange(value)}
-            className={`flex flex-col justify-start items-center w-[25%] ${
-              active === value ? 'text-green-900' : ''
-            }`}>
-            {icon}
-            {label}
-          </button>
-        );
-      })}
-      <GoogleSignIn />
+    <footer className="bottom-0 fixed">
+      <div className="flex h-16 w-full z-10 mt-2 mr-2 ">
+        {paths.map(path => (
+          <Link
+            to={path}
+            key={path}
+            className={`${active === path ? 'text-green-600' : ''}`}>
+            {path.substring(1)}
+          </Link>
+        ))}
+      </div>
     </footer>
   );
 }
