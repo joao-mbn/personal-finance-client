@@ -1,15 +1,18 @@
-import { useContext } from 'react';
-import { GoogleSignIn } from '../component';
-import AppContext from '../context';
+import { GoogleSignIn, Logo, Page } from '../component';
 
 export default function HomePage() {
-  const { hasSession } = useContext(AppContext);
-
   return (
-    <>
-      <h1>Welcome home 🏠</h1>
-      <h2>{hasSession && "You're already logged-in"}</h2>
-      <GoogleSignIn />
-    </>
+    <Page className="bg-gradient-to-b from-cerulean-600 to-cerulean-200 to-80%">
+      <div className="flex min-h-full flex-col items-center justify-center gap-4">
+        <section className="-mt-10 mr-4 flex items-center justify-center">
+          <Logo
+            className="w-24 fill-white"
+            viewBox="30 30 450 450"
+          />
+          <span className="text-5xl tracking-tight text-white">mari</span>
+        </section>
+        <GoogleSignIn />
+      </div>
+    </Page>
   );
 }

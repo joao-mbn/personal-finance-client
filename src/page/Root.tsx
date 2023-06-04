@@ -32,6 +32,7 @@ export default function RootPage() {
   const hasSession = useLoaderData() as boolean;
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const isAtBase = pathname === '/' || pathname === '/home';
 
   const { setHasSession: updateSessionStatusGlobally } = useContext(AppContext);
 
@@ -39,13 +40,13 @@ export default function RootPage() {
     updateSessionStatusGlobally(hasSession);
 
     !hasSession && navigate('/home');
-    hasSession && pathname === '/' && navigate('/dashboard');
+    hasSession && isAtBase && navigate('/dashboard');
   }, [hasSession]);
 
   return (
-    <div className="min-h-screen w-screen p-2">
+    <div className="h-full min-h-screen w-screen">
       <Outlet />
-      <MenuBar />
+      {!isAtBase && <MenuBar />}
     </div>
   );
 }

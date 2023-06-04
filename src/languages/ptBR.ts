@@ -10,6 +10,7 @@ export const ptBR = {
   assets: 'Ativos',
   loading: 'Carregando ...',
   loadingWidgets: 'Carregando seu dashboard...',
+  loginWithGoogle: 'Fazer login com o Google',
   error: 'Erro!',
   welcome: 'Olá, seja bem-vindo! ✌️',
   dashboard: 'Dashboard',
