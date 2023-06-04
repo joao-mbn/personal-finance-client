@@ -16,7 +16,7 @@ export function DebtsWidget(props: DebtsWidgetProps) {
 
   return (
     <Widget title={ptBR.debts}>
-      <div className="w-full border-solid border-2 border-black h-48">
+      <div className="h-48 w-full border-2 border-solid border-black">
         <h3>
           {ptBR.totalDebts}: {data?.totalDebts ?? '-'}
         </h3>

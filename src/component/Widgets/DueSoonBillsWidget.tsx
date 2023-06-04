@@ -13,7 +13,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
 
   return (
     <Widget title={ptBR.dueSoonBills}>
-      <div className="w-full bg-red-300 h-56">
+      <div className="h-56 w-full bg-red-300">
         <ul>
           {data?.map(d => (
             <li key={d.name}>

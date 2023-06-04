@@ -13,7 +13,7 @@ export function AssetsWidget(props: AssetsWidgetProps) {
 
   return (
     <Widget title={ptBR.assets}>
-      <div className="border-solid border-2 border-black h-48 overflow-x-scroll">
+      <div className="h-48 overflow-x-scroll border-2 border-solid border-black">
         {data?.length && (
           <BarChart
             keys={Object.keys(data[0]).filter(k => k !== 'month')}
