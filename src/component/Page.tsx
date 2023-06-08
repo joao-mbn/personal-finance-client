@@ -7,8 +7,12 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Page({ title, className, children }: PageProps) {
   return (
-    <main className={classNames(className, 'h-full p-2')}>
-      <h1 aria-label="page-title">{title}</h1>
+    <main className={classNames(className, 'flex h-full flex-col gap-4 p-2 pt-4')}>
+      <h1
+        aria-label="page-title"
+        className="text-base">
+        {title}
+      </h1>
       {children}
     </main>
   );

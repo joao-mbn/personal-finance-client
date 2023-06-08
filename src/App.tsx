@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense, lazy, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Loading } from './component';
 import AppContext from './context';
-import LoadingPage from './page/Loading';
 import RootPage, { rootLoader } from './page/Root';
 
 const ErrorPage = lazy(() => import('./page/Error'));
@@ -42,7 +42,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={{ hasSession, setHasSession }}>
-        <Suspense fallback={<LoadingPage />}>
+        <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>
       </AppContext.Provider>

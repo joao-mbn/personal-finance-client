@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, createElement, lazy } from 'react';
-import { ptBR } from '../languages';
+import { Loading } from '.';
 import { DashboardWidget } from '../model';
 import { DashboardService } from '../service';
 
@@ -29,11 +29,11 @@ export function WidgetsContainer() {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       {data?.map(widget => (
         <Suspense
           key={widget}
-          fallback={<span className="bg-blue-500">{ptBR.loading}</span>}>
+          fallback={<Loading />}>
           {createElement(widgetsMapper[widget])}
         </Suspense>
       ))}

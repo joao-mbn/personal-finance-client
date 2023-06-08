@@ -45,7 +45,10 @@ export default function RootPage() {
 
   return (
     <div className="h-full min-h-screen w-screen">
-      <Outlet />
+      {/* ensure that this padding matches the footer height, so that the nav menu does not overlay the content at scroll bottom */}
+      <div className="pb-16">
+        <Outlet />
+      </div>
       {!isAtBase && <MenuBar />}
     </div>
   );

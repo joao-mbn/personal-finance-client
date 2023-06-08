@@ -1,14 +1,15 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
+import { Loading, Page } from '../component';
+import { ptBR } from '../languages';
 
 const WidgetsContainer = lazy(() => import('../component/WidgetsContainer'));
 
 export default function DashboardPage() {
   return (
-    <div>
-      <h1 className="text-lg font-normal">Dashboard 🚀</h1>
-      {/* <Suspense fallback={<span className="bg-green-500">{ptBR.loadingWidgets}</span>}>
+    <Page title={ptBR.dashboard}>
+      <Suspense fallback={<Loading message={ptBR.loadingWidgets} />}>
         <WidgetsContainer />
-      </Suspense> */}
-    </div>
+      </Suspense>
+    </Page>
   );
 }
