@@ -1,8 +1,8 @@
 import { SVGAttributes } from 'react';
 
-interface LogoProps extends SVGAttributes<SVGElement> {}
+interface LogoIconProps extends SVGAttributes<SVGElement> {}
 
-export function Logo({ ...props }: LogoProps) {
+export function LogoIcon({ ...props }: LogoIconProps) {
   return (
     <svg
       version="1.1"
