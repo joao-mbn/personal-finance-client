@@ -7,7 +7,7 @@ export function Logo() {
         className="w-24 fill-white"
         viewBox="30 30 450 450"
       />
-      <span className="text-5xl tracking-tight text-white">mari</span>
+      <span className="text-5xl tracking-tight text-white">Mari</span>
     </div>
   );
 }
