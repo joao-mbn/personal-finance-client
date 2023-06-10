@@ -3,6 +3,7 @@ import { Suspense, lazy, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Loading } from './component';
 import AppContext from './context';
+import { useViewport } from './hooks';
 import RootPage, { rootLoader } from './page/Root';
 
 const ErrorPage = lazy(() => import('./page/Error'));
@@ -38,10 +39,11 @@ const router = createBrowserRouter([
 
 function App() {
   const [hasSession, setHasSession] = useState(false);
+  const viewportDimensions = useViewport();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ hasSession, setHasSession }}>
+      <AppContext.Provider value={{ hasSession, setHasSession, viewportDimensions }}>
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>

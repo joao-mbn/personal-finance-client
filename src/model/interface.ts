@@ -42,6 +42,6 @@ export type MonthBalance = { balance: number; month: Date };
 
 export type MonthDebt = { debt: number; month: Date };
 
-export type MonthEntry = { earnings: number; expenses: number; netEarnings: number; month: Date };
+export type MonthEntry = { earnings: number; expenses: number; netEarnings: number; month: string };
 
 export type Asset = { type: string; value: number };

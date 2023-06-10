@@ -1,8 +1,8 @@
 import { QueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useContext, useEffect } from 'react';
-import { Outlet, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import { MenuBar } from '../component';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { PageWrapper } from '../component';
 import AppContext from '../context/AppContext';
 import { Message } from '../model';
 import { AuthService } from '../service';
@@ -43,13 +43,5 @@ export default function RootPage() {
     hasSession && isAtBase && navigate('/dashboard');
   }, [hasSession]);
 
-  return (
-    <div className="h-full min-h-screen w-screen">
-      {/* ensure that this padding matches the footer height, so that the nav menu does not overlay the content at scroll bottom */}
-      <div className="pb-16">
-        <Outlet />
-      </div>
-      {!isAtBase && <MenuBar />}
-    </div>
-  );
+  return <PageWrapper isAtBase={isAtBase} />;
 }
