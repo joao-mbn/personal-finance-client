@@ -15,7 +15,7 @@ export function PageWrapper({ isAtBase }: PageWrapperProps) {
   const {
     viewportDimensions: { height: vh },
   } = useContext(AppContext);
-  const willScroll = rect?.height && rect.height > vh;
+  const willScroll = rect?.height && rect.height > vh - 64;
 
   return (
     <div className="h-full w-screen">
@@ -23,6 +23,7 @@ export function PageWrapper({ isAtBase }: PageWrapperProps) {
         ref={ref}
         className={classNames('h-full', {
           'pb-16': willScroll && !isAtBase,
+          'h-screen': isAtBase,
         })}>
         <Outlet />
       </div>
