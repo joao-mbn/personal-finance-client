@@ -21,7 +21,7 @@ export function Button({
   return (
     <button
       {...props}
-      className={classNames(className, 'flex items-center rounded-full font-semibold', {
+      className={classNames(className, 'flex items-center rounded-3xl font-semibold', {
         'flex-row-reverse': iconPosition === 'right',
         'gap-1 p-2 text-base': size === 'large',
         'gap-1 p-2 text-sm': size === 'medium',

@@ -13,11 +13,13 @@ export function Widget({ title, children, className, overflow }: WidgetProps) {
     <section
       key={title}
       className={classNames(
-        'flex w-full flex-col gap-2 rounded-lg p-2 shadow hover:shadow-lg',
+        'flex w-full flex-col gap-2 rounded-lg bg-slate-50 p-2 text-slate-600 shadow shadow-slate-300 hover:shadow-slate-500',
         className
       )}>
       <h2 className="text-sm font-normal">{title}</h2>
-      <div className={classNames(overflow, { 'overflow-hidden': !overflow })}>{children}</div>
+      <div className={classNames('text-xs', overflow, { 'overflow-hidden': !overflow })}>
+        {children}
+      </div>
     </section>
   );
 }

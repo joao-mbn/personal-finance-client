@@ -10,10 +10,9 @@ type BarChartProps = Omit<typeof Bar, 'data' | 'keys' | 'indexBy'> & {
   height: number;
 };
 
-export function BarChart({ data, bottomLegend, ...props }: BarChartProps) {
+export function BarChart({ bottomLegend, ...props }: BarChartProps) {
   return (
     <Bar
-      data={data}
       margin={{ top: 20, right: 8, bottom: 40, left: 8 }}
       padding={0.2}
       valueScale={{ type: 'linear' }}
@@ -48,8 +47,8 @@ export function BarChart({ data, bottomLegend, ...props }: BarChartProps) {
       barAriaLabel={function (e) {
         return e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue;
       }}
-      {...props}
       theme={{ fontSize: 8 }}
+      {...props}
     />
   );
 }
