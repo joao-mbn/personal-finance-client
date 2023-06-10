@@ -7,7 +7,7 @@ import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
-const PieChart = lazy(() => import('../Charts/PieChart'));
+const BarChart = lazy(() => import('../Charts/BarChart'));
 
 interface BalancesWidgetProps {}
 
@@ -23,7 +23,11 @@ export function BalancesWidget(props: BalancesWidgetProps) {
       key={DashboardWidget.Balances}>
       <ChartWrapper data={data}>
         {data?.balances.length && (
-          <PieChart data={data.balances.map(({ name: id, value }) => ({ id, value }))} />
+          <BarChart
+            keys={['value']}
+            indexBy="name"
+            data={data.balances}
+          />
         )}
       </ChartWrapper>
     </Widget>

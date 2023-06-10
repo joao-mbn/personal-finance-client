@@ -1,8 +1,8 @@
-import { Bar } from '@nivo/bar';
+import { Bar, BarSvgProps } from '@nivo/bar';
 import { toBRL } from '../../utils';
 
 type T = Record<string, number | string>;
-type BarChartProps = Omit<typeof Bar, 'data' | 'keys' | 'indexBy'> & {
+type BarChartProps = Partial<Omit<BarSvgProps<T>, 'data' | 'keys' | 'indexBy'>> & {
   data: T[];
   keys: (keyof T)[];
   indexBy: keyof T;
