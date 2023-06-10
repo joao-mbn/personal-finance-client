@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
+import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
+import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
 const PieChart = lazy(() => import('../Charts/PieChart'));
@@ -15,13 +17,14 @@ export function BalancesWidget(props: BalancesWidgetProps) {
   });
 
   return (
-    <Widget title={ptBR.balance}>
-      <div className="h-48 w-full border-2 border-solid border-black">
-        <h3>
-          {ptBR.totalBalance}: {data?.totalBalance ?? '-'}
-        </h3>
-        {data && <PieChart data={data.balances.map(({ name: id, value }) => ({ id, value }))} />}
-      </div>
+    <Widget
+      title={`${ptBR.totalBalance}: ${data?.totalBalance ?? '-'}`}
+      key={DashboardWidget.Balances}>
+      <ChartWrapper data={data}>
+        {data?.balances.length && (
+          <PieChart data={data.balances.map(({ name: id, value }) => ({ id, value }))} />
+        )}
+      </ChartWrapper>
     </Widget>
   );
 }

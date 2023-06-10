@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
+import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
@@ -16,7 +17,9 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
   });
 
   return (
-    <Widget title={ptBR.monthlyEntries}>
+    <Widget
+      title={ptBR.monthlyEntries}
+      key={DashboardWidget.MonthlyEntries}>
       <ChartWrapper data={data}>
         {data?.length && (
           <BarChart
@@ -25,7 +28,6 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
             data={data.map(({ netEarnings, ...rest }) => ({
               ...rest,
               expenses: -rest.expenses,
-              month: rest.month,
             }))}
             width={data.length * 60}
             height={184}

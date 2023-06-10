@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ptBR } from '../../languages';
+import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
 import { Widget } from './Widget';
 
@@ -12,7 +13,9 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
   });
 
   return (
-    <Widget title={ptBR.dueSoonBills}>
+    <Widget
+      title={ptBR.dueSoonBills}
+      key={DashboardWidget.DueSoonBills}>
       <div className="h-56 w-full bg-red-300">
         <ul>
           {data?.map(d => (

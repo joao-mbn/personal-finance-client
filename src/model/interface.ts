@@ -35,12 +35,12 @@ export type Debts = {
 export type DueSoonBill = {
   name: string;
   value: number;
-  dueDate: Date;
+  dueDate: string;
 };
 
-export type MonthBalance = { balance: number; month: Date };
+export type MonthBalance = { balance: number; month: string };
 
-export type MonthDebt = { debt: number; month: Date };
+export type MonthDebt = { debt: number; month: string };
 
 export type MonthEntry = { earnings: number; expenses: number; netEarnings: number; month: string };
 
