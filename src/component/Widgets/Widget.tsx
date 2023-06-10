@@ -5,10 +5,9 @@ interface WidgetProps {
   title?: string;
   children?: ReactNode;
   className?: string;
-  overflow?: string;
 }
 
-export function Widget({ title, children, className, overflow }: WidgetProps) {
+export function Widget({ title, children, className }: WidgetProps) {
   return (
     <section
       className={classNames(
