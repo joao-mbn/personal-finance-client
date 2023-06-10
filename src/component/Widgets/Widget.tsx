@@ -16,9 +16,7 @@ export function Widget({ title, children, className, overflow }: WidgetProps) {
         className
       )}>
       <h2 className="text-sm font-normal">{title}</h2>
-      <div className={classNames('text-xs', overflow, { 'overflow-hidden': !overflow })}>
-        {children}
-      </div>
+      <div className="text-xs">{children}</div>
     </section>
   );
 }

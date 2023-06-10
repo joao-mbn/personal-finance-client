@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
+import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
@@ -18,7 +19,7 @@ export function BalancesWidget(props: BalancesWidgetProps) {
 
   return (
     <Widget
-      title={`${ptBR.totalBalance}: ${data?.totalBalance ?? '-'}`}
+      title={`${ptBR.totalBalance}: ${data?.totalBalance ? toBRL(data.totalBalance) : '???'}`}
       key={DashboardWidget.Balances}>
       <ChartWrapper data={data}>
         {data?.balances.length && (

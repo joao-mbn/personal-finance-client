@@ -23,8 +23,6 @@ export function AssetsWidget(props: AssetsWidgetProps) {
             keys={Object.keys(data[0]).filter(k => k !== 'type')}
             indexBy="type"
             data={data}
-            width={data.length * 60}
-            height={184}
           />
         )}
       </ChartWrapper>

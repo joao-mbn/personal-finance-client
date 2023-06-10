@@ -1,4 +1,5 @@
 import { Bar } from '@nivo/bar';
+import { toBRL } from '../../utils';
 
 type T = Record<string, number | string>;
 type BarChartProps = Omit<typeof Bar, 'data' | 'keys' | 'indexBy'> & {
@@ -6,19 +7,20 @@ type BarChartProps = Omit<typeof Bar, 'data' | 'keys' | 'indexBy'> & {
   keys: (keyof T)[];
   indexBy: keyof T;
   bottomLegend?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 };
 
 export function BarChart({ bottomLegend, ...props }: BarChartProps) {
+  const { data, width, height } = props;
   return (
     <Bar
       margin={{ top: 20, right: 8, bottom: 40, left: 8 }}
-      padding={0.2}
+      padding={0.1}
       valueScale={{ type: 'linear' }}
       indexScale={{ type: 'band', round: true }}
       colors={{ scheme: 'blue_green' }}
-      valueFormat={v => `R$${(v / 1000).toFixed(v > 1e3 && v < 1e5 ? 1 : 0)}${v > 1000 ? 'k' : ''}`}
+      valueFormat={toBRL}
       borderRadius={4}
       borderWidth={2}
       borderColor={{
@@ -42,13 +44,12 @@ export function BarChart({ bottomLegend, ...props }: BarChartProps) {
       }}
       isInteractive={false}
       animate={false}
-      role="application"
-      ariaLabel="Nivo bar chart demo"
-      barAriaLabel={function (e) {
-        return e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue;
-      }}
-      theme={{ fontSize: 8 }}
+      theme={{ fontSize: 12 }}
+      ariaLabel="Bar Chart"
+      barAriaLabel={e => `${e.id}: ${e.formattedValue} in ${props.indexBy} ${e.indexValue}`}
       {...props}
+      height={height ?? 184}
+      width={width ?? data.length * 100}
     />
   );
 }

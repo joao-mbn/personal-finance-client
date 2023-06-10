@@ -26,8 +26,6 @@ export function MonthlyDebtsWidget(props: MonthlyDebtsWidgetProps) {
             keys={Object.keys(data[0]).filter(k => k !== 'month')}
             indexBy="month"
             data={data}
-            width={data.length * 60}
-            height={184}
           />
         )}
       </ChartWrapper>

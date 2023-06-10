@@ -10,7 +10,7 @@ export function Page({ title, className, children }: PageProps) {
     <main
       className={classNames(
         className,
-        'flex h-full min-h-[calc(100vh-4rem)] flex-col gap-4 bg-slate-300 p-2 pt-4'
+        'flex h-full min-h-[calc(100vh-4rem)] flex-col gap-4 bg-slate-100 p-2 pt-4'
       )}>
       <h1
         aria-label="page-title"

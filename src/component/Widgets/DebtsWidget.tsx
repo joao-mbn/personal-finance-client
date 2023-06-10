@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
+import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
@@ -18,7 +19,7 @@ export function DebtsWidget(props: DebtsWidgetProps) {
 
   return (
     <Widget
-      title={`${ptBR.totalDebts}: ${data?.totalDebts ?? '-'}`}
+      title={`${ptBR.totalDebts}: ${data?.totalDebts ? toBRL(data.totalDebts) : '???'}`}
       key={DashboardWidget.Debts}>
       <ChartWrapper data={data}>
         {data?.debts.length && (

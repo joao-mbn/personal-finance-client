@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ptBR } from '../../languages';
 import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
+import { toBRL } from '../../utils';
 import { Widget } from './Widget';
 
 interface DueSoonBillsWidgetProps {}
@@ -20,7 +21,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
         <ul>
           {data?.map(d => (
             <li key={d.name}>
-              {d.name}: {d.value} - {d.dueDate.toString()}
+              {d.name}: {toBRL(d.value)} - {d.dueDate}
             </li>
           ))}
         </ul>

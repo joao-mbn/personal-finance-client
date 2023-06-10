@@ -29,8 +29,6 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
               ...rest,
               expenses: -rest.expenses,
             }))}
-            width={data.length * 60}
-            height={184}
           />
         )}
       </ChartWrapper>
