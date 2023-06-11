@@ -7,7 +7,7 @@ import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
-const BarChart = lazy(() => import('../Charts/BarChart'));
+const BarChart = lazy(() => import('../Charts/D3BarChart'));
 
 interface DebtsWidgetProps {}
 
@@ -23,10 +23,15 @@ export function DebtsWidget(props: DebtsWidgetProps) {
       key={DashboardWidget.Debts}>
       <ChartWrapper data={data}>
         {data?.debts.length && (
+          // <BarChart
+          //   keys={['value']}
+          //   indexBy="name"
+          //   data={data.debts}
+          // />
           <BarChart
-            keys={['value']}
-            indexBy="name"
             data={data.debts}
+            indexBy="name"
+            valueKey="value"
           />
         )}
       </ChartWrapper>

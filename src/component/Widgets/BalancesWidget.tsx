@@ -7,7 +7,7 @@ import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
-const BarChart = lazy(() => import('../Charts/BarChart'));
+const BarChart = lazy(() => import('../Charts/D3BarChart'));
 
 interface BalancesWidgetProps {}
 
@@ -24,9 +24,9 @@ export function BalancesWidget(props: BalancesWidgetProps) {
       <ChartWrapper data={data}>
         {data?.balances.length && (
           <BarChart
-            keys={['value']}
-            indexBy="name"
             data={data.balances}
+            indexBy="name"
+            valueKey="value"
           />
         )}
       </ChartWrapper>

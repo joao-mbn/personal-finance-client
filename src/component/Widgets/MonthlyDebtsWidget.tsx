@@ -6,7 +6,7 @@ import { DashboardService } from '../../service';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
-const BarChart = lazy(() => import('../Charts/BarChart'));
+const BarChart = lazy(() => import('../Charts/D3BarChart'));
 
 interface MonthlyDebtsWidgetProps {}
 
@@ -23,7 +23,7 @@ export function MonthlyDebtsWidget(props: MonthlyDebtsWidgetProps) {
       <ChartWrapper data={data}>
         {data?.length && (
           <BarChart
-            keys={Object.keys(data[0]).filter(k => k !== 'month')}
+            valueKey="debt"
             indexBy="month"
             data={data}
           />
