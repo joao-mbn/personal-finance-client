@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ptBR } from '../languages';
 import { AuthService } from '../service';
 import { Button } from './Button';
-import { GoogleIcon } from './SVG/GoogleIcon';
+import { GoogleIcon } from './Icons/GoogleIcon';
 
 export function GoogleSignIn() {
   const { data: url } = useQuery({
