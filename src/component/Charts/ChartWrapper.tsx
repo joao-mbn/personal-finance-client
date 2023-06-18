@@ -15,7 +15,7 @@ export function ChartWrapper({ children, data }: ChartWrapperProps) {
 
   return (
     <div
-      className="h-56 overflow-auto bg-slate-200"
+      className="h-80 overflow-auto bg-slate-200"
       ref={containerRef}>
       {children}
     </div>

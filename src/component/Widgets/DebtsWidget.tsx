@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget } from '../../model';
+import { DashboardWidget, Debt } from '../../model';
 import { DashboardService } from '../../service';
 import { toBRL } from '../../utils';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
-const BarChart = lazy(() => import('../Charts/D3BarChart'));
+const BarChart = lazy(() => import('../Charts/BarChart'));
 
 interface DebtsWidgetProps {}
 
@@ -23,15 +23,10 @@ export function DebtsWidget(props: DebtsWidgetProps) {
       key={DashboardWidget.Debts}>
       <ChartWrapper data={data}>
         {data?.debts.length && (
-          // <BarChart
-          //   keys={['value']}
-          //   indexBy="name"
-          //   data={data.debts}
-          // />
-          <BarChart
+          <BarChart<Debt>
             data={data.debts}
             indexBy="name"
-            valueKey="value"
+            valueKeys={['value']}
           />
         )}
       </ChartWrapper>

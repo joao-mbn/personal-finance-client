@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget } from '../../model';
+import { DashboardWidget, MonthBalance } from '../../model';
 import { DashboardService } from '../../service';
 import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
@@ -22,8 +22,8 @@ export function MonthlyBalancesWidget(props: MonthlyBalancesWidgetProps) {
       key={DashboardWidget.MonthlyBalance}>
       <ChartWrapper data={data}>
         {data?.length && (
-          <BarChart
-            keys={Object.keys(data[0]).filter(k => k !== 'month')}
+          <BarChart<MonthBalance>
+            valueKeys={['balance']}
             indexBy="month"
             data={data}
           />
