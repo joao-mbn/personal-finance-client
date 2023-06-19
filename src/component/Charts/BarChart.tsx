@@ -69,7 +69,7 @@ export function BarChart<T>({ height = 304, data, indexBy, valueKeys }: Divergin
         {valueKeys.map((valueKey, j) => {
           const value = d[valueKey] as number;
           const barHeight = getHeight(value);
-          const roundedness = barHeight > 20 ? 6 : 4;
+          const roundedness = barHeight > 20 ? 4 : 2;
 
           const y = value < 0 ? origin + accNegativeBar : origin - barHeight - accPositiveBar;
 
