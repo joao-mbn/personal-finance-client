@@ -1,5 +1,4 @@
-import { extent } from 'd3-array';
-import { scaleDiverging } from 'd3-scale';
+import { extent, scaleDiverging } from 'd3';
 import { useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
 import { useBarChart } from '../../hooks';
