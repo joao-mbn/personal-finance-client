@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-type BaseChartProps<T> = {
+type BaseChartProps = {
   height: number;
   width: number;
   boundsWidth: number;
@@ -8,13 +8,13 @@ type BaseChartProps<T> = {
   children: ReactNode;
 };
 
-export function BaseChart<T>({
+export function BaseChart({
   height = 304,
   width,
   boundsWidth,
   boundsHeight,
   children,
-}: BaseChartProps<T>) {
+}: BaseChartProps) {
   return (
     <div>
       <svg

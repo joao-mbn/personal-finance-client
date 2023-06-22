@@ -1,9 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
+import classNames from 'classnames';
+import { useMemo } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget } from '../../model';
+import { DashboardWidget, DueSoonBill } from '../../model';
 import { DashboardService } from '../../service';
-import { toBRL } from '../../utils';
+import { getTimeDiff, toBRL } from '../../utils';
+import { Table } from '../Table/Table';
 import { Widget } from './Widget';
+
+const columns: { value: keyof DueSoonBill; label: string }[] = [
+  { value: 'name', label: '' },
+  { value: 'dueDate', label: '' },
+  { value: 'value', label: '' },
+];
 
 interface DueSoonBillsWidgetProps {}
 
@@ -13,19 +22,38 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
     queryFn: DashboardService.getDueSoonBills,
   });
 
+  const now = Date.now();
+  const parsedData = useMemo(() => {
+    return (
+      data
+        ?.filter(d => !d.isPaid)
+        .map(({ ...d }) => {
+          const timeDiff = getTimeDiff(d.dueDate, now, 'days');
+          return {
+            ...d,
+            value: toBRL(d.value),
+            dueDate: (
+              <span
+                className={classNames({
+                  'font-extrabold': timeDiff && timeDiff < 7,
+                  'font-semibold': timeDiff && timeDiff > 7 && timeDiff < 30,
+                })}>
+                {new Date(d.dueDate).toLocaleDateString()}
+              </span>
+            ),
+          };
+        }) ?? []
+    );
+  }, [data]);
+
   return (
     <Widget
       title={ptBR.dueSoonBills}
       key={DashboardWidget.DueSoonBills}>
-      <div className="h-56 w-full bg-red-300">
-        <ul>
-          {data?.map(d => (
-            <li key={d.name}>
-              {d.name}: {toBRL(d.value)} - {d.dueDate}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Table<DueSoonBill>
+        columns={columns}
+        data={parsedData}
+      />
     </Widget>
   );
 }
