@@ -36,6 +36,7 @@ export type DueSoonBill = {
   name: string;
   value: number;
   dueDate: string;
+  isPaid: boolean;
 };
 
 export type MonthBalance = { balance: number; month: string };
