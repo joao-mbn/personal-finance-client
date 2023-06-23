@@ -35,8 +35,8 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
             dueDate: (
               <span
                 className={classNames({
-                  'font-extrabold': timeDiff && timeDiff < 7,
-                  'font-semibold': timeDiff && timeDiff > 7 && timeDiff < 30,
+                  'font-bold text-slate-800 underline': timeDiff && timeDiff < 0,
+                  'font-bold text-slate-600': timeDiff && timeDiff < 7,
                 })}>
                 {new Date(d.dueDate).toLocaleDateString()}
               </span>
@@ -53,6 +53,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
       <Table<DueSoonBill>
         columns={columns}
         data={parsedData}
+        showHeaders={false}
       />
     </Widget>
   );
