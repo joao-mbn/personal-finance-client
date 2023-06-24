@@ -2,11 +2,14 @@ import classNames from 'classnames';
 import { SVGAttributes } from 'react';
 import { NavLink } from 'react-router-dom';
 import { DashboardIcon, GearIcon, SyncIcon } from '.';
+import { ptBR } from '../languages';
+import { MENU_BAR_HEIGHT } from '../utils';
 
 export function MenuBar() {
   const options = [
     {
       path: 'dashboard',
+      name: ptBR.dashboard,
       icon: (props: SVGAttributes<SVGElement>) => (
         <DashboardIcon
           viewBox="-8 -8 40 40"
@@ -16,6 +19,7 @@ export function MenuBar() {
     },
     {
       path: 'sync',
+      name: ptBR.sync,
       icon: (props: SVGAttributes<SVGElement>) => (
         <SyncIcon
           {...props}
@@ -25,19 +29,22 @@ export function MenuBar() {
     },
     {
       path: 'config',
+      name: ptBR.configuration,
       icon: (props: SVGAttributes<SVGElement>) => (
         <GearIcon
           {...props}
-          viewBox="-5 -4 32 32"
+          viewBox="-4 -4 32 32"
         />
       ),
     },
   ] as const;
 
+  const height = `h-[${MENU_BAR_HEIGHT}rem]`;
+
   return (
-    <footer className="z-2 fixed bottom-0 h-16 w-full bg-slate-200 py-2">
+    <footer className={classNames('z-2 fixed bottom-0 w-full bg-slate-200 py-2', height)}>
       <nav className="flex w-full justify-around">
-        {options.map(({ path, icon }) => (
+        {options.map(({ path, name, icon }) => (
           <NavLink
             to={path}
             key={path}
@@ -50,7 +57,7 @@ export function MenuBar() {
                       'font-semibold text-slate-700': isActive,
                       'text-slate-500': !isActive,
                     })}>
-                    {path.charAt(0).toLocaleUpperCase() + path.substring(1)}
+                    {name}
                   </span>
                   {icon({
                     className: classNames('w-8', {

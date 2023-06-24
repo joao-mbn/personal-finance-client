@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { useContext, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
-import AppContext from '../context';
+import { AppContext } from '../context';
 import { useRect } from '../hooks';
+import { MENU_BAR_HEIGHT, REM_PX_RATIO } from '../utils';
 import { MenuBar } from './MenuBar';
 
 interface PageWrapperProps {
@@ -15,7 +16,7 @@ export function PageWrapper({ isAtBase }: PageWrapperProps) {
   const {
     viewportDimensions: { height: vh },
   } = useContext(AppContext);
-  const willScroll = rect?.height && rect.height > vh - 64;
+  const willScroll = rect?.height && rect.height > vh - MENU_BAR_HEIGHT * REM_PX_RATIO;
 
   return (
     <div className="h-full w-screen">
