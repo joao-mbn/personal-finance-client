@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { ptBR } from '../../languages';
 
 interface WidgetProps {
-  title?: string;
+  title?: ReactNode;
   children?: ReactNode;
   className?: string;
 }
