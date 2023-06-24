@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { ReactNode } from 'react';
+import { ptBR } from '../../languages';
 
 interface WidgetProps {
   title?: string;
@@ -15,7 +16,13 @@ export function Widget({ title, children, className }: WidgetProps) {
         className
       )}>
       <h2 className="text-sm font-normal">{title}</h2>
-      <div className="text-xs">{children}</div>
+      {children ? (
+        <div className="text-xs">{children}</div>
+      ) : (
+        <div className="flex h-28 items-center justify-center text-xs font-bold text-slate-500">
+          {ptBR.noData}
+        </div>
+      )}
     </section>
   );
 }

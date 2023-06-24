@@ -21,15 +21,15 @@ export function BalancesWidget(props: BalancesWidgetProps) {
     <Widget
       title={`${ptBR.totalBalance}: ${data?.totalBalance ? toBRL(data.totalBalance) : '???'}`}
       key={DashboardWidget.Balances}>
-      <ChartWrapper data={data}>
-        {data?.balances.length && (
+      {data?.balances.length && (
+        <ChartWrapper data={data}>
           <BarChart<Balance>
             data={data.balances}
             indexBy="name"
             valueKeys={['value']}
           />
-        )}
-      </ChartWrapper>
+        </ChartWrapper>
+      )}
     </Widget>
   );
 }

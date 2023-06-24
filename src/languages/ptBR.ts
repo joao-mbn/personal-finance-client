@@ -18,4 +18,5 @@ export const ptBR = {
   sync: 'Sinc.',
   configuration: 'Config.',
   month: 'mês',
+  noData: 'Nenhum dado foi encontrado.',
 };

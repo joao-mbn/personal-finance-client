@@ -17,15 +17,15 @@ export function AssetsWidget(props: AssetsWidgetProps) {
     <Widget
       title={ptBR.assets}
       key={DashboardWidget.Assets}>
-      <ChartWrapper data={data}>
-        {data?.length && (
+      {data?.length && (
+        <ChartWrapper data={data}>
           <BarChart<Asset>
             data={data}
             indexBy="type"
             valueKeys={['value']}
           />
-        )}
-      </ChartWrapper>
+        </ChartWrapper>
+      )}
     </Widget>
   );
 }

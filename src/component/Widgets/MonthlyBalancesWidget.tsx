@@ -20,15 +20,15 @@ export function MonthlyBalancesWidget(props: MonthlyBalancesWidgetProps) {
     <Widget
       title={ptBR.monthlyBalance}
       key={DashboardWidget.MonthlyBalance}>
-      <ChartWrapper data={data}>
-        {data?.length && (
+      {data?.length && (
+        <ChartWrapper data={data}>
           <BarChart<MonthBalance>
             valueKeys={['balance']}
             indexBy="month"
             data={data}
           />
-        )}
-      </ChartWrapper>
+        </ChartWrapper>
+      )}
     </Widget>
   );
 }

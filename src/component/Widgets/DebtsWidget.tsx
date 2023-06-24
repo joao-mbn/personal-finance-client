@@ -21,15 +21,15 @@ export function DebtsWidget(props: DebtsWidgetProps) {
     <Widget
       title={`${ptBR.totalDebts}: ${data?.totalDebts ? toBRL(data.totalDebts) : '???'}`}
       key={DashboardWidget.Debts}>
-      <ChartWrapper data={data}>
-        {data?.debts.length && (
+      {data?.debts.length && (
+        <ChartWrapper data={data}>
           <BarChart<Debt>
             data={data.debts}
             indexBy="name"
             valueKeys={['value']}
           />
-        )}
-      </ChartWrapper>
+        </ChartWrapper>
+      )}
     </Widget>
   );
 }

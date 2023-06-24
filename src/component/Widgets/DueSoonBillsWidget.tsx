@@ -42,7 +42,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
     );
   }, [data]);
 
-  const columns: { value: keyof (typeof parsedData)[0]; label: string }[] = [
+  const columns: { value: keyof (typeof parsedData)[number]; label: string }[] = [
     { value: 'name', label: '' },
     { value: 'priceWithDate', label: '' },
   ];
@@ -51,12 +51,14 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
     <Widget
       title={ptBR.dueSoonBills}
       key={DashboardWidget.DueSoonBills}>
-      <Table<(typeof parsedData)[0]>
-        columns={columns}
-        data={parsedData}
-        showHeaders={false}
-        className="text-tiny"
-      />
+      {parsedData?.length && (
+        <Table<(typeof parsedData)[number]>
+          columns={columns}
+          data={parsedData}
+          showHeaders={false}
+          className="text-tiny"
+        />
+      )}
     </Widget>
   );
 }
