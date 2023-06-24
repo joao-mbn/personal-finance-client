@@ -3,7 +3,7 @@ import { useContext, useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
 import { ChartWrapperContext } from '../../context';
 import { useLetterWidthEstimate } from '../../hooks';
-import { toBRL } from '../../utils';
+import { REM_PX_RATIO, toBRL } from '../../utils';
 
 const MARGIN = { top: 30, right: 12, bottom: 30, left: 12 };
 const BAR_PADDING = 0.1;
@@ -12,29 +12,24 @@ const FONT_SIZE = 12;
 const MIN_HEIGHT_FOR_TEXT_DISPLAY = 1.2 * FONT_SIZE;
 
 type DivergingBarChartProps<T> = {
-  height?: number;
   data: T[];
   indexBy: keyof T;
   overlapBars?: (keyof T)[] /* value keys whose bars will overlap each other, instead of stacking. */;
   valueKeys: (keyof T)[];
 };
 
-export function BarChart<T>({
-  height = 304,
-  data,
-  indexBy,
-  overlapBars,
-  valueKeys,
-}: DivergingBarChartProps<T>) {
+export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: DivergingBarChartProps<T>) {
   const letterWidth = useLetterWidthEstimate({ size: FONT_SIZE });
   const {
-    dimensions: { width: containerWidth },
+    dimensions: { width: containerWidth, height: containerHeight },
   } = useContext(ChartWrapperContext);
+
+  const height = containerHeight - 1 * REM_PX_RATIO;
+  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   const X_MARGINS = MARGIN.right + MARGIN.left;
   const boundsWidth = Math.max(containerWidth - X_MARGINS, data.length * BAR_WIDTH_AND_PADDING);
   const width = boundsWidth + X_MARGINS;
-  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   const xScale = useMemo(() => {
     const groups = data.map(d => d[indexBy] as string);
