@@ -1,7 +1,7 @@
 import { extent, scaleBand, scaleDiverging } from 'd3';
 import { useContext, useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
-import { ChartWrapperContext } from '../../context';
+import { ChartWrapperContext } from '../../contexts';
 import { useLetterWidthEstimate } from '../../hooks';
 import { REM_PX_RATIO, toBRL } from '../../utils';
 

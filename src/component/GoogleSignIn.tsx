@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ptBR } from '../languages';
-import { AuthService } from '../service';
+import { AuthService } from '../services';
 import { Button } from './Button';
 import { GoogleIcon } from './Icons/GoogleIcon';
 

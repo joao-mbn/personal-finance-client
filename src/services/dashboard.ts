@@ -8,7 +8,7 @@ import {
   MonthBalance,
   MonthDebt,
   MonthEntry,
-} from '../model';
+} from '../models';
 import { api } from './api';
 
 export namespace DashboardService {

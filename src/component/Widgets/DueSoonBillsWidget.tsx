@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { lazy, useMemo } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget } from '../../model';
-import { DashboardService } from '../../service';
+import { DashboardWidget } from '../../models';
+import { DashboardService } from '../../services';
 import { getTimeDiff, toBRL } from '../../utils';
 import { Widget } from './Widget';
 

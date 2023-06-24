@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget, Debt } from '../../model';
-import { DashboardService } from '../../service';
+import { DashboardWidget, Debt } from '../../models';
+import { DashboardService } from '../../services';
 import { toBRL } from '../../utils';
 import { Widget } from './Widget';
 

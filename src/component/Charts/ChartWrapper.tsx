@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { HTMLAttributes, ReactNode, useState } from 'react';
-import { ChartWrapperContext } from '../../context';
+import { ChartWrapperContext } from '../../contexts';
 import { useRect } from '../../hooks';
 
 interface ChartWrapperProps extends HTMLAttributes<HTMLDivElement> {

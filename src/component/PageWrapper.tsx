@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useContext, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
-import { AppContext } from '../context';
+import { AppContext } from '../contexts';
 import { useRect } from '../hooks';
 import { MENU_BAR_HEIGHT, REM_PX_RATIO } from '../utils';
 import { MenuBar } from './MenuBar';

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, createElement, lazy } from 'react';
 import { Loading } from '.';
-import { DashboardWidget } from '../model';
-import { DashboardService } from '../service';
+import { DashboardWidget } from '../models';
+import { DashboardService } from '../services';
 
 const BalancesWidget = lazy(() => import('./Widgets/BalancesWidget'));
 const DebtsWidget = lazy(() => import('./Widgets/DebtsWidget'));
@@ -30,7 +30,7 @@ export function WidgetsContainer() {
 
   return (
     <div className="flex flex-col gap-4">
-      {data?.map(widget => (
+      {data?.slice().map(widget => (
         <Suspense
           key={widget}
           fallback={<Loading />}>

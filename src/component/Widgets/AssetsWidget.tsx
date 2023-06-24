@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy } from 'react';
 import { ptBR } from '../../languages';
-import { Asset, DashboardWidget } from '../../model';
-import { DashboardService } from '../../service';
+import { Asset, DashboardWidget } from '../../models';
+import { DashboardService } from '../../services';
 import { Widget } from './Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));

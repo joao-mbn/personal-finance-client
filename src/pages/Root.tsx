@@ -3,9 +3,9 @@ import { AxiosError } from 'axios';
 import { useContext, useEffect } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../component';
-import { AppContext } from '../context/AppContext';
-import { Message } from '../model';
-import { AuthService } from '../service';
+import { AppContext } from '../contexts/AppContext';
+import { Message } from '../models';
+import { AuthService } from '../services';
 
 export async function rootLoader(queryClient: QueryClient) {
   try {
