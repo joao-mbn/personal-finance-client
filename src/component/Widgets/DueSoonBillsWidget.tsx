@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { lazy, useMemo } from 'react';
 import { ptBR } from '../../languages';
 import { DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
 import { getTimeDiff, toBRL } from '../../utils';
-import { Table } from '../Table/Table';
 import { Widget } from './Widget';
+
+const Table = lazy(() => import('../Table/Table'));
 
 interface DueSoonBillsWidgetProps {}
 

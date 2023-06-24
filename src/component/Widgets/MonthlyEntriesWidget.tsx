@@ -3,10 +3,10 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { DashboardWidget, MonthEntry } from '../../model';
 import { DashboardService } from '../../service';
-import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
+const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));
 
 interface MonthlyEntriesWidgetProps {}
 
@@ -21,7 +21,7 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
       title={ptBR.monthlyEntries}
       key={DashboardWidget.MonthlyEntries}>
       {data?.length && (
-        <ChartWrapper data={data}>
+        <ChartWrapper>
           <BarChart<Omit<MonthEntry, ''>>
             valueKeys={['earnings', 'expenses', 'netEarnings']}
             indexBy="month"

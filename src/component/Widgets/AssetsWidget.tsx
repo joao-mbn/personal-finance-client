@@ -3,10 +3,10 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { Asset, DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
-import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
+const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));
 
 interface AssetsWidgetProps {}
 
@@ -18,7 +18,7 @@ export function AssetsWidget(props: AssetsWidgetProps) {
       title={ptBR.assets}
       key={DashboardWidget.Assets}>
       {data?.length && (
-        <ChartWrapper data={data}>
+        <ChartWrapper className="!h-60">
           <BarChart<Asset>
             data={data}
             indexBy="type"

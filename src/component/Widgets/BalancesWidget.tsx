@@ -4,10 +4,10 @@ import { ptBR } from '../../languages';
 import { Balance, DashboardWidget } from '../../model';
 import { DashboardService } from '../../service';
 import { toBRL } from '../../utils';
-import { ChartWrapper } from '../Charts';
 import { Widget } from './Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
+const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));
 
 interface BalancesWidgetProps {}
 
@@ -22,7 +22,7 @@ export function BalancesWidget(props: BalancesWidgetProps) {
       title={`${ptBR.totalBalance}: ${data?.totalBalance ? toBRL(data.totalBalance) : '???'}`}
       key={DashboardWidget.Balances}>
       {data?.balances.length && (
-        <ChartWrapper data={data}>
+        <ChartWrapper className="!h-60">
           <BarChart<Balance>
             data={data.balances}
             indexBy="name"

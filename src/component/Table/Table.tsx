@@ -59,6 +59,8 @@ export function Table<T extends Record<string, ReactNode>>({
   );
 }
 
+export default Table;
+
 interface RowProps extends HTMLAttributes<HTMLTableRowElement> {
   children?: ReactNode;
 }
