@@ -15,10 +15,17 @@ type DivergingBarChartProps<T> = {
   height?: number;
   data: T[];
   indexBy: keyof T;
+  overlapBars?: (keyof T)[] /* value keys whose bars will overlap each other, instead of stacking. */;
   valueKeys: (keyof T)[];
 };
 
-export function BarChart<T>({ height = 304, data, indexBy, valueKeys }: DivergingBarChartProps<T>) {
+export function BarChart<T>({
+  height = 304,
+  data,
+  indexBy,
+  overlapBars,
+  valueKeys,
+}: DivergingBarChartProps<T>) {
   const letterWidth = useLetterWidthEstimate({ size: FONT_SIZE });
   const {
     dimensions: { width: containerWidth },
@@ -82,12 +89,17 @@ export function BarChart<T>({ height = 304, data, indexBy, valueKeys }: Divergin
           const barHeight = getHeight(value);
           const roundedness = barHeight > 20 ? 4 : 2;
 
-          const y = value < 0 ? origin + accNegativeBar : origin - barHeight - accPositiveBar;
+          const overlapModifier = overlapBars?.some(b => b === valueKey) ? 0 : 1;
+
+          const y =
+            value < 0
+              ? origin + accNegativeBar * overlapModifier
+              : origin - barHeight - accPositiveBar * overlapModifier;
 
           if (value >= 0) {
-            accPositiveBar += barHeight;
+            accPositiveBar += barHeight * overlapModifier;
           } else {
-            accNegativeBar += barHeight;
+            accNegativeBar += barHeight * overlapModifier;
           }
 
           return (

@@ -25,6 +25,7 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
           <BarChart<Omit<MonthEntry, ''>>
             valueKeys={['earnings', 'expenses', 'netEarnings']}
             indexBy="month"
+            overlapBars={['netEarnings']}
             data={data}
           />
         </ChartWrapper>
