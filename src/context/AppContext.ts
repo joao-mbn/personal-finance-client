@@ -6,10 +6,8 @@ interface AppContextProps {
   viewportDimensions: { height: number; width: number };
 }
 
-const AppContext = createContext<AppContextProps>({
+export const AppContext = createContext<AppContextProps>({
   hasSession: false,
   setHasSession: () => undefined,
   viewportDimensions: { height: 0, width: 0 },
 });
-
-export default AppContext;

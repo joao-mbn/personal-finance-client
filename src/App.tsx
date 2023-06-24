@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense, lazy, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Loading } from './component';
-import AppContext from './context';
+import { AppContext } from './context';
 import { useViewport } from './hooks';
 import RootPage, { rootLoader } from './page/Root';
 

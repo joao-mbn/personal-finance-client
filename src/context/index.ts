@@ -1,1 +1,2 @@
-export { default } from './AppContext';
+export { AppContext } from './AppContext';
+export { ChartWrapperContext } from './ChartWrapperContext';

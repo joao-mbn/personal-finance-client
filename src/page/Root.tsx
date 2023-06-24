@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { useContext, useEffect } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../component';
-import AppContext from '../context/AppContext';
+import { AppContext } from '../context/AppContext';
 import { Message } from '../model';
 import { AuthService } from '../service';
 

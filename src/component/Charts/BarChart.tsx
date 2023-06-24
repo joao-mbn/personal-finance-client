@@ -1,8 +1,15 @@
-import { extent, scaleDiverging } from 'd3';
-import { useMemo } from 'react';
+import { extent, scaleBand, scaleDiverging } from 'd3';
+import { useContext, useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
-import { useBarChart } from '../../hooks';
+import { ChartWrapperContext } from '../../context';
+import { useLetterWidthEstimate } from '../../hooks';
 import { toBRL } from '../../utils';
+
+const MARGIN = { top: 30, right: 12, bottom: 30, left: 12 };
+const BAR_PADDING = 0.1;
+const BAR_WIDTH_AND_PADDING = 75;
+const FONT_SIZE = 12;
+const MIN_HEIGHT_FOR_TEXT_DISPLAY = 1.2 * FONT_SIZE;
 
 type DivergingBarChartProps<T> = {
   height?: number;
@@ -12,15 +19,20 @@ type DivergingBarChartProps<T> = {
 };
 
 export function BarChart<T>({ height = 304, data, indexBy, valueKeys }: DivergingBarChartProps<T>) {
+  const letterWidth = useLetterWidthEstimate({ size: FONT_SIZE });
   const {
-    xScale,
-    letterWidth,
-    boundsHeight,
-    boundsWidth,
-    width,
-    FONT_SIZE,
-    MIN_HEIGHT_FOR_TEXT_DISPLAY,
-  } = useBarChart(height, data, indexBy);
+    dimensions: { width: containerWidth },
+  } = useContext(ChartWrapperContext);
+
+  const X_MARGINS = MARGIN.right + MARGIN.left;
+  const boundsWidth = Math.max(containerWidth - X_MARGINS, data.length * BAR_WIDTH_AND_PADDING);
+  const width = boundsWidth + X_MARGINS;
+  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
+
+  const xScale = useMemo(() => {
+    const groups = data.map(d => d[indexBy] as string);
+    return scaleBand().domain(groups).range([0, boundsWidth]).padding(BAR_PADDING);
+  }, [data]);
 
   const minMax = useMemo(() => {
     const values = data.flatMap(d => valueKeys.map(key => (isNaN(+d[key]) ? 0 : +d[key])));
@@ -123,7 +135,7 @@ export function BarChart<T>({ height = 304, data, indexBy, valueKeys }: Divergin
         y2={yScale(0)}
         x1={0}
         x2={boundsWidth}
-        className="stroke-slate-900"
+        className="min-w-full stroke-slate-900"
       />
     </BaseChart>
   );
