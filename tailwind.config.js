@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        tiny: ['0.6rem', { lineHeight: '0.75rem' }],
+        tiny: ['0.625rem', { lineHeight: '0.75rem' }],
       },
       colors: {
         cerulean: {

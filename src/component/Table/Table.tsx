@@ -24,10 +24,12 @@ export function Table<T extends Record<string, ReactNode>>({
   return (
     <div className="overflow-x-auto pb-1">
       <table
-        className={classNames('table-auto border-separate border-spacing-0', {
-          'border-t-2 border-slate-600': !showHeaders,
-        })}
-        {...props}>
+        {...props}
+        className={classNames(
+          'text w-full table-auto border-separate border-spacing-0',
+          { 'border-t-2 border-slate-600': !showHeaders },
+          props.className
+        )}>
         <thead>
           {showHeaders && (
             <Row>
@@ -86,7 +88,7 @@ interface CellProps extends TdHTMLAttributes<HTMLTableCellElement> {
 export function Cell({ children, className, ...props }: CellProps) {
   return (
     <td
-      className={classNames(className, 'max-w-[8rem] truncate p-2')}
+      className={classNames(className, 'truncate p-2')}
       {...props}>
       {children}
     </td>
