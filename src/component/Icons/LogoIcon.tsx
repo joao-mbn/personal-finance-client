@@ -4,13 +4,7 @@ interface LogoIconProps extends SVGAttributes<SVGElement> {}
 
 export function LogoIcon({ ...props }: LogoIconProps) {
   return (
-    <svg
-      version="1.1"
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      xmlSpace="preserve"
-      {...props}>
+    <svg {...props}>
       <path
         opacity="0"
         stroke="none"
