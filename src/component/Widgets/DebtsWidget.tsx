@@ -19,13 +19,13 @@ export function DebtsWidget(props: DebtsWidgetProps) {
 
   return (
     <Widget
+      key={DashboardWidget.Debts}
       title={
         <div className="flex gap-1">
           <span>{ptBR.totalDebts}:</span>
           <span className="font-bold">{data?.totalDebts ? toBRL(data.totalDebts) : '???'}</span>
         </div>
-      }
-      key={DashboardWidget.Debts}>
+      }>
       {data?.debts.length && (
         <ChartWrapper className="!h-60">
           <BarChart<Debt>

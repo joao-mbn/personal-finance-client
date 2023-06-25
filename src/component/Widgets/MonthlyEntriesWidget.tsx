@@ -18,15 +18,15 @@ export function MonthlyEntriesWidget(props: MonthlyEntriesWidgetProps) {
 
   return (
     <WidgetWithFilter
-      title={ptBR.monthlyEntries}
-      key={DashboardWidget.MonthlyEntries}>
+      key={DashboardWidget.MonthlyEntries}
+      title={ptBR.monthlyEntries}>
       {data?.length && (
         <ChartWrapper>
           <BarChart<Omit<MonthEntry, ''>>
-            valueKeys={['earnings', 'expenses', 'netEarnings']}
+            data={data}
             indexBy="month"
             overlapBars={['netEarnings']}
-            data={data}
+            valueKeys={['earnings', 'expenses', 'netEarnings']}
           />
         </ChartWrapper>
       )}

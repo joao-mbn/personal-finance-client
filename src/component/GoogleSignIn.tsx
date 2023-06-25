@@ -13,19 +13,19 @@ export function GoogleSignIn() {
 
   return (
     <Button
+      importance="secondary"
+      label={ptBR.loginWithGoogle}
+      size="medium"
+      type="button"
+      icon={
+        <GoogleIcon
+          className="w-6 fill-cerulean-900"
+          viewBox="1.5 2 20 20"
+        />
+      }
       onClick={() => {
         if (url) location.href = url;
       }}
-      icon={
-        <GoogleIcon
-          viewBox="1.5 2 20 20"
-          className="w-6 fill-cerulean-900"
-        />
-      }
-      label={ptBR.loginWithGoogle}
-      size="medium"
-      importance="secondary"
-      type="button"
     />
   );
 }

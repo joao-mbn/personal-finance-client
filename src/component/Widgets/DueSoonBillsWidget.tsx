@@ -50,14 +50,14 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
 
   return (
     <WidgetWithFilter
-      title={ptBR.dueSoonBills}
-      key={DashboardWidget.DueSoonBills}>
+      key={DashboardWidget.DueSoonBills}
+      title={ptBR.dueSoonBills}>
       {parsedData?.length && (
         <Table<(typeof parsedData)[number]>
+          className="text-tiny"
           columns={columns}
           data={parsedData}
           showHeaders={false}
-          className="text-tiny"
         />
       )}
     </WidgetWithFilter>

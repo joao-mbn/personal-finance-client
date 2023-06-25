@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "tsc && vite build && vite preview --port=5173",
     "preview-only": "vite preview --port=5173",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ."
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
@@ -23,8 +24,13 @@
     "@types/d3": "^7.4.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",

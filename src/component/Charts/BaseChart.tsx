@@ -19,13 +19,13 @@ export function BaseChart({
     <div>
       <svg
         className="fill-current text-slate-600"
-        width={width}
         height={height}
-        rx={6}>
+        rx={6}
+        width={width}>
         <g
-          width={boundsWidth}
+          className="translate-x-2 translate-y-5"
           height={boundsHeight}
-          className="translate-x-2 translate-y-5">
+          width={boundsWidth}>
           {children}
         </g>
       </svg>

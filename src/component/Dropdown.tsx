@@ -14,17 +14,17 @@ export function Dropdown({ options }: DropdownProps) {
   return (
     <>
       <Button
-        icon={
-          <ChevronIcon
-            viewBox="-8 -8 40 40"
-            className="w-6 fill-none stroke-slate-500 stroke-2"
-          />
-        }
         iconPosition="right"
         importance="tertiary"
+        size="small"
+        icon={
+          <ChevronIcon
+            className="w-6 fill-none stroke-slate-500 stroke-2"
+            viewBox="-8 -8 40 40"
+          />
+        }
         onBlur={() => setIsActive(false)}
-        onClick={() => setIsActive(prev => !prev)}
-        size="small">
+        onClick={() => setIsActive(prev => !prev)}>
         <span className="truncate">{selected.length ? selected.join(', ') : '-'}</span>
       </Button>
       <div className={classNames({ hidden: !isActive })}>

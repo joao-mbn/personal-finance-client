@@ -11,9 +11,15 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
   return (
     <>
       <Button
-        importance="tertiary"
         className="ml-auto"
+        importance="tertiary"
         size="small"
+        icon={
+          <FilterIcon
+            className="w-6 fill-none stroke-slate-500 stroke-2"
+            viewBox="-8 -8 40 40"
+          />
+        }
         onClick={({ clientX, clientY }) => {
           if (!dialogRef.current) return;
 
@@ -24,12 +30,6 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
           style.top = `${clientY}px`;
           dialog.showModal();
         }}
-        icon={
-          <FilterIcon
-            viewBox="-8 -8 40 40"
-            className="w-6 fill-none stroke-slate-500 stroke-2"
-          />
-        }
       />
       <DatePicker dialogRef={dialogRef} />
     </>

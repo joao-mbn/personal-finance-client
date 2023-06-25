@@ -19,13 +19,13 @@ export function BalancesWidget(props: BalancesWidgetProps) {
 
   return (
     <Widget
+      key={DashboardWidget.Balances}
       title={
         <div className="flex gap-1">
           <span>{ptBR.totalBalance}:</span>
           <span className="font-bold">{data?.totalBalance ? toBRL(data.totalBalance) : '???'}</span>
         </div>
-      }
-      key={DashboardWidget.Balances}>
+      }>
       {data?.balances.length && (
         <ChartWrapper className="!h-60">
           <BarChart<Balance>

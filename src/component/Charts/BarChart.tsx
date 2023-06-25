@@ -100,31 +100,31 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
           return (
             <g key={j}>
               <BarRect
-                x={x}
-                y={y}
-                width={barWidth}
                 height={barHeight}
                 rx={roundedness}
+                width={barWidth}
+                x={x}
+                y={y}
               />
               {barHeight > MIN_HEIGHT_FOR_TEXT_DISPLAY && (
                 <BarLabel
-                  width={barWidth}
+                  fontSize={FONT_SIZE}
                   height={MIN_HEIGHT_FOR_TEXT_DISPLAY}
+                  label={toBRL(value)}
+                  width={barWidth}
                   x={x}
                   y={y + (barHeight - FONT_SIZE) / 2}
-                  fontSize={FONT_SIZE}
-                  label={toBRL(value)}
                 />
               )}
             </g>
           );
         })}
         <BarLegend
+          legend={index}
+          nameIsBig={nameIsBig}
           width={barWidth}
           x={x}
           y={boundsHeight + 5}
-          legend={index}
-          nameIsBig={nameIsBig}
         />
       </g>
     );
@@ -132,17 +132,17 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
 
   return (
     <BaseChart
-      height={height}
-      width={width}
+      boundsHeight={boundsHeight}
       boundsWidth={boundsWidth}
-      boundsHeight={boundsHeight}>
+      height={height}
+      width={width}>
       {allShapes}
       <line
-        y1={yScale(0)}
-        y2={yScale(0)}
+        className="min-w-full stroke-slate-900"
         x1={0}
         x2={boundsWidth}
-        className="min-w-full stroke-slate-900"
+        y1={yScale(0)}
+        y2={yScale(0)}
       />
     </BaseChart>
   );

@@ -18,14 +18,14 @@ export function MonthlyBalancesWidget(props: MonthlyBalancesWidgetProps) {
 
   return (
     <WidgetWithFilter
-      title={ptBR.monthlyBalance}
-      key={DashboardWidget.MonthlyBalance}>
+      key={DashboardWidget.MonthlyBalance}
+      title={ptBR.monthlyBalance}>
       {data?.length && (
         <ChartWrapper>
           <BarChart<MonthBalance>
-            valueKeys={['balance']}
-            indexBy="month"
             data={data}
+            indexBy="month"
+            valueKeys={['balance']}
           />
         </ChartWrapper>
       )}

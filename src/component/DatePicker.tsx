@@ -8,8 +8,8 @@ interface DatePickerProps {
 export function DatePicker({ dialogRef: ref }: DatePickerProps) {
   return (
     <Overlay
-      ref={ref}
-      className="w-40">
+      className="w-40"
+      ref={ref}>
       <div className="flex gap-1">
         <Dropdown
           options={Array(11)

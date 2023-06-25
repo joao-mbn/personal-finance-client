@@ -15,8 +15,8 @@ export function AssetsWidget(props: AssetsWidgetProps) {
 
   return (
     <Widget
-      title={ptBR.assets}
-      key={DashboardWidget.Assets}>
+      key={DashboardWidget.Assets}
+      title={ptBR.assets}>
       {data?.length && (
         <ChartWrapper className="!h-60">
           <BarChart<Asset>

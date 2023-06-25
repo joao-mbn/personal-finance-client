@@ -7,8 +7,8 @@ interface BaseBarProps extends SVGProps<SVGRectElement> {}
 export function BarRect({ ...props }: BaseBarProps) {
   return (
     <rect
-      opacity={0.7}
       className="fill-slate-400 stroke-slate-600"
+      opacity={0.7}
       strokeWidth={1}
       {...props}
     />
@@ -60,11 +60,11 @@ export function Grid({ yScale, boundsWidth, ticks = 5 }: GridProps) {
       {yScale.ticks(ticks).map((value, i) => (
         <g key={i}>
           <line
-            y1={yScale(value)}
-            y2={yScale(value)}
+            className="stroke-slate-300"
             x1={0}
             x2={boundsWidth}
-            className="stroke-slate-300"
+            y1={yScale(value)}
+            y2={yScale(value)}
           />
         </g>
       ))}

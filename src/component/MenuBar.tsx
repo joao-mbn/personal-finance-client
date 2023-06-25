@@ -46,9 +46,9 @@ export function MenuBar() {
       <nav className="flex w-full justify-around">
         {options.map(({ path, name, icon }) => (
           <NavLink
-            to={path}
+            className="flex w-1/3"
             key={path}
-            className="flex w-1/3">
+            to={path}>
             {({ isActive }) => {
               return (
                 <div className="flex w-full flex-col items-center">

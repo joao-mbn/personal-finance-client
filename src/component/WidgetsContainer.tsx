@@ -30,10 +30,10 @@ export function WidgetsContainer() {
 
   return (
     <div className="flex flex-col gap-4">
-      {data?.slice().map(widget => (
+      {data?.map(widget => (
         <Suspense
-          key={widget}
-          fallback={<Loading />}>
+          fallback={<Loading />}
+          key={widget}>
           {createElement(widgetsMapper[widget])}
         </Suspense>
       ))}
