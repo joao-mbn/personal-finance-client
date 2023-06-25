@@ -1,2 +1,2 @@
+export * from './dashboard';
 export * from './enum';
-export * from './interface';
