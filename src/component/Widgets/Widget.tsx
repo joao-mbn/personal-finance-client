@@ -1,21 +1,53 @@
 import classNames from 'classnames';
 import { ReactNode } from 'react';
 import { ptBR } from '../../languages';
+import { WidgetFilter } from './WidgetFilter';
 
-interface WidgetProps {
-  title?: ReactNode;
-  children?: ReactNode;
-  className?: string;
+interface WidgetWithFilterProps extends WidgetProps {}
+
+export function WidgetWithFilter({ title, ...props }: WidgetWithFilterProps) {
+  return (
+    <WidgetBase
+      header={
+        title && (
+          <div className="flex items-center gap-1">
+            <WidgetHeader title={title} />
+            <WidgetFilter />
+          </div>
+        )
+      }
+      {...props}
+    />
+  );
 }
 
-export function Widget({ title, children, className }: WidgetProps) {
+interface WidgetProps extends Omit<WidgetBaseProps, 'header'> {
+  title?: ReactNode;
+}
+
+export function Widget({ title, ...props }: WidgetProps) {
+  return (
+    <WidgetBase
+      header={title && <WidgetHeader title={title} />}
+      {...props}
+    />
+  );
+}
+
+interface WidgetBaseProps {
+  children?: ReactNode;
+  className?: string;
+  header?: ReactNode;
+}
+
+function WidgetBase({ header, children, className }: WidgetBaseProps) {
   return (
     <section
       className={classNames(
-        'flex w-full flex-col gap-2 rounded-lg bg-slate-50 p-2 text-slate-600 shadow shadow-slate-300 hover:shadow-slate-500',
+        'flex w-full flex-col gap-1 rounded-lg bg-slate-50 p-2 text-slate-600 shadow shadow-slate-300 hover:shadow-slate-500',
         className
       )}>
-      <h2 className="text-sm font-normal">{title}</h2>
+      {header}
       {children ? (
         <div className="text-xs">{children}</div>
       ) : (
@@ -25,4 +57,12 @@ export function Widget({ title, children, className }: WidgetProps) {
       )}
     </section>
   );
+}
+
+interface WidgetHeaderProps {
+  title: ReactNode;
+}
+
+function WidgetHeader({ title }: WidgetHeaderProps) {
+  return <h2 className="text-xs font-normal">{title}</h2>;
 }

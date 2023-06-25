@@ -5,7 +5,7 @@ import { ptBR } from '../../languages';
 import { DashboardWidget } from '../../models';
 import { DashboardService } from '../../services';
 import { getTimeDiff, toBRL } from '../../utils';
-import { Widget } from './Widget';
+import { WidgetWithFilter } from './Widget';
 
 const Table = lazy(() => import('../Table/Table'));
 
@@ -49,7 +49,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
   ];
 
   return (
-    <Widget
+    <WidgetWithFilter
       title={ptBR.dueSoonBills}
       key={DashboardWidget.DueSoonBills}>
       {parsedData?.length && (
@@ -60,7 +60,7 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
           className="text-tiny"
         />
       )}
-    </Widget>
+    </WidgetWithFilter>
   );
 }
 
