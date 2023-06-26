@@ -5,7 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
   importance: 'primary' | 'secondary' | 'tertiary';
-  label?: string;
+  label?: ReactNode;
   size: 'small' | 'medium' | 'large';
 }
 
