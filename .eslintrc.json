@@ -23,7 +23,7 @@
     "react/jsx-sort-props": [
       2,
       {
-        "callbacksLast": true,
+        "callbacksLast": false,
         "shorthandFirst": false,
         "shorthandLast": true,
         "multiline": "last",

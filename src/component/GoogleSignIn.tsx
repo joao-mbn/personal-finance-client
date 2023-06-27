@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { Button, GoogleIcon } from '.';
 import { ptBR } from '../languages';
 import { AuthService } from '../services';
-import { Button } from './Button';
-import { GoogleIcon } from './Icons/GoogleIcon';
 
 export function GoogleSignIn() {
   const { data: url } = useQuery({
