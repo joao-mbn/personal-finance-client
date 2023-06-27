@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import { ChevronIcon } from '..';
 import { Button } from './Button';
-import { ChevronIcon } from './Icons';
 
-interface DropdownProps<T> {
+interface DropdownProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: T[];
   onChange: (option: T, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  maxWidth?: string;
   multiSelect?: boolean;
   placeholder?: string;
   selected?: T[];
@@ -13,12 +14,15 @@ interface DropdownProps<T> {
 }
 
 export function Dropdown<T extends { key: number | string; value: ReactNode; disabled?: boolean }>({
+  className,
   onChange,
   options,
+  maxWidth = 'max-w-[5rem]',
   multiSelect = false,
   placeholder = ' ',
   selected = [],
   template,
+  ...props
 }: DropdownProps<T>) {
   const [isActive, setIsActive] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,8 +43,9 @@ export function Dropdown<T extends { key: number | string; value: ReactNode; dis
 
   return (
     <div
-      className="w-32 p-1"
-      ref={containerRef}>
+      className={classNames('flex flex-col px-1', className)}
+      ref={containerRef}
+      {...props}>
       <Button
         className="w-full"
         iconPosition="right"
@@ -56,12 +61,12 @@ export function Dropdown<T extends { key: number | string; value: ReactNode; dis
           />
         }
         label={
-          <span className="mr-auto w-2/3 truncate pl-2 text-left">
+          <span className={classNames('mr-auto truncate pl-2 text-left', maxWidth)}>
             {selected.length ? selected.map(s => s.value).join(', ') : placeholder}
           </span>
         }
       />
-      <div className="max-h-[10rem] overflow-y-auto  rounded-xl pt-1 text-xs text-slate-600 shadow-lg shadow-slate-400">
+      <div className="max-h-[10rem] overflow-y-auto rounded-xl pt-1 text-xs text-slate-600 shadow-lg shadow-slate-400">
         <div className={classNames('z-10 flex flex-col', { hidden: !isActive })}>
           {options.map(option => {
             const { key, value, disabled } = option;
@@ -70,13 +75,15 @@ export function Dropdown<T extends { key: number | string; value: ReactNode; dis
               <div
                 key={key}
                 className={classNames('truncate rounded-3xl px-2 py-1', {
-                  'bg-cerulean-900 text-white': valueIsSelected,
+                  'bg-slate-900 text-white': valueIsSelected,
                 })}
                 onClick={event => {
                   !disabled && onChange(option, event);
                   !multiSelect && setIsActive(false);
                 }}>
-                {template?.(option) ?? value}
+                {template?.(option) ?? (
+                  <span className={classNames('truncate', maxWidth)}>{value}</span>
+                )}
               </div>
             );
           })}
