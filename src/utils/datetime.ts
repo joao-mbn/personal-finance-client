@@ -4,8 +4,7 @@
  * @param t2 - The second date.
  * @param unit - The unit in which the difference will be returned.
  *
- * If `t2 > t1` it will return a negative number.
- * @returns A float with the difference, in the {@link unit} specified.
+ * @returns A float with the difference, in the {@link unit} specified. Note: If `t2 > t1` it will return a negative number.
  */
 export function getTimeDiff(
   t1: number | Date | string,
@@ -32,7 +31,7 @@ export function getTimeDiff(
   return timeDiffDays;
 }
 
-function castToTime(date: number | Date | string) {
+export function castToTime(date: number | Date | string) {
   if (typeof date === 'number') return date;
 
   if (typeof date === 'string') {
@@ -44,4 +43,29 @@ function castToTime(date: number | Date | string) {
   }
 
   return date.getTime();
+}
+
+/**
+ *
+ * @param date The reference date to be added.
+ * @param amount The amount to be added.
+ * @param unit The unit of the amount added.
+ *
+ * @returns A new date with the amount added to the reference. Note: If a negative amount is given, the new date will be previous to the {@link date}.
+ */
+export function addDate(date: Date = new Date(), amount: number, unit: 'year' | 'month' | 'day') {
+  const newDate = new Date(date);
+
+  if (unit === 'year') {
+    const year = newDate.getFullYear();
+    newDate.setFullYear(year + amount);
+  } else if (unit === 'month') {
+    const month = newDate.getMonth();
+    newDate.setMonth(month + amount);
+  } else {
+    const day = newDate.getDate();
+    newDate.setDate(day + amount);
+  }
+
+  return newDate;
 }

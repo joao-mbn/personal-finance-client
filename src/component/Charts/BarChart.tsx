@@ -24,7 +24,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
     dimensions: { width: containerWidth, height: containerHeight },
   } = useContext(ChartWrapperContext);
 
-  const height = Math.max(containerHeight, 0) - 1 * REM_PX_RATIO;
+  const height = Math.max(containerHeight - 1 * REM_PX_RATIO, 0);
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   const X_MARGINS = MARGIN.right + MARGIN.left;

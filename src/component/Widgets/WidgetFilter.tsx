@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, DatePicker } from '..';
+import { Button, DateRangePicker } from '..';
 import { DATE_PICKER_WIDTH, REM_PX_RATIO } from '../../utils';
 import { FilterIcon } from '../Icons';
 
@@ -31,7 +31,7 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
           dialog.showModal();
         }}
       />
-      <DatePicker dialogRef={dialogRef} />
+      <DateRangePicker />
     </>
   );
 }
