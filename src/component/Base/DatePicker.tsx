@@ -1,17 +1,17 @@
 import { Key } from 'react';
 import { Dropdown, DropdownOption } from '.';
 
-const DEFAULT_MONTH_OPTIONS: DropdownOption[] = Array(12)
+export const DEFAULT_MONTH_OPTIONS: DropdownOption[] = Array(12)
   .fill('')
   .map((_, i) => ({
     key: i,
     value: new Date(0, i).toLocaleDateString('pt-BR', { month: 'long' }),
   }));
 const CURRENT_YEAR = new Date().getFullYear();
-const DEFAULT_YEAR_OPTIONS: DropdownOption[] = [
+export const DEFAULT_YEAR_OPTIONS: DropdownOption[] = [
   ...Array(10)
     .fill('')
-    .map((_, i) => ({ key: i, value: CURRENT_YEAR - i })),
+    .map((_, i) => ({ key: CURRENT_YEAR - i, value: CURRENT_YEAR - i })),
 ];
 
 export interface DatePickerProps {

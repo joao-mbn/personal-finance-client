@@ -1,5 +1,5 @@
 export { Button } from './Button';
-export { DatePicker } from './DatePicker';
+export { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS, DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
 export { Dropdown } from './Dropdown';

@@ -1,5 +1,5 @@
 import { Key, useState } from 'react';
-import { DatePicker, DatePickerProps, DropdownOption } from '.';
+import { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS, DatePicker, DatePickerProps } from '.';
 import { ptBR } from '../../languages';
 import { addDate } from '../../utils';
 
@@ -11,17 +11,6 @@ const FROM_YEAR = FROM_DATE.getFullYear();
 const FROM_MONTH = FROM_DATE.getMonth();
 const TO_YEAR = NOW.getFullYear();
 const TO_MONTH = NOW.getMonth();
-const DEFAULT_MONTH_OPTIONS: DropdownOption[] = Array(12)
-  .fill('')
-  .map((_, i) => ({
-    key: i,
-    value: new Date(0, i).toLocaleDateString('pt-BR', { month: 'long' }),
-  }));
-const DEFAULT_YEAR_OPTIONS: DropdownOption[] = [
-  ...Array(10)
-    .fill('')
-    .map((_, i) => ({ key: TO_YEAR - i, value: TO_YEAR - i })),
-];
 
 export function DateRangePicker({ ...props }: DateRangePickerProps) {
   const [selectedFromMonth, setSelectedFromMonth] = useState<Key>(FROM_MONTH);
@@ -29,25 +18,45 @@ export function DateRangePicker({ ...props }: DateRangePickerProps) {
   const [selectedToMonth, setSelectedToMonth] = useState<Key>(TO_MONTH);
   const [selectedToYear, setSelectedToYear] = useState<Key>(TO_YEAR);
 
+  const fromMonthIsGreater = selectedFromMonth > selectedToMonth;
+  const fromAndToHaveSameYear = selectedFromYear === selectedToYear;
+
+  const fromMonthOptions = DEFAULT_MONTH_OPTIONS.map(m => ({
+    ...m,
+    disabled: fromAndToHaveSameYear && m.key > selectedToMonth,
+  }));
+  const fromYearOptions = DEFAULT_YEAR_OPTIONS.map(m => ({
+    ...m,
+    disabled: m.key > selectedToYear || (m.key === selectedToYear && fromMonthIsGreater),
+  }));
+  const toMonthOptions = DEFAULT_MONTH_OPTIONS.map(m => ({
+    ...m,
+    disabled: fromAndToHaveSameYear && m.key < selectedFromMonth,
+  }));
+  const toYearOptions = DEFAULT_YEAR_OPTIONS.map(m => ({
+    ...m,
+    disabled: m.key < selectedFromYear || (m.key === selectedFromYear && fromMonthIsGreater),
+  }));
+
   return (
     <div className="flex w-full flex-wrap justify-start gap-1 text-sm">
       <DatePickerWrapper
         label={ptBR.from}
-        monthOptions={DEFAULT_MONTH_OPTIONS}
+        monthOptions={fromMonthOptions}
         onChangeMonth={month => setSelectedFromMonth(month)}
         onChangeYear={year => setSelectedFromYear(year)}
         selectedMonth={selectedFromMonth}
         selectedYear={selectedFromYear}
-        yearOptions={DEFAULT_YEAR_OPTIONS}
+        yearOptions={fromYearOptions}
       />
       <DatePickerWrapper
         label={ptBR.to}
-        monthOptions={DEFAULT_MONTH_OPTIONS}
+        monthOptions={toMonthOptions}
         onChangeMonth={month => setSelectedToMonth(month)}
         onChangeYear={year => setSelectedToYear(year)}
         selectedMonth={selectedToMonth}
         selectedYear={selectedToYear}
-        yearOptions={DEFAULT_YEAR_OPTIONS}
+        yearOptions={toYearOptions}
       />
     </div>
   );

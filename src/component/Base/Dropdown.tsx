@@ -81,7 +81,7 @@ export function Dropdown<T extends DropdownOption>({
       />
       <div
         className={classNames(
-          'z-10 max-h-[10rem] overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-600 shadow-lg shadow-slate-400',
+          'z-10 max-h-[10rem] overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-400',
           { hidden: !isActive }
         )}>
         <div className={classNames('flex flex-col')}>
@@ -93,10 +93,11 @@ export function Dropdown<T extends DropdownOption>({
                 key={key}
                 className={classNames('truncate rounded-3xl px-2 py-1', {
                   'bg-slate-900 text-slate-50': valueIsSelected,
+                  'disabled-option text-slate-400': disabled,
                 })}
                 onClick={event => {
                   !disabled && onChange(option.key, event);
-                  !multiSelect && setIsActive(false);
+                  !disabled && !multiSelect && setIsActive(false);
                 }}>
                 {template?.(option) ?? (
                   <span className={classNames('truncate', maxWidth)}>{value}</span>
