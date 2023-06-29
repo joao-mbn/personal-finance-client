@@ -93,7 +93,7 @@ export function Dropdown<T extends DropdownOption>({
                 key={key}
                 className={classNames('truncate rounded-3xl px-2 py-1', {
                   'bg-slate-900 text-slate-50': valueIsSelected,
-                  'disabled-option text-slate-400': disabled,
+                  'text-slate-400': disabled,
                 })}
                 onClick={event => {
                   !disabled && onChange(option.key, event);
