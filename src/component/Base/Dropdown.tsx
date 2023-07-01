@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { HTMLAttributes, Key, ReactNode, useEffect, useRef, useState } from 'react';
+import { HTMLAttributes, Key, ReactNode, useEffect, useState } from 'react';
 import { ChevronIcon } from '..';
+import { useClickPath } from '../../hooks';
 import { Button } from './Button';
 
 export type DropdownOption = {
@@ -25,34 +26,23 @@ export function Dropdown<T extends DropdownOption>({
   onChange,
   options,
   maxWidth = 'max-w-[5rem]',
-  multiSelect = false,
+  multiSelect = true,
   placeholder = ' ',
   selected = [],
   template,
   ...props
 }: DropdownProps<T>) {
   const [isActive, setIsActive] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const isInPath = useClickPath(containerRef);
   const _selected = Array.isArray(selected) ? selected : [selected];
 
-  useEffect(() => {
-    const getPath = (event: MouseEvent) => {
-      const div = containerRef.current;
-      if (!div) return setIsActive(false);
-
-      const path = event.composedPath();
-      const shouldClose = !path.includes(containerRef.current);
-      shouldClose && setIsActive(false);
-    };
-    window.addEventListener('click', getPath);
-
-    return () => window.removeEventListener('click', getPath);
-  }, []);
+  useEffect(() => setIsActive(isInPath), [isInPath]);
 
   return (
     <div
       className={classNames('flex flex-col px-1', className)}
-      ref={containerRef}
+      ref={setContainerRef}
       {...props}>
       <Button
         className="w-full"
