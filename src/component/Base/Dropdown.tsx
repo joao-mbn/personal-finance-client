@@ -3,14 +3,9 @@ import { HTMLAttributes, Key, ReactNode, useContext, useEffect, useState } from 
 import { ChevronIcon } from '..';
 import { AppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
+import { DropdownOption } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
 import { Button } from './Button';
-
-export type DropdownOption = {
-  key: Key;
-  value: ReactNode;
-  disabled?: boolean;
-};
 
 interface DropdownProps<T extends DropdownOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {

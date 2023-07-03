@@ -1,3 +1,5 @@
+import { DropdownOption } from '../models';
+
 /**
  *
  * @param t1 - The first date.
@@ -68,4 +70,34 @@ export function addDate(date: Date = new Date(), amount: number, unit: 'year' | 
   }
 
   return newDate;
+}
+
+export function getDefaultRange() {
+  const NOW = new Date();
+  const FROM_DATE = addDate(NOW, -1, 'month');
+  const FROM_YEAR = FROM_DATE.getFullYear();
+  const FROM_MONTH = FROM_DATE.getMonth();
+  const TO_YEAR = NOW.getFullYear();
+  const TO_MONTH = NOW.getMonth();
+
+  return { FROM_DATE, FROM_YEAR, FROM_MONTH, TO_DATE: NOW, TO_YEAR, TO_MONTH };
+}
+
+export function getDefaultOptions() {
+  const NOW = new Date();
+  const CURRENT_YEAR = NOW.getFullYear();
+
+  const DEFAULT_MONTH_OPTIONS: DropdownOption[] = Array(12)
+    .fill('')
+    .map((_, i) => ({
+      key: i,
+      value: new Date(0, i).toLocaleDateString('pt-BR', { month: 'long' }),
+    }));
+  const DEFAULT_YEAR_OPTIONS: DropdownOption[] = [
+    ...Array(10)
+      .fill('')
+      .map((_, i) => ({ key: CURRENT_YEAR - i, value: CURRENT_YEAR - i })),
+  ];
+
+  return { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS };
 }

@@ -1,19 +1,34 @@
-import { lazy, useContext, useState } from 'react';
+import { lazy, useContext, useEffect, useState } from 'react';
 import { Button, DateRangePicker } from '..';
 import { AppContext } from '../../contexts';
-import { REM_PX_RATIO } from '../../utils';
+import { DateRange } from '../../models';
+import { REM_PX_RATIO, getDefaultRange } from '../../utils';
 import { FilterIcon } from '../Icons';
 
 const Dialog = lazy(() => import('../Base/Dialog'));
 
-interface WidgetFilterProps {}
+const { FROM_DATE, TO_DATE } = getDefaultRange();
 
-export function WidgetFilter({ ...props }: WidgetFilterProps) {
+interface WidgetFilterProps {
+  filter?: DateRange;
+  updateWidgetFilter?: (filter: DateRange) => void;
+}
+
+export function WidgetFilter({ filter, updateWidgetFilter = () => undefined }: WidgetFilterProps) {
   const [dialogRef, setDialogRef] = useState<HTMLDialogElement | null>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const {
     viewportDimensions: { height: vh, width: vw },
   } = useContext(AppContext);
+
+  const [tempFilter, setTempFilter] = useState(filter ?? { from: FROM_DATE, to: TO_DATE });
+  const [shouldSend, setShouldSend] = useState(false);
+  useEffect(() => {
+    if (shouldSend) {
+      updateWidgetFilter(tempFilter);
+      setShouldSend(false);
+    }
+  }, [shouldSend, tempFilter]);
 
   return (
     <>
@@ -51,10 +66,14 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
         }}
       />
       <Dialog
-        className="h- overflow-visible"
-        containerClassName="flex !h-20 !w-48 items-center"
+        className="overflow-visible"
+        containerClassName="flex !h-20 !w-52 items-center"
+        onClose={() => setShouldSend(true)}
         ref={setDialogRef}>
-        <DateRangePicker />
+        <DateRangePicker
+          onChange={filter => setTempFilter(filter)}
+          range={tempFilter}
+        />
       </Dialog>
     </>
   );

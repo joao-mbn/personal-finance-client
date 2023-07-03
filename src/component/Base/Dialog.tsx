@@ -1,18 +1,26 @@
 import classNames from 'classnames';
-import { HTMLAttributes, forwardRef, useImperativeHandle, useState } from 'react';
+import { HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 interface OverLayProps extends HTMLAttributes<HTMLDialogElement> {
   containerClassName?: string;
+  onClose?: (e: Event) => void;
 }
 
 type Ref = HTMLDialogElement | null;
 
 export const Dialog = forwardRef<Ref, OverLayProps>(function Dialog(
-  { children, className, containerClassName }: OverLayProps,
+  { children, className, containerClassName, onClose = () => undefined }: OverLayProps,
   ref
 ) {
   const [_ref, setRef] = useState<HTMLDialogElement | null>(null);
   useImperativeHandle<Ref, Ref>(ref, () => _ref, [_ref]);
+
+  useEffect(() => {
+    if (!_ref) return;
+
+    _ref.addEventListener('close', onClose);
+    return () => _ref.removeEventListener('close', onClose);
+  }, [_ref]);
 
   return (
     <dialog

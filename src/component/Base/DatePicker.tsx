@@ -1,52 +1,53 @@
 import { Key } from 'react';
-import { Dropdown, DropdownOption } from '.';
+import { Dropdown } from '.';
+import { DropdownOption } from '../../models';
+import { getDefaultOptions } from '../../utils';
 
-export const DEFAULT_MONTH_OPTIONS: DropdownOption[] = Array(12)
-  .fill('')
-  .map((_, i) => ({
-    key: i,
-    value: new Date(0, i).toLocaleDateString('pt-BR', { month: 'long' }),
-  }));
-const CURRENT_YEAR = new Date().getFullYear();
-export const DEFAULT_YEAR_OPTIONS: DropdownOption[] = [
-  ...Array(10)
-    .fill('')
-    .map((_, i) => ({ key: CURRENT_YEAR - i, value: CURRENT_YEAR - i })),
-];
+const NOW = new Date();
+const CURRENT_YEAR = NOW.getFullYear();
+const CURRENT_MONTH = NOW.getMonth();
+const { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS } = getDefaultOptions();
 
 export interface DatePickerProps {
   monthOptions?: DropdownOption[];
   yearOptions?: DropdownOption[];
-  onChangeMonth: (month: Key) => void;
-  onChangeYear: (year: Key) => void;
-  selectedMonth: Key;
-  selectedYear: Key;
+  onChange: (date: Date) => void;
+  value?: Date;
 }
 
-export function DatePicker({
-  onChangeMonth,
-  onChangeYear,
-  monthOptions,
-  yearOptions,
-  selectedMonth,
-  selectedYear,
-}: DatePickerProps) {
+export function DatePicker({ monthOptions, onChange, value, yearOptions }: DatePickerProps) {
+  const _selectedMonth = value?.getMonth() ?? CURRENT_MONTH;
+  const _selectedYear = value?.getFullYear() ?? CURRENT_YEAR;
+
   const _monthOptions = monthOptions ?? DEFAULT_MONTH_OPTIONS;
   const _yearOptions = yearOptions ?? DEFAULT_YEAR_OPTIONS;
+
+  function onChangeOption(value: Key, datePart: 'month' | 'year') {
+    const _value = Number(value);
+
+    const newDate = new Date(_selectedYear, _selectedMonth);
+    if (datePart === 'month') {
+      newDate.setMonth(_value);
+    } else {
+      newDate.setFullYear(_value);
+    }
+
+    onChange(newDate);
+  }
 
   return (
     <div className="flex">
       <Dropdown
         className="min-w-[5rem]"
-        onChange={month => onChangeMonth(month)}
+        onChange={month => onChangeOption(month, 'month')}
         options={_monthOptions}
-        selected={selectedMonth}
+        selected={_selectedMonth}
       />
       <Dropdown
         className="min-w-[4rem]"
-        onChange={year => onChangeYear(year)}
+        onChange={year => onChangeOption(year, 'year')}
         options={_yearOptions}
-        selected={selectedYear}
+        selected={_selectedYear}
       />
     </div>
   );

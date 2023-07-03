@@ -1,41 +1,59 @@
-import { Key, useState } from 'react';
-import { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS, DatePicker, DatePickerProps } from '.';
+import { DatePicker, DatePickerProps } from '.';
 import { ptBR } from '../../languages';
-import { addDate } from '../../utils';
+import { DateRange } from '../../models';
+import { getDefaultOptions, getDefaultRange } from '../../utils';
 
-interface DateRangePickerProps {}
+const { FROM_DATE, FROM_YEAR, FROM_MONTH, TO_DATE, TO_YEAR, TO_MONTH } = getDefaultRange();
+const { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS } = getDefaultOptions();
 
-const NOW = new Date();
-const FROM_DATE = addDate(NOW, -1, 'month');
-const FROM_YEAR = FROM_DATE.getFullYear();
-const FROM_MONTH = FROM_DATE.getMonth();
-const TO_YEAR = NOW.getFullYear();
-const TO_MONTH = NOW.getMonth();
+interface DateRangePickerProps {
+  onChange: (range: DateRange) => void;
+  range?: DateRange;
+}
 
-export function DateRangePicker({ ...props }: DateRangePickerProps) {
-  const [selectedFromMonth, setSelectedFromMonth] = useState<Key>(FROM_MONTH);
-  const [selectedFromYear, setSelectedFromYear] = useState<Key>(FROM_YEAR);
-  const [selectedToMonth, setSelectedToMonth] = useState<Key>(TO_MONTH);
-  const [selectedToYear, setSelectedToYear] = useState<Key>(TO_YEAR);
+export function DateRangePicker({ onChange, range }: DateRangePickerProps) {
+  const fromDate = range?.from ?? FROM_DATE;
+  const toDate = range?.to ?? TO_DATE;
+
+  function onChangeOption(value: Date, edge: keyof DateRange) {
+    let newRange: DateRange;
+    if (!range) {
+      newRange = { from: fromDate, to: toDate };
+    } else {
+      newRange = { ...range };
+    }
+
+    newRange[edge] = value;
+
+    onChange(newRange);
+  }
+
+  const selectedFromMonth = fromDate.getMonth() ?? FROM_MONTH;
+  const selectedFromYear = fromDate.getFullYear() ?? FROM_YEAR;
+  const selectedToMonth = toDate.getMonth() ?? TO_MONTH;
+  const selectedToYear = toDate.getFullYear() ?? TO_YEAR;
 
   const fromMonthIsGreater = selectedFromMonth > selectedToMonth;
   const fromAndToHaveSameYear = selectedFromYear === selectedToYear;
 
   const fromMonthOptions = DEFAULT_MONTH_OPTIONS.map(m => ({
     ...m,
-    disabled: fromAndToHaveSameYear && m.key > selectedToMonth,
+    disabled: fromAndToHaveSameYear && Number(m.key) > selectedToMonth,
   }));
-  const fromYearOptions = DEFAULT_YEAR_OPTIONS.map(m => ({
-    ...m,
-    disabled: m.key > selectedToYear || (m.key === selectedToYear && fromMonthIsGreater),
+  const fromYearOptions = DEFAULT_YEAR_OPTIONS.map(y => ({
+    ...y,
+    disabled:
+      Number(y.key) > selectedToYear || (Number(y.key) === selectedToYear && fromMonthIsGreater),
   }));
   const toMonthOptions = DEFAULT_MONTH_OPTIONS.map(m => ({
     ...m,
-    disabled: fromAndToHaveSameYear && m.key < selectedFromMonth,
+    disabled: fromAndToHaveSameYear && Number(m.key) < selectedFromMonth,
   }));
-  const toYearOptions = DEFAULT_YEAR_OPTIONS.map(m => ({
-    ...m,
-    disabled: m.key < selectedFromYear || (m.key === selectedFromYear && fromMonthIsGreater),
+  const toYearOptions = DEFAULT_YEAR_OPTIONS.map(y => ({
+    ...y,
+    disabled:
+      Number(y.key) < selectedFromYear ||
+      (Number(y.key) === selectedFromYear && fromMonthIsGreater),
   }));
 
   return (
@@ -43,19 +61,15 @@ export function DateRangePicker({ ...props }: DateRangePickerProps) {
       <DatePickerWrapper
         label={ptBR.from}
         monthOptions={fromMonthOptions}
-        onChangeMonth={month => setSelectedFromMonth(month)}
-        onChangeYear={year => setSelectedFromYear(year)}
-        selectedMonth={selectedFromMonth}
-        selectedYear={selectedFromYear}
+        onChange={fromDate => onChangeOption(fromDate, 'from')}
+        value={fromDate}
         yearOptions={fromYearOptions}
       />
       <DatePickerWrapper
         label={ptBR.to}
         monthOptions={toMonthOptions}
-        onChangeMonth={month => setSelectedToMonth(month)}
-        onChangeYear={year => setSelectedToYear(year)}
-        selectedMonth={selectedToMonth}
-        selectedYear={selectedToYear}
+        onChange={toDate => onChangeOption(toDate, 'to')}
+        value={toDate}
         yearOptions={toYearOptions}
       />
     </div>
