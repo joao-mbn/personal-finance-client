@@ -39,7 +39,7 @@ export function DateRangePicker({ ...props }: DateRangePickerProps) {
   }));
 
   return (
-    <div className="flex w-full flex-wrap justify-start gap-1 text-sm">
+    <div className="flex w-full flex-wrap items-center gap-1 text-sm">
       <DatePickerWrapper
         label={ptBR.from}
         monthOptions={fromMonthOptions}
@@ -68,7 +68,7 @@ interface DatePickerWrapperProps extends DatePickerProps {
 
 function DatePickerWrapper({ label, ...props }: DatePickerWrapperProps) {
   return (
-    <div className="overflow-y flex h-7 items-start">
+    <div className="flex h-7 items-start">
       <span className="w-5 pt-1 text-slate-600">{label}</span>
       <DatePicker {...props} />
     </div>

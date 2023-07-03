@@ -26,7 +26,7 @@ export function Dropdown<T extends DropdownOption>({
   onChange,
   options,
   maxWidth = 'max-w-[5rem]',
-  multiSelect = true,
+  multiSelect = false,
   placeholder = ' ',
   selected = [],
   template,
@@ -71,7 +71,7 @@ export function Dropdown<T extends DropdownOption>({
       />
       <div
         className={classNames(
-          'z-10 max-h-[10rem] overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-400',
+          'z-10 max-h-[10rem] overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500',
           { hidden: !isActive }
         )}>
         <div className={classNames('flex flex-col')}>

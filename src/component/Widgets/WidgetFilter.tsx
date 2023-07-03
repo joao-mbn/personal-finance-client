@@ -1,5 +1,5 @@
 import { lazy, useContext, useState } from 'react';
-import { Button } from '..';
+import { Button, DateRangePicker } from '..';
 import { AppContext } from '../../contexts';
 import { REM_PX_RATIO } from '../../utils';
 import { FilterIcon } from '../Icons';
@@ -20,7 +20,7 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
   return (
     <>
       <Button
-        className="ml-auto mt-32"
+        className="ml-auto"
         importance="tertiary"
         ref={setButtonRef}
         size="small"
@@ -51,11 +51,11 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
           dialogRef.showModal();
         }}
       />
-      <Dialog ref={setDialogRef}>
-        <div
-          className="w-full bg-red-300"
-          style={{ height: dialogheight }}></div>
-        {/* <DateRangePicker /> */}
+      <Dialog
+        className="overflow-visible"
+        containerClassName="flex max-h-[8rem] !w-48 items-center"
+        ref={setDialogRef}>
+        <DateRangePicker />
       </Dialog>
     </>
   );
