@@ -15,8 +15,6 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
     viewportDimensions: { height: vh, width: vw },
   } = useContext(AppContext);
 
-  const dialogheight = 8 * REM_PX_RATIO;
-
   return (
     <>
       <Button
@@ -40,11 +38,12 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
           } = buttonRef.getBoundingClientRect();
 
           const style = dialogRef.style;
+          const maxButtonDistanceToBottom = 6 * REM_PX_RATIO;
 
-          if (vh - buttonTop > dialogheight) {
+          if (vh - buttonTop > maxButtonDistanceToBottom) {
             style.top = `${buttonBottom}px`;
           } else {
-            style.top = `${buttonTop - dialogheight - 12}px`;
+            style.top = `${buttonTop - maxButtonDistanceToBottom - 12}px`;
           }
           style.marginRight = `${vw - buttonLeft}px`;
 
@@ -52,8 +51,8 @@ export function WidgetFilter({ ...props }: WidgetFilterProps) {
         }}
       />
       <Dialog
-        className="overflow-visible"
-        containerClassName="flex max-h-[8rem] !w-48 items-center"
+        className="h- overflow-visible"
+        containerClassName="flex !h-20 !w-48 items-center"
         ref={setDialogRef}>
         <DateRangePicker />
       </Dialog>

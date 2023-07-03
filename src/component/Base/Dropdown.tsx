@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import { HTMLAttributes, Key, ReactNode, useEffect, useState } from 'react';
+import { HTMLAttributes, Key, ReactNode, useContext, useEffect, useState } from 'react';
 import { ChevronIcon } from '..';
+import { AppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
+import { REM_PX_RATIO } from '../../utils';
 import { Button } from './Button';
 
 export type DropdownOption = {
@@ -34,10 +36,18 @@ export function Dropdown<T extends DropdownOption>({
 }: DropdownProps<T>) {
   const [isActive, setIsActive] = useState(false);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const [optionsContainerRef, setOptionsContainerRef] = useState<HTMLDivElement | null>(null);
+  const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const isInPath = useClickPath(containerRef);
-  const _selected = Array.isArray(selected) ? selected : [selected];
+  const {
+    viewportDimensions: { height: vh },
+  } = useContext(AppContext);
 
   useEffect(() => setIsActive(isInPath), [isInPath]);
+
+  const _selected = Array.isArray(selected) ? selected : [selected];
+
+  const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
 
   return (
     <div
@@ -48,7 +58,7 @@ export function Dropdown<T extends DropdownOption>({
         className="w-full"
         iconPosition="right"
         importance="secondary"
-        onClick={() => setIsActive(prev => !prev)}
+        ref={setButtonRef}
         size="small"
         icon={
           <ChevronIcon
@@ -68,10 +78,27 @@ export function Dropdown<T extends DropdownOption>({
               : placeholder}
           </span>
         }
+        onClick={() => {
+          setIsActive(prev => !prev);
+
+          if (!optionsContainerRef || !buttonRef) return;
+
+          const { bottom: buttonBottom, height: buttonHeight } = buttonRef.getBoundingClientRect();
+
+          const style = optionsContainerRef.style;
+          if (vh - buttonBottom < optionsContainerMaxHeight) {
+            const translateY = -(buttonHeight + optionsContainerMaxHeight + 0.25 * REM_PX_RATIO);
+            style.translate = `0 ${translateY}px`;
+          } else {
+            style.translate = '0 0';
+          }
+        }}
       />
       <div
+        ref={setOptionsContainerRef}
+        style={{ maxHeight: optionsContainerMaxHeight }}
         className={classNames(
-          'z-10 max-h-[10rem] overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500',
+          'z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500',
           { hidden: !isActive }
         )}>
         <div className={classNames('flex flex-col')}>
