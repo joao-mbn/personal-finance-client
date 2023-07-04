@@ -1,20 +1,26 @@
 import classNames from 'classnames';
 import { ReactNode } from 'react';
 import { ptBR } from '../../languages';
-import { WidgetFilter } from './WidgetFilter';
+import { WidgetFilter, WidgetFilterProps } from './WidgetFilter';
 
-interface WidgetWithFilterProps extends WidgetProps {}
+interface WidgetWithFilterProps extends WidgetProps, WidgetFilterProps {}
 
-export function WidgetWithFilter({ title, ...props }: WidgetWithFilterProps) {
+export function WidgetWithFilter({
+  title,
+  updateWidgetFilter,
+  initialFilter,
+  ...props
+}: WidgetWithFilterProps) {
   return (
     <WidgetBase
       header={
-        title && (
-          <div className="flex items-center gap-1">
-            <WidgetHeader title={title} />
-            <WidgetFilter />
-          </div>
-        )
+        <div className="flex items-center gap-1">
+          {title && <WidgetHeader title={title} />}
+          <WidgetFilter
+            initialFilter={initialFilter}
+            updateWidgetFilter={updateWidgetFilter}
+          />
+        </div>
       }
       {...props}
     />

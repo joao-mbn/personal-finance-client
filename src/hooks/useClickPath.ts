@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 /**
- *
  * @param element The {@link Element} to be checked against.
  * @returns whether the {@link element} was clicked or not.
  */

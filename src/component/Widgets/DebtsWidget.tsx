@@ -9,9 +9,7 @@ import { Widget } from './Widget';
 const BarChart = lazy(() => import('../Charts/BarChart'));
 const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));
 
-interface DebtsWidgetProps {}
-
-export function DebtsWidget(props: DebtsWidgetProps) {
+export function DebtsWidget() {
   const { data } = useQuery({
     queryKey: ['debts'],
     queryFn: DashboardService.getDebts,

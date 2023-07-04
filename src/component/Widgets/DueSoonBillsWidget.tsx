@@ -1,20 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import { lazy, useMemo } from 'react';
+import { lazy, useMemo, useRef } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget } from '../../models';
+import { DashboardWidget, DateRange } from '../../models';
 import { DashboardService } from '../../services';
-import { getTimeDiff, toBRL } from '../../utils';
+import { getDefaultRange, getTimeDiff, toBRL } from '../../utils';
 import { WidgetWithFilter } from './Widget';
 
 const Table = lazy(() => import('../Table/Table'));
 
-interface DueSoonBillsWidgetProps {}
+const { FROM_DATE, TO_DATE } = getDefaultRange();
 
-export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
-  const { data } = useQuery({
-    queryKey: ['dueSoonBills'],
-    queryFn: DashboardService.getDueSoonBills,
+export function DueSoonBillsWidget() {
+  const filterRef = useRef<DateRange>({ from: FROM_DATE, to: TO_DATE });
+
+  const { data, refetch } = useQuery({
+    queryKey: ['dueSoonBills', filterRef.current],
+    queryFn: () => DashboardService.getDueSoonBills(filterRef.current),
   });
 
   const now = Date.now();
@@ -50,8 +52,13 @@ export function DueSoonBillsWidget(props: DueSoonBillsWidgetProps) {
 
   return (
     <WidgetWithFilter
+      initialFilter={filterRef.current}
       key={DashboardWidget.DueSoonBills}
-      title={ptBR.dueSoonBills}>
+      title={ptBR.dueSoonBills}
+      updateWidgetFilter={filter => {
+        filterRef.current = filter;
+        refetch();
+      }}>
       {parsedData?.length && (
         <Table<(typeof parsedData)[number]>
           className="text-tiny"
