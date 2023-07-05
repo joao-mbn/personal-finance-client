@@ -72,9 +72,53 @@ export function addDate(date: Date = new Date(), amount: number, unit: 'year' | 
   return newDate;
 }
 
+/**
+ *
+ * @param date The reference date.
+ * @param unit The unit of the amount added.
+ *
+ * @returns A new date at the last millisecond of that unit, before turning to the next value.
+ */
+export function toEndOfPeriod(date: Date = new Date(), unit: 'year' | 'month' | 'day') {
+  date.setMilliseconds(0);
+  date.setSeconds(0);
+  date.setMinutes(0);
+  date.setHours(0);
+
+  if (unit !== 'day') date.setDate(1);
+  if (unit === 'year') date.setMonth(0);
+
+  const newDate = addDate(date, 1, unit);
+  newDate.setMilliseconds(-1);
+
+  return newDate;
+}
+
+/**
+ *
+ * @param date The reference date.
+ * @param unit The unit of the amount added.
+ *
+ * @returns A new date at the first millisecond of that unit.
+ */
+export function toBeginningOfPeriod(date: Date = new Date(), unit: 'year' | 'month' | 'day') {
+  date.setMilliseconds(0);
+  date.setSeconds(0);
+  date.setMinutes(0);
+  date.setHours(0);
+
+  if (unit === 'day') return date;
+
+  date.setDate(1);
+  if (unit === 'month') return date;
+
+  date.setMonth(0);
+  return date;
+}
+
 export function getDefaultRange() {
-  const NOW = new Date();
-  const FROM_DATE = addDate(NOW, -1, 'month');
+  const NOW = toEndOfPeriod(new Date(), 'month');
+  const FROM_DATE = toBeginningOfPeriod(addDate(NOW, -1, 'month'), 'month');
   const FROM_YEAR = FROM_DATE.getFullYear();
   const FROM_MONTH = FROM_DATE.getMonth();
   const TO_YEAR = NOW.getFullYear();

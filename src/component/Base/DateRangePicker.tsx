@@ -1,7 +1,7 @@
 import { DatePicker, DatePickerProps } from '.';
 import { ptBR } from '../../languages';
 import { DateRange } from '../../models';
-import { getDefaultOptions, getDefaultRange } from '../../utils';
+import { getDefaultOptions, getDefaultRange, toEndOfPeriod } from '../../utils';
 
 const { FROM_DATE, FROM_YEAR, FROM_MONTH, TO_DATE, TO_YEAR, TO_MONTH } = getDefaultRange();
 const { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS } = getDefaultOptions();
@@ -68,7 +68,7 @@ export function DateRangePicker({ onChange, range }: DateRangePickerProps) {
       <DatePickerWrapper
         label={ptBR.to}
         monthOptions={toMonthOptions}
-        onChange={toDate => onChangeOption(toDate, 'to')}
+        onChange={toDate => onChangeOption(toEndOfPeriod(toDate, 'month'), 'to')}
         value={toDate}
         yearOptions={toYearOptions}
       />
