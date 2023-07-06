@@ -9,10 +9,11 @@ import { Button } from './Button';
 
 interface DropdownProps<T extends DropdownOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  options: T[];
-  onChange: (option: Key, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  disabled?: boolean;
   maxWidth?: string;
   multiSelect?: boolean;
+  onChange: (option: Key, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  options: T[];
   placeholder?: string;
   selected?: Key | Key[];
   template?: (option: T) => ReactNode;
@@ -20,6 +21,7 @@ interface DropdownProps<T extends DropdownOption>
 
 export function Dropdown<T extends DropdownOption>({
   className,
+  disabled = false,
   onChange,
   options,
   maxWidth = 'max-w-[5rem]',
@@ -43,6 +45,7 @@ export function Dropdown<T extends DropdownOption>({
   const _selected = Array.isArray(selected) ? selected : [selected];
 
   const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
+  const showPlaceholder = !(_selected.length && options.length);
 
   return (
     <div
@@ -51,26 +54,28 @@ export function Dropdown<T extends DropdownOption>({
       {...props}>
       <Button
         className="w-full"
+        disabled={disabled}
         iconPosition="right"
         importance="secondary"
         ref={setButtonRef}
         size="small"
         icon={
           <ChevronIcon
+            className={classNames('w-6 stroke-1', { 'rotate-180': !isActive })}
             viewBox="-12 -16 48 48"
-            className={classNames('w-6 fill-none stroke-slate-500 stroke-2', {
-              'rotate-180': !isActive,
-            })}
           />
         }
         label={
-          <span className={classNames('mr-auto truncate pl-2 text-left', maxWidth)}>
-            {_selected.length && options.length
-              ? options
+          <span
+            className={classNames('mr-auto truncate pl-2 text-left font-normal', maxWidth, {
+              'text-slate-400': showPlaceholder,
+            })}>
+            {showPlaceholder
+              ? placeholder
+              : options
                   .filter(o => _selected.some(s => s === o.key))
                   .map(o => o.value)
-                  .join(', ')
-              : placeholder}
+                  .join(', ')}
           </span>
         }
         onClick={() => {
@@ -98,18 +103,19 @@ export function Dropdown<T extends DropdownOption>({
         )}>
         <div className={classNames('flex flex-col')}>
           {options.map(option => {
-            const { key, value, disabled } = option;
+            const { key, value, disabled: optionDisabled } = option;
             const valueIsSelected = _selected.some(s => s === key);
             return (
               <div
                 key={key}
                 className={classNames('truncate rounded-3xl px-2 py-1', {
+                  'hover:bg-slate-300': !valueIsSelected && !optionDisabled,
                   'bg-slate-900 text-slate-50': valueIsSelected,
-                  'text-slate-400': disabled,
+                  'text-slate-400': optionDisabled,
                 })}
                 onClick={event => {
-                  !disabled && onChange(option.key, event);
-                  !disabled && !multiSelect && setIsActive(false);
+                  !optionDisabled && onChange(option.key, event);
+                  !optionDisabled && !multiSelect && setIsActive(false);
                 }}>
                 {template?.(option) ?? (
                   <span className={classNames('truncate', maxWidth)}>{value}</span>

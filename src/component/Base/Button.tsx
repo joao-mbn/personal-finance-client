@@ -22,9 +22,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         'gap-1 p-2 text-base': size === 'large',
         'gap-1 p-2 text-sm': size === 'medium',
         'text-xs': size === 'small',
-        'bg-slate-900 text-slate-50': importance === 'primary',
-        'border border-slate-900 bg-slate-50 text-slate-900': importance === 'secondary',
-        'bg-slate-50 text-slate-800 hover:underline active:bg-slate-900 active:underline':
+        'bg-slate-900 fill-slate-50 stroke-slate-50 text-slate-50': importance === 'primary',
+        'border border-slate-900 bg-slate-50 fill-slate-900 stroke-slate-900 text-slate-900':
+          importance === 'secondary',
+        'bg-slate-50 fill-slate-800 stroke-slate-800 text-slate-800 hover:underline active:bg-slate-900 active:underline':
           importance === 'tertiary',
       })}>
       {icon}
