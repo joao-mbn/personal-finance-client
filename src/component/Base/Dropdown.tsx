@@ -61,7 +61,7 @@ export function Dropdown<T extends DropdownOption>({
         size="small"
         icon={
           <ChevronIcon
-            className={classNames('w-6 stroke-1', { 'rotate-180': !isActive })}
+            className={classNames('w-6 stroke-1 transition-transform', { 'rotate-180': !isActive })}
             viewBox="-12 -16 48 48"
           />
         }
@@ -87,20 +87,23 @@ export function Dropdown<T extends DropdownOption>({
 
           const style = optionsContainerRef.style;
           if (vh - buttonBottom < optionsContainerMaxHeight) {
-            const translateY = -(buttonHeight + optionsContainerMaxHeight + 0.25 * REM_PX_RATIO);
+            const translateY = -(optionsContainerMaxHeight + 0.25 * REM_PX_RATIO);
             style.translate = `0 ${translateY}px`;
           } else {
-            style.translate = '0 0';
+            style.translate = `0 ${buttonHeight}px`;
           }
         }}
       />
       <div
         ref={setOptionsContainerRef}
-        style={{ maxHeight: optionsContainerMaxHeight }}
         className={classNames(
-          'z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500',
-          { hidden: !isActive }
-        )}>
+          'absolute z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500 transition-all',
+          { 'invisible opacity-0': !isActive }
+        )}
+        style={{
+          maxHeight: optionsContainerMaxHeight,
+          width: buttonRef?.getBoundingClientRect().width,
+        }}>
         <div className={classNames('flex flex-col')}>
           {options.map(option => {
             const { key, value, disabled: optionDisabled } = option;

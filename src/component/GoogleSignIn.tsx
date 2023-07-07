@@ -18,7 +18,7 @@ export function GoogleSignIn() {
       type="button"
       icon={
         <GoogleIcon
-          className="w-6"
+          className="w-6 stroke-none"
           viewBox="1.5 2 20 20"
         />
       }
