@@ -38,7 +38,7 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
         icon={
           <FilterIcon
             className="w-6 fill-none stroke-slate-500 stroke-2"
-            viewBox="-8 -8 40 40"
+            viewBox="-8.5 -9 40 40"
           />
         }
         onClick={() => {

@@ -40,7 +40,9 @@ export function Dropdown<T extends DropdownOption>({
     viewportDimensions: { height: vh },
   } = useContext(AppContext);
 
-  useEffect(() => setIsActive(isInPath), [isInPath]);
+  useEffect(() => {
+    !disabled && setIsActive(isInPath);
+  }, [isInPath]);
 
   const _selected = Array.isArray(selected) ? selected : [selected];
 
@@ -56,7 +58,7 @@ export function Dropdown<T extends DropdownOption>({
         className="w-full"
         disabled={disabled}
         iconPosition="right"
-        importance="tertiary"
+        importance="secondary"
         ref={setButtonRef}
         size="small"
         icon={
@@ -97,7 +99,7 @@ export function Dropdown<T extends DropdownOption>({
       <div
         ref={setOptionsContainerRef}
         className={classNames(
-          'absolute z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500 transition-all',
+          'absolute z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500 transition-all duration-300',
           { 'invisible opacity-0': !isActive }
         )}
         style={{

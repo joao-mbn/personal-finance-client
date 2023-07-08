@@ -42,29 +42,33 @@ export function MenuBar() {
   const height = `h-[${MENU_BAR_HEIGHT}rem]`;
 
   return (
-    <footer className={classNames('z-2 fixed bottom-0 w-full bg-slate-200 py-2', height)}>
+    <footer
+      className={classNames(
+        'z-2 fixed bottom-0 w-full bg-slate-200 py-2 shadow shadow-slate-950',
+        height
+      )}>
       <nav className="flex w-full justify-around">
         {options.map(({ path, name, icon }) => (
           <NavLink
-            className="flex w-1/3"
             key={path}
             to={path}>
             {({ isActive }) => {
               return (
-                <div className="flex w-full flex-col items-center">
+                <div className="flex flex-col items-center gap-1">
                   <span
-                    className={classNames('text-xs', {
-                      'font-semibold text-slate-700': isActive,
-                      'text-slate-500': !isActive,
+                    className={classNames('text-xs transition-colors duration-300', {
+                      'text-slate-800': isActive,
+                      'text-slate-400': !isActive,
                     })}>
                     {name}
                   </span>
-                  {icon({
-                    className: classNames('w-8', {
-                      'fill-slate-700': isActive,
-                      'fill-slate-500': !isActive,
-                    }),
-                  })}
+                  <div
+                    className={classNames('w-10 rounded-full p-1 duration-300', {
+                      'bg-slate-300 fill-slate-800': isActive,
+                      'fill-slate-400': !isActive,
+                    })}>
+                    {icon({})}
+                  </div>
                 </div>
               );
             }}
