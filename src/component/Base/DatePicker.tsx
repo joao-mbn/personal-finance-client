@@ -1,5 +1,5 @@
 import { Key } from 'react';
-import { Dropdown } from '.';
+import { Dropdown, DropdownProps } from '.';
 import { DropdownOption } from '../../models';
 import { getDefaultOptions } from '../../utils';
 
@@ -8,14 +8,21 @@ const CURRENT_YEAR = NOW.getFullYear();
 const CURRENT_MONTH = NOW.getMonth();
 const { DEFAULT_MONTH_OPTIONS, DEFAULT_YEAR_OPTIONS } = getDefaultOptions();
 
-export interface DatePickerProps {
+export interface DatePickerProps
+  extends Omit<DropdownProps<DropdownOption>, 'onChange' | 'options'> {
   monthOptions?: DropdownOption[];
   yearOptions?: DropdownOption[];
   onChange: (date: Date) => void;
   value?: Date;
 }
 
-export function DatePicker({ monthOptions, onChange, value, yearOptions }: DatePickerProps) {
+export function DatePicker({
+  monthOptions,
+  onChange,
+  value,
+  yearOptions,
+  ...props
+}: DatePickerProps) {
   const _selectedMonth = value?.getMonth() ?? CURRENT_MONTH;
   const _selectedYear = value?.getFullYear() ?? CURRENT_YEAR;
 
@@ -42,12 +49,14 @@ export function DatePicker({ monthOptions, onChange, value, yearOptions }: DateP
         onChange={month => onChangeOption(month, 'month')}
         options={_monthOptions}
         selected={_selectedMonth}
+        {...props}
       />
       <Dropdown
         className="min-w-[4rem]"
         onChange={year => onChangeOption(year, 'year')}
         options={_yearOptions}
         selected={_selectedYear}
+        {...props}
       />
     </div>
   );

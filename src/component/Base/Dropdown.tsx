@@ -7,7 +7,7 @@ import { DropdownOption } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
 import { Button } from './Button';
 
-interface DropdownProps<T extends DropdownOption>
+export interface DropdownProps<T extends DropdownOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   disabled?: boolean;
   maxWidth?: string;
@@ -56,7 +56,7 @@ export function Dropdown<T extends DropdownOption>({
         className="w-full"
         disabled={disabled}
         iconPosition="right"
-        importance="secondary"
+        importance="tertiary"
         ref={setButtonRef}
         size="small"
         icon={
