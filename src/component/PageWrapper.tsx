@@ -23,7 +23,7 @@ export function PageWrapper({ isAtBase }: PageWrapperProps) {
       <div
         ref={ref}
         className={classNames('h-full', {
-          'pb-16': willScroll && !isAtBase,
+          'pb-20': willScroll && !isAtBase,
           'h-screen': isAtBase,
         })}>
         <Outlet />

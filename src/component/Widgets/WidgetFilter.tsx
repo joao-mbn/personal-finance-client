@@ -1,5 +1,5 @@
 import { lazy, useContext, useEffect, useState } from 'react';
-import { Button, DateRangePicker } from '..';
+import { Button, DateRangePicker, DialogForwardedRef } from '..';
 import { AppContext } from '../../contexts';
 import { DateRange } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
@@ -13,7 +13,7 @@ export interface WidgetFilterProps {
 }
 
 export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilterProps) {
-  const [dialogRef, setDialogRef] = useState<HTMLDialogElement | null>(null);
+  const [dialogRef, setDialogRef] = useState<DialogForwardedRef>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const {
     viewportDimensions: { height: vh, width: vw },
@@ -49,17 +49,17 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
             bottom: buttonBottom,
             top: buttonTop,
           } = buttonRef.getBoundingClientRect();
-
-          const style = dialogRef.style;
           const maxButtonDistanceToBottom = 6 * REM_PX_RATIO;
 
+          let top: string;
           if (vh - buttonTop > maxButtonDistanceToBottom) {
-            style.top = `${buttonBottom}px`;
+            top = `${buttonBottom}px`;
           } else {
-            style.top = `${buttonTop - maxButtonDistanceToBottom - 12}px`;
+            top = `${buttonTop - maxButtonDistanceToBottom - 12}px`;
           }
-          style.marginRight = `${vw - buttonLeft}px`;
+          const marginRight = `${vw - buttonLeft}px`;
 
+          dialogRef.setStyle({ top, marginRight });
           dialogRef.showModal();
         }}
       />
