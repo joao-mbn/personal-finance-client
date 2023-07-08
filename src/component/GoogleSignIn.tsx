@@ -12,7 +12,8 @@ export function GoogleSignIn() {
 
   return (
     <Button
-      importance="tertiary"
+      className="bg-slate-50 shadow-transparent"
+      importance="secondary"
       label={ptBR.loginWithGoogle}
       size="medium"
       type="button"
