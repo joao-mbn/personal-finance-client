@@ -138,7 +138,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
       width={width}>
       {allShapes}
       <line
-        className="min-w-full stroke-slate-900"
+        className="min-w-full stroke-cerulean-900"
         x1={0}
         x2={boundsWidth}
         y1={yScale(0)}

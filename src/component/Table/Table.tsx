@@ -27,7 +27,7 @@ export function Table<T extends Record<string, ReactNode>>({
         {...props}
         className={classNames(
           'text w-full table-auto border-separate border-spacing-0',
-          { 'border-t-2 border-slate-600': !showHeaders },
+          { 'border-t-2 border-cerulean-600': !showHeaders },
           props.className
         )}>
         <thead>
@@ -35,7 +35,7 @@ export function Table<T extends Record<string, ReactNode>>({
             <Row>
               {columns.map((col, i) => (
                 <Header
-                  className="bg-slate-300"
+                  className="bg-cerulean-700 text-cerulean-50"
                   key={i}>
                   {col.label}
                 </Header>
@@ -46,8 +46,10 @@ export function Table<T extends Record<string, ReactNode>>({
         <tbody>
           {data.map((row, i) => (
             <Row
-              className={classNames({ 'bg-slate-100': zebraStripes && i % 2 === 1 })}
-              key={i}>
+              key={i}
+              className={classNames('text-cerulean-800', {
+                'bg-cerulean-100': zebraStripes && i % 2 === 1,
+              })}>
               {columns.map((col, j) => (
                 <Cell key={j}>{row[col.value]}</Cell>
               ))}

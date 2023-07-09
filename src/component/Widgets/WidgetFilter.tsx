@@ -37,7 +37,7 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
         size="small"
         icon={
           <FilterIcon
-            className="w-6 fill-none stroke-slate-500 stroke-2"
+            className="w-6 fill-none stroke-2"
             viewBox="-8.5 -9 40 40"
           />
         }
@@ -64,8 +64,8 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
         }}
       />
       <Dialog
-        className="overflow-visible"
-        containerClassName="flex !h-20 !w-52 items-center"
+        className="justify-center overflow-visible"
+        containerClassName="flex !h-20 !w-48 items-center"
         onClose={() => setShouldSend(true)}
         ref={setDialogRef}>
         <DateRangePicker

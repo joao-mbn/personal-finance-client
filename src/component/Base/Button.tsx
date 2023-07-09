@@ -35,12 +35,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         'gap-1 p-2 text-base': size === 'large',
         'gap-1 p-2 text-sm': size === 'medium',
         'text-xs': size === 'small',
-        'border-slate-700 bg-slate-700 fill-slate-50 stroke-slate-50 text-slate-50 shadow-slate-400 hover:border-slate-900 hover:bg-slate-900 hover:shadow-slate-800 active:shadow-slate-600':
+        'border-cerulean-700 bg-cerulean-700 fill-cerulean-50 stroke-cerulean-50 text-cerulean-50 shadow-cerulean-700':
           importance === 'primary',
-        'border border-slate-900 fill-slate-900 stroke-slate-900 text-slate-900 shadow-slate-300 hover:shadow-slate-500 active:shadow-slate-400':
+        'hover:border-cerulean-900 hover:bg-cerulean-900 hover:shadow-cerulean-900 active:shadow-cerulean-600':
+          importance === 'primary' && !disabled,
+        'border border-cerulean-700 bg-cerulean-50 fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-cerulean-300':
           importance === 'secondary',
-        'border-transparent fill-slate-800 stroke-slate-800 text-slate-800 shadow-transparent hover:shadow-slate-400 active:shadow-slate-400':
+        'hover:bg-cerulean-100 hover:shadow-cerulean-700 active:shadow-cerulean-700':
+          importance === 'secondary' && !disabled,
+        'border-transparent fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-transparent':
           importance === 'tertiary',
+        'hover:shadow-cerulean-700 active:shadow-cerulean-700':
+          importance === 'tertiary' && !disabled,
       })}>
       {icon}
       {label}

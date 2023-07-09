@@ -29,7 +29,7 @@ export function WidgetsContainer() {
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 overflow-x-hidden p-0.5">
       {data?.map(widget => (
         <Suspense
           fallback={<Loading />}

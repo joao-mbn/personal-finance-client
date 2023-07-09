@@ -55,7 +55,7 @@ export function Dropdown<T extends DropdownOption>({
       ref={setContainerRef}
       {...props}>
       <Button
-        className="w-full"
+        className="w-full !bg-white !text-cerulean-950 !shadow-md hover:!bg-cerulean-50"
         disabled={disabled}
         iconPosition="right"
         importance="secondary"
@@ -70,7 +70,7 @@ export function Dropdown<T extends DropdownOption>({
         label={
           <span
             className={classNames('mr-auto truncate pl-2 text-left font-normal', maxWidth, {
-              'text-slate-400': showPlaceholder,
+              'opacity-60': showPlaceholder,
             })}>
             {showPlaceholder
               ? placeholder
@@ -99,7 +99,7 @@ export function Dropdown<T extends DropdownOption>({
       <div
         ref={setOptionsContainerRef}
         className={classNames(
-          'absolute z-10 overflow-y-auto rounded-xl bg-slate-50 pt-1 text-xs text-slate-700 shadow-lg shadow-slate-500 transition-all duration-300',
+          'absolute z-10 overflow-y-auto rounded-xl bg-white pt-1 text-xs text-cerulean-800 shadow-lg shadow-cerulean-900 transition-all duration-300',
           { 'invisible opacity-0': !isActive }
         )}
         style={{
@@ -114,9 +114,9 @@ export function Dropdown<T extends DropdownOption>({
               <div
                 key={key}
                 className={classNames('truncate rounded-3xl px-2 py-1', {
-                  'hover:bg-slate-300': !valueIsSelected && !optionDisabled,
-                  'bg-slate-900 text-slate-50': valueIsSelected,
-                  'text-slate-400': optionDisabled,
+                  'hover:bg-cerulean-100': !valueIsSelected && !optionDisabled,
+                  'bg-cerulean-800 text-cerulean-50': valueIsSelected,
+                  'opacity-40': optionDisabled,
                 })}
                 onClick={event => {
                   !optionDisabled && onChange(option.key, event);

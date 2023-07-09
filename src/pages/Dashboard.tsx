@@ -6,7 +6,7 @@ const WidgetsContainer = lazy(() => import('../component/WidgetsContainer'));
 
 export default function DashboardPage() {
   return (
-    <Page title={ptBR.dashboard}>
+    <Page>
       <Suspense fallback={<Loading message={ptBR.loadingWidgets} />}>
         <WidgetsContainer />
       </Suspense>

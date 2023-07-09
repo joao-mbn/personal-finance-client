@@ -32,8 +32,8 @@ export function DueSoonBillsWidget() {
               <div className="flex flex-col items-end gap-1">
                 <span
                   className={classNames({
-                    'font-bold ': timeDiff && timeDiff < 0,
-                    'text-slate-800': timeDiff && timeDiff > 0 && timeDiff < 7,
+                    'font-bold': timeDiff && timeDiff < 0,
+                    'text-cerulean-950': timeDiff && timeDiff > 0 && timeDiff < 7,
                   })}>
                   {toBRL(d.value)}
                 </span>

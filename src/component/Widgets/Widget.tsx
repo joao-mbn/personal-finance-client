@@ -50,14 +50,14 @@ function WidgetBase({ header, children, className }: WidgetBaseProps) {
   return (
     <section
       className={classNames(
-        'flex w-full flex-col gap-1 rounded-lg bg-slate-50 p-2 text-slate-600 shadow shadow-slate-300 hover:shadow-slate-500',
+        'flex w-full flex-col gap-1 rounded-lg bg-white p-2 text-cerulean-700 shadow-sm shadow-cerulean-300 hover:shadow-cerulean-600',
         className
       )}>
       {header}
       {children ? (
         <div className="text-xs">{children}</div>
       ) : (
-        <div className="flex h-28 items-center justify-center text-xs font-bold text-slate-500">
+        <div className="flex h-28 items-center justify-center text-xs font-bold text-cerulean-700">
           {ptBR.noData}
         </div>
       )}

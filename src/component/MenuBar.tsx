@@ -44,7 +44,7 @@ export function MenuBar() {
   return (
     <footer
       className={classNames(
-        'z-2 fixed bottom-0 w-full bg-slate-200 py-2 shadow shadow-slate-950',
+        'z-2 fixed bottom-0 w-full bg-cerulean-100 py-2 shadow shadow-cerulean-950',
         height
       )}>
       <nav className="flex w-full justify-around">
@@ -56,16 +56,16 @@ export function MenuBar() {
               return (
                 <div className="flex flex-col items-center gap-1">
                   <span
-                    className={classNames('text-xs transition-colors duration-300', {
-                      'text-slate-800': isActive,
-                      'text-slate-400': !isActive,
-                    })}>
+                    className={classNames(
+                      'text-xs text-cerulean-800 transition-colors duration-300',
+                      { 'opacity-40': !isActive }
+                    )}>
                     {name}
                   </span>
                   <div
-                    className={classNames('w-10 rounded-full p-1 duration-300', {
-                      'bg-slate-300 fill-slate-800': isActive,
-                      'fill-slate-400': !isActive,
+                    className={classNames('w-10 rounded-full fill-cerulean-800 p-1 duration-300', {
+                      'bg-cerulean-200': isActive,
+                      'opacity-40': !isActive,
                     })}>
                     {icon({})}
                   </div>

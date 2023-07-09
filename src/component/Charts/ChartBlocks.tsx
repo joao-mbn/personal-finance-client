@@ -7,7 +7,7 @@ interface BaseBarProps extends SVGProps<SVGRectElement> {}
 export function BarRect({ ...props }: BaseBarProps) {
   return (
     <rect
-      className="fill-slate-400 stroke-slate-600"
+      className="fill-cerulean-200"
       opacity={0.7}
       strokeWidth={1}
       {...props}
@@ -22,7 +22,7 @@ interface BarLabelProps extends SVGProps<SVGForeignObjectElement> {
 export function BarLabel({ label, ...props }: BarLabelProps) {
   return (
     <foreignObject {...props}>
-      <p className="text-center">{label}</p>
+      <p className="text-center text-cerulean-800">{label}</p>
     </foreignObject>
   );
 }
@@ -38,7 +38,7 @@ export function BarLegend({ legend, nameIsBig, ...props }: BarLegendProps) {
       height={30}
       {...props}>
       <p
-        className={classNames('text-center', {
+        className={classNames('text-center text-cerulean-600', {
           'break-words': !nameIsBig,
           truncate: nameIsBig,
         })}>
@@ -60,7 +60,7 @@ export function Grid({ yScale, boundsWidth, ticks = 5 }: GridProps) {
       {yScale.ticks(ticks).map((value, i) => (
         <g key={i}>
           <line
-            className="stroke-slate-300"
+            className="stroke-cerulean-600"
             x1={0}
             x2={boundsWidth}
             y1={yScale(value)}

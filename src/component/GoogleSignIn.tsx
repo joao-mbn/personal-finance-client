@@ -12,7 +12,7 @@ export function GoogleSignIn() {
 
   return (
     <Button
-      className="bg-slate-50 shadow-transparent"
+      className="!bg-white"
       importance="secondary"
       label={ptBR.loginWithGoogle}
       size="medium"

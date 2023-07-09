@@ -5,7 +5,7 @@ export const ptBR = {
   dashboard: 'Dashboard',
   debts: 'Dívidas',
   dueSoonBills: 'Contas Próximas ao Vencimento',
-  error: 'Erro!',
+  error: 'Erro',
   from: 'de',
   loading: 'Carregando ...',
   loadingWidgets: 'Carregando seu dashboard...',
