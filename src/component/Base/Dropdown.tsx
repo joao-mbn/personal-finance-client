@@ -47,7 +47,7 @@ export function Dropdown<T extends DropdownOption>({
   const _selected = Array.isArray(selected) ? selected : [selected];
 
   const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
-  const showPlaceholder = !(_selected.length && options.length);
+  const showPlaceholder = !_selected.length && options.length && !disabled;
 
   return (
     <div
@@ -70,7 +70,7 @@ export function Dropdown<T extends DropdownOption>({
         label={
           <span
             className={classNames('mr-auto truncate pl-2 text-left font-normal', maxWidth, {
-              'opacity-60': showPlaceholder,
+              'text-cerulean-950/60': showPlaceholder,
             })}>
             {showPlaceholder
               ? placeholder

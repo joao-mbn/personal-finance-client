@@ -20,7 +20,7 @@ export function GoogleSignIn() {
       icon={
         <GoogleIcon
           className="w-6 stroke-none"
-          viewBox="1.5 3 20 20"
+          viewBox="1.5 2 20 20"
         />
       }
       onClick={() => {
