@@ -7,7 +7,7 @@ import { DropdownOption } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
 import { Button } from './Button';
 
-export interface DropdownProps<T extends DropdownOption>
+export interface AutocompleteProps<T extends DropdownOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   disabled?: boolean;
   maxWidth?: string;
@@ -19,7 +19,7 @@ export interface DropdownProps<T extends DropdownOption>
   template?: (option: T) => ReactNode;
 }
 
-export function Dropdown<T extends DropdownOption>({
+export function Autocomplete<T extends DropdownOption>({
   className,
   disabled = false,
   onChange,
@@ -30,7 +30,7 @@ export function Dropdown<T extends DropdownOption>({
   selected = [],
   template,
   ...props
-}: DropdownProps<T>) {
+}: AutocompleteProps<T>) {
   const [isActive, setIsActive] = useState(false);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
   const [optionsContainerRef, setOptionsContainerRef] = useState<HTMLDivElement | null>(null);

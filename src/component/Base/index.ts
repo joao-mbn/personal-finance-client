@@ -1,3 +1,4 @@
+export { Autocomplete } from './Autocomplete';
 export { Button } from './Button';
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
@@ -7,3 +8,5 @@ export type { DialogForwardedRef } from './Dialog';
 export { Dropdown } from './Dropdown';
 export type { DropdownProps } from './Dropdown';
 export { Input } from './Input';
+export { Options } from './Options';
+export type { OptionsProps } from './Options';
