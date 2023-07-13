@@ -43,7 +43,7 @@ export function DatePicker({
   }
 
   return (
-    <div className="flex">
+    <div className="flex gap-1">
       <Dropdown
         className="min-w-[5rem]"
         onChange={month => onChangeOption(month, 'month')}

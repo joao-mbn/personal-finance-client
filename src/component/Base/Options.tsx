@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { ForwardedRef, HTMLAttributes, Key, ReactNode } from 'react';
+import { ForwardedRef, HTMLAttributes, Key, ReactNode, forwardRef } from 'react';
+import { Button, ButtonProps, ChevronIcon } from '..';
 import { DropdownOption } from '../../models';
 
 export interface OptionsProps<T extends DropdownOption>
@@ -41,7 +42,7 @@ export function Options<T extends DropdownOption>({
             <div
               key={key}
               onClick={event => !optionDisabled && onChange(option.key, event)}
-              className={classNames('truncate rounded-3xl px-2 py-1', {
+              className={classNames('truncate rounded-3xl px-3 py-1', {
                 'hover:bg-cerulean-100': !valueIsSelected && !optionDisabled,
                 'bg-cerulean-800 text-cerulean-50': valueIsSelected,
                 'opacity-40': optionDisabled,
@@ -56,3 +57,29 @@ export function Options<T extends DropdownOption>({
     </div>
   );
 }
+
+interface OptionsTriggerProps extends ButtonProps {
+  isActive: boolean;
+  disabled: boolean;
+}
+
+export const OptionsTrigger = forwardRef<HTMLButtonElement, OptionsTriggerProps>(
+  function OptionsTrigger({ disabled, isActive, ...props }: OptionsTriggerProps, ref) {
+    return (
+      <Button
+        disabled={disabled}
+        ref={ref}
+        size="small"
+        icon={
+          <ChevronIcon
+            viewBox="-12 -16 48 48"
+            className={classNames('w-6 stroke-1 transition-transform', {
+              'rotate-180': !isActive,
+            })}
+          />
+        }
+        {...props}
+      />
+    );
+  }
+);

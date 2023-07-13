@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import { HTMLAttributes, Key, ReactNode, useContext, useEffect, useState } from 'react';
-import { ChevronIcon, Options } from '..';
+import { Options, OptionsTrigger } from '..';
 import { AppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
 import { DropdownOption } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
-import { Button } from './Button';
 
 export interface DropdownProps<T extends DropdownOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -51,25 +50,19 @@ export function Dropdown<T extends DropdownOption>({
 
   return (
     <div
-      className={classNames('flex flex-col px-1', className)}
+      className={classNames('flex flex-col', className)}
       ref={setContainerRef}
       {...props}>
-      <Button
+      <OptionsTrigger
         className="w-full !bg-white !text-cerulean-950 !shadow-md hover:!bg-cerulean-50"
         disabled={disabled}
         iconPosition="right"
         importance="secondary"
+        isActive={isActive}
         ref={setButtonRef}
-        size="small"
-        icon={
-          <ChevronIcon
-            className={classNames('w-6 stroke-1 transition-transform', { 'rotate-180': !isActive })}
-            viewBox="-12 -16 48 48"
-          />
-        }
         label={
           <span
-            className={classNames('mr-auto truncate pl-2 text-left font-normal', maxWidth, {
+            className={classNames('mr-auto truncate pl-3 text-left font-normal', maxWidth, {
               'text-cerulean-950/60': showPlaceholder,
             })}>
             {showPlaceholder

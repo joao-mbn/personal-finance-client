@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
-  importance: 'primary' | 'secondary' | 'tertiary';
+  importance?: 'primary' | 'secondary' | 'tertiary';
   label?: ReactNode;
   size?: 'small' | 'medium' | 'large';
 }
@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     className,
     icon,
     iconPosition = 'left',
-    importance,
+    importance = 'tertiary',
     label,
     size = 'medium',
     disabled,

@@ -5,3 +5,7 @@ export type DropdownOption = {
   value: ReactNode;
   disabled?: boolean;
 };
+
+export type AutocompleteOption = Omit<DropdownOption, 'value'> & {
+  value: string;
+};

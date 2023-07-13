@@ -32,7 +32,6 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
     <>
       <Button
         className="ml-auto"
-        importance="tertiary"
         ref={setButtonRef}
         size="small"
         icon={
@@ -65,7 +64,7 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
       />
       <Dialog
         className="justify-center overflow-visible"
-        containerClassName="flex !h-20 !w-48 items-center"
+        containerClassName="flex !h-20 items-center w-min"
         onClose={() => setShouldSend(true)}
         ref={setDialogRef}>
         <DateRangePicker
