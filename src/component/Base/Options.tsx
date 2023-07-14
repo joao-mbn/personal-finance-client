@@ -29,7 +29,7 @@ export function Options<T extends DropdownOption>({
     <div
       ref={refAsProps}
       className={classNames(
-        'absolute z-10 overflow-y-auto rounded-xl bg-white text-xs text-cerulean-800 shadow-lg shadow-cerulean-900 transition-all duration-300',
+        'absolute z-10 overflow-y-auto rounded-xl bg-white text-xs text-hoki-800 shadow-lg shadow-hoki-900 transition-all duration-300',
         { 'invisible opacity-0': !isActive },
         className
       )}
@@ -43,8 +43,9 @@ export function Options<T extends DropdownOption>({
               key={key}
               onClick={event => !optionDisabled && onChange(option.key, event)}
               className={classNames('truncate rounded-3xl px-3 py-1', {
-                'hover:bg-cerulean-100': !valueIsSelected && !optionDisabled,
-                'bg-cerulean-800 text-cerulean-50': valueIsSelected,
+                'hover:bg-cerulean-100 hover:text-cerulean-800':
+                  !valueIsSelected && !optionDisabled,
+                'bg-cerulean-800 text-white': valueIsSelected,
                 'opacity-40': optionDisabled,
               })}>
               {template?.(option) ?? (
@@ -73,7 +74,7 @@ export const OptionsTrigger = forwardRef<HTMLButtonElement, OptionsTriggerProps>
         size="small"
         className={classNames(
           props.className,
-          '!bg-white !fill-cerulean-950 !stroke-cerulean-950 !text-cerulean-950 disabled:!bg-cerulean-50'
+          '!bg-white !fill-cerulean-900 !stroke-cerulean-900 !text-hoki-800 disabled:!bg-hoki-50 disabled:!fill-hoki-800/40 disabled:!stroke-hoki-800/40 disabled:!text-hoki-800/40 disabled:!opacity-100'
         )}
         icon={
           <ChevronIcon

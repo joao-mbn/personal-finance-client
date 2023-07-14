@@ -21,7 +21,9 @@ export function DebtsWidget() {
       title={
         <div className="flex gap-1">
           <span>{ptBR.totalDebts}:</span>
-          <span className="font-bold">{data?.totalDebts ? toBRL(data.totalDebts) : '???'}</span>
+          <span className="font-bold text-cerulean-800">
+            {data?.totalDebts ? toBRL(data.totalDebts) : '???'}
+          </span>
         </div>
       }>
       {data?.debts.length && (

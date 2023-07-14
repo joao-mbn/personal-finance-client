@@ -18,12 +18,12 @@ export function Page({ title, className, children }: PageProps) {
       ref={setRef}
       className={classNames(
         className,
-        'flex h-full min-h-[calc(100vh-4rem)] flex-col gap-4 bg-cerulean-50 p-2 opacity-0 transition-opacity'
+        'flex h-full min-h-[calc(100vh-4rem)] flex-col gap-4 bg-hoki-50 p-2 opacity-0 transition-opacity'
       )}>
       {title && (
         <h1
           aria-label="page-title"
-          className="text-base text-cerulean-700">
+          className="text-base text-hoki-700">
           {title}
         </h1>
       )}

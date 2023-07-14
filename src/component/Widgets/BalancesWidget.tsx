@@ -21,7 +21,9 @@ export function BalancesWidget() {
       title={
         <div className="flex gap-1">
           <span>{ptBR.totalBalance}:</span>
-          <span className="font-bold">{data?.totalBalance ? toBRL(data.totalBalance) : '???'}</span>
+          <span className="font-bold text-cerulean-800">
+            {data?.totalBalance ? toBRL(data.totalBalance) : '???'}
+          </span>
         </div>
       }>
       {data?.balances.length && (

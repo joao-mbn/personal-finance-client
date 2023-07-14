@@ -54,16 +54,18 @@ export function Dropdown<T extends DropdownOption>({
       ref={setContainerRef}
       {...props}>
       <OptionsTrigger
-        className="w-full !shadow-md hover:!bg-cerulean-50"
         disabled={disabled}
         iconPosition="right"
         importance="secondary"
         isActive={isActive}
         ref={setButtonRef}
+        className={classNames('w-full border-hoki-300', {
+          '!shadow-md !shadow-hoki-100 hover:border-cerulean-600': !disabled,
+        })}
         label={
           <span
             className={classNames('mr-auto truncate pl-3 text-left font-normal', maxWidth, {
-              'text-cerulean-950/60': showPlaceholder,
+              'text-hoki-800/60': showPlaceholder,
             })}>
             {showPlaceholder
               ? placeholder

@@ -7,7 +7,7 @@ interface BaseBarProps extends SVGProps<SVGRectElement> {}
 export function BarRect({ ...props }: BaseBarProps) {
   return (
     <rect
-      className="fill-cerulean-200"
+      className="fill-cerulean-200 stroke-cerulean-400"
       opacity={0.7}
       strokeWidth={1}
       {...props}
@@ -22,7 +22,7 @@ interface BarLabelProps extends SVGProps<SVGForeignObjectElement> {
 export function BarLabel({ label, ...props }: BarLabelProps) {
   return (
     <foreignObject {...props}>
-      <p className="text-center text-cerulean-800">{label}</p>
+      <p className="text-center text-cerulean-900">{label}</p>
     </foreignObject>
   );
 }
@@ -38,7 +38,7 @@ export function BarLegend({ legend, nameIsBig, ...props }: BarLegendProps) {
       height={30}
       {...props}>
       <p
-        className={classNames('text-center text-cerulean-600', {
+        className={classNames('text-center text-hoki-800', {
           'break-words': !nameIsBig,
           truncate: nameIsBig,
         })}>

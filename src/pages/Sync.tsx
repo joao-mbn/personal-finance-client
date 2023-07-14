@@ -14,7 +14,7 @@ export default function SyncPage() {
     <Page>
       <h1> {"Let's sync 🔄️"}</h1>
       <div
-        className="flex flex-col gap-2 p-2"
+        className="flex flex-col gap-2 bg-white p-2"
         key="1">
         <Autocomplete
           value={value}

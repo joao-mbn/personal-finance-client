@@ -33,7 +33,7 @@ export function DueSoonBillsWidget() {
                 <span
                   className={classNames({
                     'font-bold': timeDiff && timeDiff < 0,
-                    'text-cerulean-950': timeDiff && timeDiff > 0 && timeDiff < 7,
+                    'text-cerulean-800': timeDiff && timeDiff > 0 && timeDiff < 7,
                   })}>
                   {toBRL(d.value)}
                 </span>

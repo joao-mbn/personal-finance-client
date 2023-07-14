@@ -15,7 +15,7 @@ export function ChartWrapper({ children, className }: ChartWrapperProps) {
     <ChartWrapperContext.Provider
       value={{ dimensions: { height: rect?.height ?? 0, width: rect?.width ?? 0 } }}>
       <div
-        className={classNames('h-80 overflow-auto rounded-lg bg-cerulean-50', className)}
+        className={classNames('h-80 overflow-auto rounded-lg bg-white', className)}
         ref={ref => {
           if (ref) {
             setContainer(ref);

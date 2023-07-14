@@ -17,9 +17,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ref={ref}
       className={classNames(
         className,
-        'flex items-center rounded-3xl border border-cerulean-300 bg-white text-cerulean-950 disabled:bg-cerulean-50 disabled:opacity-40',
+        'flex items-center rounded-3xl border border-hoki-300 bg-white text-hoki-800 disabled:bg-hoki-50 disabled:text-hoki-800/40',
         {
-          'shadow transition-shadow hover:border-cerulean-600 focus:border-cerulean-950 focus:shadow-inner active:border-cerulean-950 active:shadow-inner':
+          'shadow shadow-hoki-200 transition-shadow hover:border-cerulean-600 focus:border-cerulean-800 focus:shadow-inner active:border-cerulean-800 active:shadow-inner':
             !disabled,
           'px-3 py-1 text-xs': inputSize === 'small',
           'px-3 py-1.5 text-sm': inputSize === 'medium',

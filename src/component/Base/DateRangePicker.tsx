@@ -83,7 +83,7 @@ interface DatePickerWrapperProps extends DatePickerProps {
 function DatePickerWrapper({ label, ...props }: DatePickerWrapperProps) {
   return (
     <div className="flex h-7 items-start gap-1">
-      <span className="w-5 pt-1 text-cerulean-950">{label}</span>
+      <span className="w-5 pt-1 text-hoki-800">{label}</span>
       <DatePicker {...props} />
     </div>
   );

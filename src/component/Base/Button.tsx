@@ -41,9 +41,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             importance === 'primary',
           'hover:border-cerulean-900 hover:bg-cerulean-900 hover:shadow-cerulean-900 active:shadow-cerulean-600':
             importance === 'primary' && !disabled,
-          'border-cerulean-700 bg-cerulean-50 fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-cerulean-300':
+          'border-cerulean-700 bg-white fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-cerulean-300':
             importance === 'secondary',
-          'hover:bg-cerulean-100 hover:shadow-cerulean-700 active:shadow-cerulean-700':
+          'hover:bg-cerulean-50 hover:shadow-cerulean-700 active:shadow-cerulean-700':
             importance === 'secondary' && !disabled,
           'border-transparent fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-transparent':
             importance === 'tertiary',

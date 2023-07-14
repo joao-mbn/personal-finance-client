@@ -68,7 +68,7 @@ export const Dialog = forwardRef<DialogForwardedRef, OverLayProps>(function Dial
       }}>
       <div
         className={classNames(
-          'h-full w-32 rounded-lg bg-white p-2 text-cerulean-600 opacity-0 shadow-lg shadow-cerulean-900 transition-opacity duration-300',
+          'h-full w-32 rounded-lg bg-white p-2 opacity-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',
           containerClassName,
           { 'opacity-100': _open }
         )}>

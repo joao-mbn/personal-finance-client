@@ -35,7 +35,7 @@ export function Table<T extends Record<string, ReactNode>>({
             <Row>
               {columns.map((col, i) => (
                 <Header
-                  className="bg-cerulean-700 text-cerulean-50"
+                  className="bg-hoki-200 text-hoki-800"
                   key={i}>
                   {col.label}
                 </Header>
@@ -47,8 +47,8 @@ export function Table<T extends Record<string, ReactNode>>({
           {data.map((row, i) => (
             <Row
               key={i}
-              className={classNames('text-cerulean-800', {
-                'bg-cerulean-100': zebraStripes && i % 2 === 1,
+              className={classNames('text-hoki-800', {
+                'bg-hoki-50': zebraStripes && i % 2 === 1,
               })}>
               {columns.map((col, j) => (
                 <Cell key={j}>{row[col.value]}</Cell>

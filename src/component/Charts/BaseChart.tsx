@@ -18,7 +18,6 @@ export function BaseChart({
   return (
     <div>
       <svg
-        className="fill-current text-cerulean-800"
         height={height}
         rx={6}
         width={width}>

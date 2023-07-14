@@ -57,16 +57,19 @@ export function MenuBar() {
                 <div className="flex flex-col items-center gap-1">
                   <span
                     className={classNames(
-                      'text-xs text-cerulean-800 transition-colors duration-300',
+                      'text-xs font-semibold text-cerulean-900 transition-colors duration-300',
                       { 'opacity-40': !isActive }
                     )}>
                     {name}
                   </span>
                   <div
-                    className={classNames('w-10 rounded-full fill-cerulean-800 p-1 duration-300', {
-                      'bg-cerulean-200': isActive,
-                      'opacity-40': !isActive,
-                    })}>
+                    className={classNames(
+                      'w-10 rounded-full fill-cerulean-900 stroke-cerulean-900 p-1 duration-300',
+                      {
+                        'bg-cerulean-200': isActive,
+                        'opacity-60': !isActive,
+                      }
+                    )}>
                     {icon({})}
                   </div>
                 </div>
