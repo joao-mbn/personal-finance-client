@@ -54,7 +54,7 @@ export function Dropdown<T extends DropdownOption>({
       ref={setContainerRef}
       {...props}>
       <OptionsTrigger
-        className="w-full !bg-white !text-cerulean-950 !shadow-md hover:!bg-cerulean-50"
+        className="w-full !shadow-md hover:!bg-cerulean-50"
         disabled={disabled}
         iconPosition="right"
         importance="secondary"

@@ -29,7 +29,7 @@ export function Options<T extends DropdownOption>({
     <div
       ref={refAsProps}
       className={classNames(
-        'absolute z-10 overflow-y-auto rounded-xl bg-white pt-1 text-xs text-cerulean-800 shadow-lg shadow-cerulean-900 transition-all duration-300',
+        'absolute z-10 overflow-y-auto rounded-xl bg-white text-xs text-cerulean-800 shadow-lg shadow-cerulean-900 transition-all duration-300',
         { 'invisible opacity-0': !isActive },
         className
       )}
@@ -67,9 +67,14 @@ export const OptionsTrigger = forwardRef<HTMLButtonElement, OptionsTriggerProps>
   function OptionsTrigger({ disabled, isActive, ...props }: OptionsTriggerProps, ref) {
     return (
       <Button
+        {...props}
         disabled={disabled}
         ref={ref}
         size="small"
+        className={classNames(
+          props.className,
+          '!bg-white !fill-cerulean-950 !stroke-cerulean-950 !text-cerulean-950 disabled:!bg-cerulean-50'
+        )}
         icon={
           <ChevronIcon
             viewBox="-12 -16 48 48"
@@ -78,7 +83,6 @@ export const OptionsTrigger = forwardRef<HTMLButtonElement, OptionsTriggerProps>
             })}
           />
         }
-        {...props}
       />
     );
   }

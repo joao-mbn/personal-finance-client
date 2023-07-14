@@ -26,7 +26,7 @@ export function Autocomplete<T extends AutocompleteOption>({
   onChange,
   options,
   maxWidth = 'max-w-[5rem]',
-  placeholder = ' ',
+  placeholder = '',
   value = { value: '' },
   template,
   ...props
@@ -80,9 +80,10 @@ export function Autocomplete<T extends AutocompleteOption>({
       {...props}>
       <div
         ref={setHeaderRef}
-        className={classNames('flex w-full rounded-3xl border border-cerulean-200 bg-white', {
-          'text-cerulean-950 shadow transition-shadow focus-within:border-cerulean-950 focus-within:shadow-inner hover:border-cerulean-600 active:border-cerulean-950 active:shadow-inner':
+        className={classNames('flex w-full rounded-3xl border border-cerulean-200', {
+          'bg-white text-cerulean-950 shadow transition-shadow focus-within:border-cerulean-950 focus-within:shadow-inner hover:border-cerulean-600 active:border-cerulean-950 active:shadow-inner':
             !disabled,
+          'bg-cerulean-50': disabled,
         })}>
         <Input
           className="flex-grow border-none !shadow-none"
@@ -105,7 +106,7 @@ export function Autocomplete<T extends AutocompleteOption>({
           }}
         />
         <OptionsTrigger
-          className="w-6 !bg-white !text-cerulean-950 !shadow-none"
+          className="w-6 !shadow-none"
           disabled={disabled}
           isActive={isActive}
           onClick={() => {
