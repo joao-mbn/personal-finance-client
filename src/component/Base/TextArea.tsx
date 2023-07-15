@@ -87,7 +87,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
           }
         }}>
         <DragIcon
-          className={classNames('h-2.5 w-2.5 rotate-90')}
+          className={classNames('h-2 w-2 rotate-90')}
           viewBox="0 0 1900 1900"
         />
       </div>
