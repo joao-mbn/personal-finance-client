@@ -65,10 +65,7 @@ export function MenuBar() {
                   <div
                     className={classNames(
                       'w-10 rounded-full fill-cerulean-900 stroke-cerulean-900 p-1 duration-300',
-                      {
-                        'bg-cerulean-200': isActive,
-                        'opacity-60': !isActive,
-                      }
+                      { 'bg-cerulean-200': isActive, 'opacity-60': !isActive }
                     )}>
                     {icon({})}
                   </div>

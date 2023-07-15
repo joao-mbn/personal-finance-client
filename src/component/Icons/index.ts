@@ -1,5 +1,6 @@
 export { ChevronIcon } from './ChevronIcon';
 export { DashboardIcon } from './DashboardIcon';
+export { DragIcon } from './DragIcon';
 export { FilterIcon } from './FilterIcon';
 export { GearIcon } from './GearIcon';
 export { GoogleIcon } from './GoogleIcon';
