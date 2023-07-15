@@ -28,7 +28,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
           className,
           'flex w-full resize-none items-center rounded-t-2xl bg-white text-hoki-800 disabled:bg-hoki-50 disabled:text-hoki-800/40',
           {
-            'shadow shadow-hoki-200 transition-shadow  ': !disabled,
+            'max-h-[theme(spacing.32)] shadow shadow-hoki-200 transition-shadow': !disabled,
             'min-h-[theme(spacing.12)] px-3 py-1 text-xs': inputSize === 'small',
             'min-h-[theme(spacing.16)] px-3 py-1.5 text-sm': inputSize === 'medium',
             'min-h-[theme(spacing.20)] px-3 py-2 text-base': inputSize === 'large',

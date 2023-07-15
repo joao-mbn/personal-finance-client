@@ -2,6 +2,7 @@ export const ptBR = {
   assets: 'Ativos',
   balance: 'Saldo',
   configuration: 'Config.',
+  registries: 'Registros',
   dashboard: 'Dashboard',
   debts: 'Dívidas',
   dueSoonBills: 'Contas Próximas ao Vencimento',

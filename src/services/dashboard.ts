@@ -5,7 +5,6 @@ import {
   DateRange,
   Debts,
   DueSoonBill,
-  Entry,
   MonthBalance,
   MonthDebt,
   MonthEntry,
@@ -17,10 +16,6 @@ export namespace DashboardService {
 
   export async function getWidgets() {
     return (await api.get<DashboardWidget[]>(`${CONTROLLER}/getWidgets`)).data;
-  }
-
-  export async function getAll() {
-    return (await api.get<Entry[]>(`${CONTROLLER}/getAll`)).data;
   }
 
   export async function getBalances() {

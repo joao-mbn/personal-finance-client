@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { SVGAttributes } from 'react';
 import { NavLink } from 'react-router-dom';
-import { DashboardIcon, GearIcon, SyncIcon } from '.';
+import { ArrowUpAndDownIcon, DashboardIcon, SyncIcon } from '.';
 import { ptBR } from '../languages';
 import { MENU_BAR_HEIGHT } from '../utils';
 
@@ -28,12 +28,12 @@ export function MenuBar() {
       ),
     },
     {
-      path: 'config',
-      name: ptBR.configuration,
+      path: 'registries',
+      name: ptBR.registries,
       icon: (props: SVGAttributes<SVGElement>) => (
-        <GearIcon
+        <ArrowUpAndDownIcon
           {...props}
-          viewBox="-4 -4 32 32"
+          viewBox="-6 -6 36 36"
         />
       ),
     },

@@ -9,7 +9,6 @@ import { AuthService } from '../services';
 
 export async function rootLoader(queryClient: QueryClient) {
   try {
-    await new Promise(resolve => setTimeout(() => resolve(null), 1000));
     await queryClient.fetchQuery({ queryKey: ['ping'], queryFn: AuthService.ping });
     return true;
   } catch (error) {

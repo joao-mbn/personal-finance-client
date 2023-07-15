@@ -1,3 +1,4 @@
+export { ArrowUpAndDownIcon } from './ArrowUpAndDownIcon';
 export { ChevronIcon } from './ChevronIcon';
 export { DashboardIcon } from './DashboardIcon';
 export { DragIcon } from './DragIcon';
