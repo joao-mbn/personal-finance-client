@@ -2,10 +2,9 @@ export interface Registry {
   id?: string;
   comments?: string;
   target: string;
-  timestamp: Date;
+  timestamp: string;
   type: string;
   value: number;
-  isExpense: boolean;
 }
 
 export interface EntryDisplay extends Omit<Registry, 'value'> {

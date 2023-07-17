@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { lazy, useMemo, useRef } from 'react';
 import { ptBR } from '../../languages';
-import { DashboardWidget, DateRange } from '../../models';
+import { Column, DashboardWidget, DateRange } from '../../models';
 import { DashboardService } from '../../services';
-import { getDefaultRange, getTimeDiff, toBRL } from '../../utils';
+import { formatDateBR, getDefaultRange, getTimeDiff, toBRL } from '../../utils';
 import { WidgetWithFilter } from './Widget';
 
 const Table = lazy(() => import('../Table/Table'));
@@ -37,7 +37,7 @@ export function DueSoonBillsWidget() {
                   })}>
                   {toBRL(d.value)}
                 </span>
-                <span>{new Date(d.dueDate).toLocaleDateString()}</span>
+                <span>{formatDateBR(new Date(d.dueDate))}</span>
               </div>
             ),
           };
@@ -45,9 +45,9 @@ export function DueSoonBillsWidget() {
     );
   }, [data]);
 
-  const columns: { value: keyof (typeof parsedData)[number]; label: string }[] = [
-    { value: 'name', label: '' },
-    { value: 'priceWithDate', label: '' },
+  const columns: Column<(typeof parsedData)[number]>[] = [
+    { value: 'name', width: '70%' },
+    { value: 'priceWithDate' },
   ];
 
   return (
@@ -61,7 +61,6 @@ export function DueSoonBillsWidget() {
       }}>
       {parsedData?.length && (
         <Table<(typeof parsedData)[number]>
-          className="text-tiny"
           columns={columns}
           data={parsedData}
           showHeaders={false}

@@ -4,7 +4,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Loading } from './component';
 import { AppContext } from './contexts';
 import { useViewport } from './hooks';
-import { registriesLoader } from './pages/Registries';
 import RootPage, { rootLoader } from './pages/Root';
 
 const ErrorPage = lazy(() => import('./pages/Error'));
@@ -33,11 +32,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'sync', element: <SyncPage /> },
-      {
-        path: 'registries',
-        element: <RegistriesPage />,
-        loader: () => registriesLoader(queryClient),
-      },
+      { path: 'registries', element: <RegistriesPage /> },
     ],
   },
 ]);
