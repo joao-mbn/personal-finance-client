@@ -18,7 +18,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   const [isDragging, setIsDragging] = useState(false);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-hoki-300 hover:border-cerulean-600 focus:border-cerulean-800 focus:shadow-inner active:border-cerulean-800 active:shadow-inner">
+    <div
+      className={classNames('overflow-hidden rounded-2xl border border-hoki-300', {
+        'hover:border-cerulean-600 focus:border-cerulean-800 focus:shadow-inner active:border-cerulean-800 active:shadow-inner':
+          !disabled,
+      })}>
       <textarea
         {...props}
         disabled={disabled}
