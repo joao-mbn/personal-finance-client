@@ -5,40 +5,40 @@ import { ArrowUpAndDownIcon, DashboardIcon, SyncIcon } from '.';
 import { ptBR } from '../languages';
 import { MENU_BAR_HEIGHT } from '../utils';
 
-export function MenuBar() {
-  const options = [
-    {
-      path: 'dashboard',
-      name: ptBR.dashboard,
-      icon: (props: SVGAttributes<SVGElement>) => (
-        <DashboardIcon
-          viewBox="-8 -8 40 40"
-          {...props}
-        />
-      ),
-    },
-    {
-      path: 'sync',
-      name: ptBR.sync,
-      icon: (props: SVGAttributes<SVGElement>) => (
-        <SyncIcon
-          {...props}
-          viewBox="-6 -6 28 28"
-        />
-      ),
-    },
-    {
-      path: 'registries',
-      name: ptBR.registries,
-      icon: (props: SVGAttributes<SVGElement>) => (
-        <ArrowUpAndDownIcon
-          {...props}
-          viewBox="-6 -6 36 36"
-        />
-      ),
-    },
-  ] as const;
+const options = [
+  {
+    path: 'dashboard',
+    name: ptBR.dashboard,
+    icon: (props: SVGAttributes<SVGElement>) => (
+      <DashboardIcon
+        viewBox="-8 -8 40 40"
+        {...props}
+      />
+    ),
+  },
+  {
+    path: 'sync',
+    name: ptBR.sync,
+    icon: (props: SVGAttributes<SVGElement>) => (
+      <SyncIcon
+        {...props}
+        viewBox="-6 -6 28 28"
+      />
+    ),
+  },
+  {
+    path: 'registries',
+    name: ptBR.registries,
+    icon: (props: SVGAttributes<SVGElement>) => (
+      <ArrowUpAndDownIcon
+        {...props}
+        viewBox="-6 -6 36 36"
+      />
+    ),
+  },
+] as const;
 
+export function MenuBar() {
   const height = `h-[${MENU_BAR_HEIGHT}rem]`;
 
   return (

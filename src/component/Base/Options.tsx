@@ -17,7 +17,7 @@ export interface OptionsProps<T extends DropdownOption>
 export function Options<T extends DropdownOption>({
   className,
   isActive,
-  maxWidth,
+  maxWidth = 'max-w-[5rem]',
   onChange,
   options,
   refAsProps,
@@ -29,12 +29,12 @@ export function Options<T extends DropdownOption>({
     <div
       ref={refAsProps}
       className={classNames(
-        'absolute z-10 overflow-y-auto rounded-xl bg-white text-xs text-hoki-800 shadow-lg shadow-hoki-900 transition-all duration-300',
+        'absolute z-10 overflow-y-auto rounded-xl bg-white shadow-lg shadow-hoki-900 transition-all duration-300',
         { 'invisible opacity-0': !isActive },
         className
       )}
       {...props}>
-      <div className={classNames('flex flex-col')}>
+      <div className="flex flex-col">
         {options.map(option => {
           const { key, value, disabled: optionDisabled } = option;
           const valueIsSelected = selected.some(s => s === key);
@@ -42,12 +42,15 @@ export function Options<T extends DropdownOption>({
             <div
               key={key}
               onClick={event => !optionDisabled && onChange(option.key, event)}
-              className={classNames('truncate rounded-3xl px-3 py-1', {
-                'hover:bg-cerulean-100 hover:text-cerulean-800':
-                  !valueIsSelected && !optionDisabled,
-                'bg-cerulean-800 text-white': valueIsSelected,
-                'opacity-40': optionDisabled,
-              })}>
+              className={classNames(
+                'truncate rounded-3xl fill-hoki-800 stroke-hoki-800 px-3 py-1 text-xs text-hoki-800',
+                {
+                  'hover:bg-cerulean-100 hover:fill-cerulean-800 hover:stroke-cerulean-800 hover:text-cerulean-800':
+                    !valueIsSelected && !optionDisabled,
+                  'bg-cerulean-800 fill-white stroke-white text-white': valueIsSelected,
+                  'opacity-40': optionDisabled,
+                }
+              )}>
               {template?.(option) ?? (
                 <span className={classNames('truncate', maxWidth)}>{value}</span>
               )}
