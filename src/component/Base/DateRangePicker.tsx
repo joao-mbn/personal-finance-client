@@ -76,6 +76,8 @@ export function DateRangePicker({ onChange, range }: DateRangePickerProps) {
   );
 }
 
+export default DateRangePicker;
+
 interface DatePickerWrapperProps extends DatePickerProps {
   label: string;
 }

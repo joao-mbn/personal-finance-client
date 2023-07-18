@@ -1,11 +1,9 @@
-import { lazy, useContext, useEffect, useState } from 'react';
-import { Button, DateRangePicker, DialogForwardedRef } from '..';
-import { AppContext } from '../../contexts';
+import { lazy, useEffect, useState } from 'react';
+import { MultiActionButton } from '..';
 import { DateRange } from '../../models';
-import { REM_PX_RATIO } from '../../utils';
 import { FilterIcon } from '../Icons';
 
-const Dialog = lazy(() => import('../Base/Dialog'));
+const DateRangePicker = lazy(() => import('../Base/DateRangePicker'));
 
 export interface WidgetFilterProps {
   updateWidgetFilter: (filter: DateRange) => void;
@@ -13,12 +11,6 @@ export interface WidgetFilterProps {
 }
 
 export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilterProps) {
-  const [dialogRef, setDialogRef] = useState<DialogForwardedRef>(null);
-  const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
-  const {
-    viewportDimensions: { height: vh, width: vw },
-  } = useContext(AppContext);
-
   const [tempFilter, setTempFilter] = useState(initialFilter);
   const [shouldSend, setShouldSend] = useState(false);
   useEffect(() => {
@@ -30,48 +22,23 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
 
   return (
     <>
-      <Button
-        className="ml-auto"
-        ref={setButtonRef}
+      <MultiActionButton
+        buttonClassName="ml-auto"
+        containerClassName="flex items-center w-min"
+        dialogClassName="justify-center overflow-visible"
+        onClose={() => setShouldSend(true)}
         size="small"
         icon={
           <FilterIcon
             className="w-6 fill-none stroke-2"
             viewBox="-8.5 -9 40 40"
           />
-        }
-        onClick={() => {
-          if (!dialogRef || !buttonRef) return;
-
-          const {
-            left: buttonLeft,
-            bottom: buttonBottom,
-            top: buttonTop,
-          } = buttonRef.getBoundingClientRect();
-          const maxButtonDistanceToBottom = 6 * REM_PX_RATIO;
-
-          let top: string;
-          if (vh - buttonTop > maxButtonDistanceToBottom) {
-            top = `${buttonBottom}px`;
-          } else {
-            top = `${buttonTop - maxButtonDistanceToBottom - 12}px`;
-          }
-          const marginRight = `${vw - buttonLeft}px`;
-
-          dialogRef.setStyle({ top, marginRight });
-          dialogRef.showModal();
-        }}
-      />
-      <Dialog
-        className="justify-center overflow-visible"
-        containerClassName="flex !h-20 items-center w-min"
-        onClose={() => setShouldSend(true)}
-        ref={setDialogRef}>
+        }>
         <DateRangePicker
           onChange={filter => setTempFilter(filter)}
           range={tempFilter}
         />
-      </Dialog>
+      </MultiActionButton>
     </>
   );
 }
