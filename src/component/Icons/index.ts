@@ -1,5 +1,6 @@
 export { ArrowUpAndDownIcon } from './ArrowUpAndDownIcon';
 export { ChevronIcon } from './ChevronIcon';
+export { CommentIcon } from './CommentIcon';
 export { DashboardIcon } from './DashboardIcon';
 export { DragIcon } from './DragIcon';
 export { EllipsisIcon } from './EllipsisIcon';
@@ -7,4 +8,6 @@ export { FilterIcon } from './FilterIcon';
 export { GearIcon } from './GearIcon';
 export { GoogleIcon } from './GoogleIcon';
 export { LogoIcon } from './LogoIcon';
+export { PencilIcon } from './PencilIcon';
 export { SyncIcon } from './SyncIcon';
+export { TrashBinIcon } from './TrashBinIcon';

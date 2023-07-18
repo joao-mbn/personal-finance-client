@@ -10,6 +10,7 @@ export { Dropdown } from './Dropdown';
 export type { DropdownProps } from './Dropdown';
 export { Input } from './Input';
 export { MultiActionButton } from './MultiActionButton';
+export type { MultiActionButtonProps } from './MultiActionButton';
 export { Options, OptionsTrigger } from './Options';
 export type { OptionsProps } from './Options';
 export { TextArea } from './TextArea';
