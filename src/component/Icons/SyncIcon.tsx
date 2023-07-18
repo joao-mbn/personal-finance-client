@@ -1,8 +1,6 @@
 import { SVGAttributes } from 'react';
 
-interface SyncIconProps extends SVGAttributes<SVGElement> {}
-
-export function SyncIcon({ ...props }: SyncIconProps) {
+export function SyncIcon({ ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg {...props}>
       <g stroke="none">

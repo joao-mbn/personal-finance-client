@@ -1,8 +1,6 @@
 import { SVGAttributes } from 'react';
 
-interface DashboardIconProps extends SVGAttributes<SVGElement> {}
-
-export function ArrowUpAndDownIcon({ ...props }: DashboardIconProps) {
+export function ArrowUpAndDownIcon({ ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg {...props}>
       <path

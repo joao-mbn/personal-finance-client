@@ -1,8 +1,6 @@
 import { SVGAttributes } from 'react';
 
-interface ChevronIconProps extends SVGAttributes<SVGElement> {}
-
-export function ChevronIcon({ ...props }: ChevronIconProps) {
+export function ChevronIcon({ ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg {...props}>
       <g transform="translate(-260.000000, -6684.000000)">

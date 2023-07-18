@@ -1,8 +1,6 @@
 import { SVGAttributes } from 'react';
 
-interface GearIconProps extends SVGAttributes<SVGElement> {}
-
-export function GearIcon({ ...props }: GearIconProps) {
+export function GearIcon({ ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg
       stroke="none"

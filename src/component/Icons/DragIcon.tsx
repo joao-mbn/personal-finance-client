@@ -1,8 +1,6 @@
 import { SVGAttributes } from 'react';
 
-interface DashboardIconProps extends SVGAttributes<SVGElement> {}
-
-export function DragIcon({ ...props }: DashboardIconProps) {
+export function DragIcon({ ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg {...props}>
       <path

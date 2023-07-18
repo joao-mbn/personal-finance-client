@@ -2,6 +2,7 @@ export { ArrowUpAndDownIcon } from './ArrowUpAndDownIcon';
 export { ChevronIcon } from './ChevronIcon';
 export { DashboardIcon } from './DashboardIcon';
 export { DragIcon } from './DragIcon';
+export { EllipsisIcon } from './EllipsisIcon';
 export { FilterIcon } from './FilterIcon';
 export { GearIcon } from './GearIcon';
 export { GoogleIcon } from './GoogleIcon';
