@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { ReactNode, forwardRef, lazy, useImperativeHandle } from 'react';
 import { Button, ButtonProps, DialogProps } from '..';
 import { useShowDialogFromOrigin } from '../../hooks';
@@ -11,6 +12,7 @@ export interface MultiActionButtonProps
   buttonClassName?: string;
   children: ReactNode;
   dialogClassName?: string;
+  showFromOrigin?: boolean;
 }
 
 export type MultiActionButtonRef = {
@@ -27,6 +29,7 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
       dialogClassName,
       onClick,
       onClose,
+      showFromOrigin = true,
       ...props
     }: MultiActionButtonProps,
     ref
@@ -34,9 +37,16 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
     const { dialogRef, buttonRef, setButtonRef, setDialogRef, showDialogFromOrigin } =
       useShowDialogFromOrigin();
 
+    function showModal() {
+      showFromOrigin ? showDialogFromOrigin() : dialogRef?.showModal();
+    }
+
     useImperativeHandle<MultiActionButtonRef, MultiActionButtonRef>(
       ref,
-      () => ({ dialog: dialogRef, button: buttonRef }),
+      () => ({
+        dialog: dialogRef ? { ...dialogRef, showModal } : null,
+        button: buttonRef,
+      }),
       [dialogRef, buttonRef]
     );
 
@@ -47,12 +57,12 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
           className={buttonClassName}
           ref={setButtonRef}
           onClick={e => {
-            showDialogFromOrigin();
+            showModal();
             onClick?.(e);
           }}
         />
         <Dialog
-          className={dialogClassName}
+          className={classNames(dialogClassName, { 'my-auto': !showFromOrigin })}
           containerClassName={containerClassName}
           onClose={onClose}
           ref={setDialogRef}>

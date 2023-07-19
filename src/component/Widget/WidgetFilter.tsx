@@ -33,7 +33,8 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
             className="w-6 fill-none stroke-2"
             viewBox="-8.5 -9 40 40"
           />
-        }>
+        }
+        flat>
         <DateRangePicker
           onChange={filter => setTempFilter(filter)}
           range={tempFilter}

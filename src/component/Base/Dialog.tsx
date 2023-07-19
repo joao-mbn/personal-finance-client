@@ -59,21 +59,18 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
 
   return (
     <dialog
-      className={classNames('my-0 mr-auto rounded-lg p-0', className)}
       ref={setRef}
+      className={classNames(
+        'my-0 mr-auto rounded-lg p-0 opacity-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',
+        className,
+        { 'opacity-100': _open }
+      )}
       onClick={e => {
         // when dialog is open, every click on the viewport propagates to the dialog
         // but if the click was inside the child div, the target won't be the dialog.
         e.target === _ref && _ref.close();
       }}>
-      <div
-        className={classNames(
-          'h-full w-32 rounded-lg bg-white p-2 opacity-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',
-          containerClassName,
-          { 'opacity-100': _open }
-        )}>
-        {children}
-      </div>
+      <div className={classNames('rounded-lg bg-white p-2', containerClassName)}>{children}</div>
     </dialog>
   );
 });
