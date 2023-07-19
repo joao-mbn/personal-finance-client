@@ -34,7 +34,12 @@ export function RegistersWidget() {
               <span>{formatDateBR(new Date(r.timestamp))}</span>
             </div>
           ),
-          menu: <RegisterMenu register={r} />,
+          menu: (
+            <RegisterMenu
+              onDelete={() => undefined}
+              register={r}
+            />
+          ),
         };
       }) ?? []
     );

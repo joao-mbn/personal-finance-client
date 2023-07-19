@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { ptBR } from '../languages';
 import { Register } from '../models';
 import { MultiActionButton, MultiActionButtonProps, MultiActionButtonRef } from './Base';
@@ -7,7 +7,11 @@ import { CommentIcon, EllipsisIcon, PencilIcon, TrashBinIcon } from './Icons';
 
 interface RegisterMenuProps {
   register: Register;
+  onDelete: () => void;
 }
+
+const DialogFooter = lazy(() => import('./Base/DialogFooter'));
+const ConfirmDialogContent = lazy(() => import('./Base/ConfirmDialogContent'));
 
 export default function RegisterMenu({ register }: RegisterMenuProps) {
   const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
@@ -32,6 +36,7 @@ export default function RegisterMenu({ register }: RegisterMenuProps) {
   return (
     <div className="flex h-full w-full flex-col">
       <MultiActionButton
+        buttonClassName="!p-0"
         onMouseEnter={() => ref?.dialog?.showModal()}
         ref={setRef}
         size="small"
@@ -42,9 +47,9 @@ export default function RegisterMenu({ register }: RegisterMenuProps) {
           />
         }
         flat>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 whitespace-normal break-words">
           <MultiActionButtonWrapper
-            containerClassName="whitespace-normal break-words max-w-[theme(spacing.40)] max-h-[theme(spacing.60)] text-hoki-800"
+            containerClassName="max-w-[theme(spacing.40)] max-h-[theme(spacing.60)]"
             disabled={!register.comments}
             label={ptBR.comment}
             icon={
@@ -69,17 +74,35 @@ export default function RegisterMenu({ register }: RegisterMenuProps) {
             a
           </MultiActionButtonWrapper>
           <MultiActionButtonWrapper
-            containerClassName="flex items-center w-10"
-            dialogClassName="justify-center overflow-visible"
             label={ptBR.delete}
             showFromOrigin={false}
+            footer={
+              <DialogFooter
+                cancelButton={{
+                  label: ptBR.cancel,
+                }}
+                confirmButton={{
+                  className: '!justify-center',
+                  label: ptBR.delete,
+                  icon: (
+                    <TrashBinIcon
+                      className="w-6 stroke-1"
+                      viewBox="-6 -6 46 46"
+                    />
+                  ),
+                }}
+              />
+            }
             icon={
               <TrashBinIcon
                 className="w-6 stroke-1"
                 viewBox="-7 -6 46 46"
               />
             }>
-            a
+            <ConfirmDialogContent
+              message={ptBR.deleteRegisterWarning}
+              title={ptBR.deleteRegister}
+            />
           </MultiActionButtonWrapper>
         </div>
       </MultiActionButton>

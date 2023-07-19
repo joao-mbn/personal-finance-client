@@ -1,8 +1,16 @@
 import classNames from 'classnames';
-import { HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import {
+  HTMLAttributes,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 
 export interface DialogProps extends HTMLAttributes<HTMLDialogElement> {
   containerClassName?: string;
+  footer?: ReactNode;
   onClose?: (e: Event) => void;
 }
 
@@ -16,7 +24,7 @@ export type DialogRef =
   | null;
 
 export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
-  { children, className, containerClassName, onClose = () => undefined }: DialogProps,
+  { children, className, containerClassName, footer, onClose }: DialogProps,
   ref
 ) {
   const [_ref, setRef] = useState<Ref>(null);
@@ -49,7 +57,7 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
     if (!_ref) return;
 
     function _onClose(e: Event) {
-      onClose(e);
+      onClose?.(e);
       setOpen(false);
     }
 
@@ -70,7 +78,14 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
         // but if the click was inside the child div, the target won't be the dialog.
         e.target === _ref && _ref.close();
       }}>
-      <div className={classNames('rounded-lg bg-white p-2', containerClassName)}>{children}</div>
+      <div
+        className={classNames(
+          'flex flex-col gap-2 rounded-lg bg-white p-2 text-hoki-800',
+          containerClassName
+        )}>
+        {children}
+        <footer className="mt-auto">{footer}</footer>
+      </div>
     </dialog>
   );
 });

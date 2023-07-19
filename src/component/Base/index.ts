@@ -1,11 +1,14 @@
 export { Autocomplete } from './Autocomplete';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
+export { ConfirmDialogContent } from './ConfirmDialogContent';
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
 export { Dialog } from './Dialog';
 export type { DialogProps, DialogRef } from './Dialog';
+export { DialogFooter } from './DialogFooter';
+export type { DialogFooterProps } from './DialogFooter';
 export { Dropdown } from './Dropdown';
 export type { DropdownProps } from './Dropdown';
 export { Input } from './Input';

@@ -36,22 +36,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         {
           transition: !disabled,
           'shadow active:shadow-inner': !disabled && !flat,
+          'hover:shadow-cerulean-800 active:shadow-cerulean-950': !disabled && !flat,
           'flex-row-reverse': iconPosition === 'right',
-          'gap-1 p-2 text-base': size === 'large',
-          'gap-1 p-2 text-sm': size === 'medium',
-          'text-xs': size === 'small',
+          'gap-1 p-2 px-3 text-base': size === 'large',
+          'gap-1 p-2 px-3 text-sm': size === 'medium',
+          'gap-1 px-3 py-1 text-xs': size === 'small',
           'border-cerulean-700 bg-cerulean-700 fill-cerulean-50 stroke-cerulean-50 text-cerulean-50':
             importance === 'primary',
-          'shadow-cerulean-700': importance === 'primary' && !flat,
+          'shadow-cerulean-700': importance !== 'tertiary' && !flat,
           'hover:border-cerulean-800 hover:bg-cerulean-800': importance === 'primary' && !disabled,
-          'hover:shadow-cerulean-800 active:shadow-cerulean-950':
-            importance === 'primary' && !disabled && !flat,
           'border-cerulean-700 bg-white fill-cerulean-700 stroke-cerulean-700 text-cerulean-700':
             importance === 'secondary',
-          'shadow-cerulean-300': importance === 'secondary' && !flat,
           'hover:bg-cerulean-50': importance === 'secondary' && !disabled,
-          'hover:shadow-cerulean-700 active:shadow-cerulean-700':
-            importance !== 'primary' && !disabled && !flat,
           'border-transparent fill-cerulean-700 stroke-cerulean-700 text-cerulean-700 shadow-transparent':
             importance === 'tertiary',
         }

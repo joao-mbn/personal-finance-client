@@ -77,7 +77,7 @@ export const OptionsTrigger = forwardRef<HTMLButtonElement, OptionsTriggerProps>
         size="small"
         className={classNames(
           props.className,
-          '!bg-white !fill-cerulean-900 !stroke-cerulean-900 !text-hoki-800 disabled:!bg-hoki-50 disabled:!fill-hoki-800/40 disabled:!stroke-hoki-800/40 disabled:!text-hoki-800/40 disabled:!opacity-100'
+          '!bg-white !fill-cerulean-900 !stroke-cerulean-900 !p-0 !text-hoki-800 disabled:!bg-hoki-50 disabled:!fill-hoki-800/40 disabled:!stroke-hoki-800/40 disabled:!text-hoki-800/40 disabled:!opacity-100'
         )}
         icon={
           <ChevronIcon

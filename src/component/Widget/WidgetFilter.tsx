@@ -23,7 +23,7 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
   return (
     <>
       <MultiActionButton
-        buttonClassName="ml-auto"
+        buttonClassName="ml-auto !p-0"
         containerClassName="flex items-center w-min"
         dialogClassName="justify-center overflow-visible"
         onClose={() => setShouldSend(true)}
