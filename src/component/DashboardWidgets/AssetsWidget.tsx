@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { Asset, DashboardWidget } from '../../models';
 import { DashboardService } from '../../services';
-import { Widget } from './Widget';
+import { Widget } from '../Widget/Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
 const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));

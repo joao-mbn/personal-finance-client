@@ -4,7 +4,7 @@ import { ptBR } from '../../languages';
 import { DashboardWidget, DateRange, MonthBalance } from '../../models';
 import { DashboardService } from '../../services';
 import { getDefaultRange } from '../../utils';
-import { WidgetWithFilter } from './Widget';
+import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
 const ChartWrapper = lazy(() => import('../Charts/ChartWrapper'));

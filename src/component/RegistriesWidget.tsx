@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy, useMemo, useRef } from 'react';
-import { Column, DateRange } from '../../models';
-import { RegistryService } from '../../services';
-import { formatDateBR, getDefaultRange, toBRL } from '../../utils';
-import { WidgetWithFilter } from './Widget';
+import { Column, DateRange } from '../models';
+import { RegistryService } from '../services';
+import { formatDateBR, getDefaultRange, toBRL } from '../utils';
+import { WidgetWithFilter } from './Widget/WidgetWithFilter';
 
-const Table = lazy(() => import('../Table/Table'));
-const RegisterMenu = lazy(() => import('../RegisterMenu'));
+const Table = lazy(() => import('./Table/Table'));
+const RegisterMenu = lazy(() => import('./RegisterMenu'));
 
 const { FROM_DATE, TO_DATE } = getDefaultRange();
 

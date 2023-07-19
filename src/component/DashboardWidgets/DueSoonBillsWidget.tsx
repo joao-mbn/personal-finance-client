@@ -5,7 +5,7 @@ import { ptBR } from '../../languages';
 import { Column, DashboardWidget, DateRange } from '../../models';
 import { DashboardService } from '../../services';
 import { formatDateBR, getDefaultRange, getTimeDiff, toBRL } from '../../utils';
-import { WidgetWithFilter } from './Widget';
+import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
 
 const Table = lazy(() => import('../Table/Table'));
 
