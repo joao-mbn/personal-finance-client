@@ -7,7 +7,7 @@ export interface DialogProps extends HTMLAttributes<HTMLDialogElement> {
 }
 
 type Ref = HTMLDialogElement | null;
-export type DialogForwardedRef =
+export type DialogRef =
   | (Pick<HTMLDialogElement, 'open' | 'close'> & {
       show: () => void;
       showModal: () => void;
@@ -15,7 +15,7 @@ export type DialogForwardedRef =
     })
   | null;
 
-export const Dialog = forwardRef<DialogForwardedRef, DialogProps>(function Dialog(
+export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
   { children, className, containerClassName, onClose = () => undefined }: DialogProps,
   ref
 ) {
@@ -24,7 +24,7 @@ export const Dialog = forwardRef<DialogForwardedRef, DialogProps>(function Dialo
   // this state is needed as new ref is not sent after openning/closing.
   const [_open, setOpen] = useState(false);
 
-  useImperativeHandle<DialogForwardedRef, DialogForwardedRef>(
+  useImperativeHandle<DialogRef, DialogRef>(
     ref,
     () =>
       _ref

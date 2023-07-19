@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { DialogForwardedRef } from '../component';
+import { DialogRef } from '../component';
 import { AppContext } from '../contexts';
 import { REM_PX_RATIO } from '../utils';
 
@@ -11,7 +11,7 @@ import { REM_PX_RATIO } from '../utils';
  * `showDialogFromOrigin` to be called when the Button is clicked.
  */
 export const useShowDialogFromOrigin = () => {
-  const [dialogRef, setDialogRef] = useState<DialogForwardedRef>(null);
+  const [dialogRef, setDialogRef] = useState<DialogRef>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const {
     viewportDimensions: { height: vh, width: vw },
@@ -39,5 +39,5 @@ export const useShowDialogFromOrigin = () => {
     dialogRef.showModal();
   }
 
-  return { setButtonRef, setDialogRef, showDialogFromOrigin };
+  return { buttonRef, dialogRef, setButtonRef, setDialogRef, showDialogFromOrigin };
 };

@@ -1,50 +1,64 @@
-import { ReactNode, lazy } from 'react';
+import { ReactNode, forwardRef, lazy, useImperativeHandle } from 'react';
 import { Button, ButtonProps, DialogProps } from '..';
 import { useShowDialogFromOrigin } from '../../hooks';
+import { DialogRef } from './Dialog';
 
 const Dialog = lazy(() => import('./Dialog'));
 
 export interface MultiActionButtonProps
-  extends Pick<ButtonProps, 'icon' | 'onClick' | 'size' | 'label'>,
+  extends Omit<ButtonProps, 'className' | 'children'>,
     Pick<DialogProps, 'containerClassName' | 'onClose'> {
   buttonClassName?: string;
   children: ReactNode;
   dialogClassName?: string;
 }
 
-export function MultiActionButton({
-  buttonClassName,
-  children,
-  containerClassName,
-  dialogClassName,
-  icon,
-  label,
-  onClick,
-  onClose,
-  size,
-}: MultiActionButtonProps) {
-  const { setButtonRef, setDialogRef, showDialogFromOrigin } = useShowDialogFromOrigin();
+export type MultiActionButtonRef = {
+  dialog: DialogRef;
+  button: HTMLButtonElement | null;
+};
 
-  return (
-    <>
-      <Button
-        className={buttonClassName}
-        icon={icon}
-        label={label}
-        ref={setButtonRef}
-        size={size}
-        onClick={e => {
-          showDialogFromOrigin();
-          onClick?.(e);
-        }}
-      />
-      <Dialog
-        className={dialogClassName}
-        containerClassName={containerClassName}
-        onClose={onClose}
-        ref={setDialogRef}>
-        {children}
-      </Dialog>
-    </>
-  );
-}
+export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionButtonProps>(
+  function MultiActionButton(
+    {
+      buttonClassName,
+      children,
+      containerClassName,
+      dialogClassName,
+      onClick,
+      onClose,
+      ...props
+    }: MultiActionButtonProps,
+    ref
+  ) {
+    const { dialogRef, buttonRef, setButtonRef, setDialogRef, showDialogFromOrigin } =
+      useShowDialogFromOrigin();
+
+    useImperativeHandle<MultiActionButtonRef, MultiActionButtonRef>(
+      ref,
+      () => ({ dialog: dialogRef, button: buttonRef }),
+      [dialogRef, buttonRef]
+    );
+
+    return (
+      <>
+        <Button
+          {...props}
+          className={buttonClassName}
+          ref={setButtonRef}
+          onClick={e => {
+            showDialogFromOrigin();
+            onClick?.(e);
+          }}
+        />
+        <Dialog
+          className={dialogClassName}
+          containerClassName={containerClassName}
+          onClose={onClose}
+          ref={setDialogRef}>
+          {children}
+        </Dialog>
+      </>
+    );
+  }
+);
