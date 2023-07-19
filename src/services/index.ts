@@ -1,3 +1,3 @@
 export * from './auth';
 export * from './dashboard';
-export * from './registry';
+export * from './register';

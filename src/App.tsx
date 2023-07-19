@@ -10,7 +10,7 @@ const ErrorPage = lazy(() => import('./pages/Error'));
 const HomePage = lazy(() => import('./pages/Home'));
 const DashboardPage = lazy(() => import('./pages/Dashboard'));
 const SyncPage = lazy(() => import('./pages/Sync'));
-const RegistriesPage = lazy(() => import('./pages/Registries'));
+const RegistersPage = lazy(() => import('./pages/Registers'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'sync', element: <SyncPage /> },
-      { path: 'registries', element: <RegistriesPage /> },
+      { path: 'registers', element: <RegistersPage /> },
     ],
   },
 ]);

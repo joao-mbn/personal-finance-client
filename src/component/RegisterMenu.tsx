@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { ptBR } from '../languages';
-import { Registry } from '../models';
+import { Register } from '../models';
 import { MultiActionButton, MultiActionButtonProps } from './Base';
 import { CommentIcon, EllipsisIcon, PencilIcon, TrashBinIcon } from './Icons';
 
 interface RegisterMenuProps {
-  register: Registry;
+  register: Register;
 }
 
 const removeButtonShadow = 'shadow-none hover:shadow-none active:shadow-none';

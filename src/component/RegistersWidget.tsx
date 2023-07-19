@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy, useMemo, useRef } from 'react';
 import { Column, DateRange } from '../models';
-import { RegistryService } from '../services';
+import { RegisterService } from '../services';
 import { formatDateBR, getDefaultRange, toBRL } from '../utils';
 import { WidgetWithFilter } from './Widget/WidgetWithFilter';
 
@@ -10,12 +10,12 @@ const RegisterMenu = lazy(() => import('./RegisterMenu'));
 
 const { FROM_DATE, TO_DATE } = getDefaultRange();
 
-export function RegistriesWidget() {
+export function RegistersWidget() {
   const filterRef = useRef<DateRange>({ from: FROM_DATE, to: TO_DATE });
 
   const { data, refetch } = useQuery({
-    queryKey: ['registries', filterRef.current],
-    queryFn: () => RegistryService.getAll(filterRef.current),
+    queryKey: ['register', filterRef.current],
+    queryFn: () => RegisterService.getAll(filterRef.current),
   });
 
   const parsedData = useMemo(() => {
@@ -64,4 +64,4 @@ export function RegistriesWidget() {
   );
 }
 
-export default RegistriesWidget;
+export default RegistersWidget;

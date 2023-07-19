@@ -1,4 +1,4 @@
-export interface Registry {
+export interface Register {
   id?: string;
   comments?: string;
   target: string;
@@ -7,7 +7,7 @@ export interface Registry {
   value: number;
 }
 
-export interface EntryDisplay extends Omit<Registry, 'value'> {
+export interface EntryDisplay extends Omit<Register, 'value'> {
   value: string;
 }
 

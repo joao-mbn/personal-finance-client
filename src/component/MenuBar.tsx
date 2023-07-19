@@ -27,8 +27,8 @@ const options = [
     ),
   },
   {
-    path: 'registries',
-    name: ptBR.registries,
+    path: 'registers',
+    name: ptBR.registers,
     icon: (props: SVGAttributes<SVGElement>) => (
       <ArrowUpAndDownIcon
         {...props}
