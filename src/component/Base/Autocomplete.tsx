@@ -11,7 +11,7 @@ export interface AutocompleteProps<T extends AutocompleteOption>
   disabled?: boolean;
   maxWidth?: string;
   onChange: (
-    value: Partial<AutocompleteOption>,
+    value: AutocompleteOption,
     event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
   ) => void;
   options: T[];
@@ -41,23 +41,35 @@ export function Autocomplete<T extends AutocompleteOption>({
   const {
     viewportDimensions: { height: vh },
   } = useContext(AppContext);
-
-  const _options = useMemo(
-    () => options.filter(opt => findMatch(opt, value.value, 'includes')),
-    [options, value]
-  );
+  const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
 
   useEffect(() => {
     !disabled && setIsActive(isInPath);
   }, [isInPath]);
+
+  const suggestions = useMemo(
+    () => options.filter(opt => findMatch(opt, value.value, 'includes')),
+    [options, value]
+  );
+
+  function _onChange(
+    { key, value, ...rest }: Partial<AutocompleteOption>,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
+  ) {
+    if (key != null) {
+      const newValue = options.find(opt => opt.key === key);
+      newValue && onChange(newValue, event);
+    } else if (value != null) {
+      const newValue = { ...rest, value, key: crypto.randomUUID() };
+      onChange(newValue, event);
+    }
+  }
 
   function findMatch(option: AutocompleteOption, value: string, operator: 'equals' | 'includes') {
     return operator === 'includes'
       ? option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase().trim())
       : option.value.toLocaleLowerCase() === value.toLocaleLowerCase().trim();
   }
-
-  const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
 
   function setOptionsTranslate() {
     if (!optionsContainerRef || !headerRef) return;
@@ -96,7 +108,7 @@ export function Autocomplete<T extends AutocompleteOption>({
               target: { value },
             } = e;
             const opt = options.find(opt => findMatch(opt, value, 'equals')) ?? {};
-            onChange({ value, ...opt }, e);
+            _onChange({ value, ...opt }, e);
           }}
           onClick={() => {
             if (!isActive) {
@@ -118,12 +130,12 @@ export function Autocomplete<T extends AutocompleteOption>({
       <Options<T>
         isActive={isActive}
         maxWidth={maxWidth}
-        options={_options}
+        options={suggestions}
         refAsProps={setOptionsContainerRef}
         selected={value.key ? [value.key] : []}
         template={template}
         onChange={(key, event) => {
-          onChange({ key }, event);
+          _onChange({ key }, event);
           setIsActive(false);
         }}
         style={{
