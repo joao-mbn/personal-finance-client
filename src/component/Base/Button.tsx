@@ -38,8 +38,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           'shadow active:shadow-inner': !disabled && !flat,
           'hover:shadow-cerulean-800 active:shadow-cerulean-950': !disabled && !flat,
           'flex-row-reverse': iconPosition === 'right',
-          'gap-1 p-2 px-3 text-base': size === 'large',
-          'gap-1 p-2 px-3 text-sm': size === 'medium',
+          'gap-1 px-3 py-2 text-base': size === 'large',
+          'gap-1 px-3 py-2 text-sm': size === 'medium',
           'gap-1 px-3 py-1 text-xs': size === 'small',
           'border-cerulean-700 bg-cerulean-700 fill-cerulean-50 stroke-cerulean-50 text-cerulean-50':
             importance === 'primary',

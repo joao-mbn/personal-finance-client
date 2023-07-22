@@ -15,7 +15,7 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(function Toggle
       disabled={disabled}
       importance={isActive ? 'primary' : 'secondary'}
       ref={ref}
-      className={classNames(className, 'w-7 border-0 px-0.5 py-0.5', {
+      className={classNames(className, 'w-12 border-0 !px-0.5 !py-0.5', {
         'border-hoki-200 !bg-hoki-200': !isActive,
         'shadow-hoki-300 hover:border-hoki-300 hover:!bg-hoki-300 hover:shadow-hoki-600 active:shadow-hoki-600':
           !isActive && !disabled,
@@ -24,8 +24,8 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(function Toggle
         icon ?? (
           <div
             className={classNames(
-              'm-0 h-3 w-3 rounded-full bg-white p-0 shadow-sm transition-transform',
-              { 'translate-x-3 shadow-hoki-600': !isActive, 'shadow-cerulean-950': isActive }
+              'm-0 h-5 w-5 rounded-full bg-white p-0 shadow-sm transition-transform',
+              { 'translate-x-6 shadow-hoki-600': !isActive, 'shadow-cerulean-950': isActive }
             )}
           />
         )
