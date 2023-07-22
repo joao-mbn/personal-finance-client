@@ -1,8 +1,9 @@
-import { useReducer, useState } from 'react';
+import { useContext, useReducer } from 'react';
 import { PencilIcon } from '..';
+import { RegisterContext } from '../../contexts';
 import { ptBR } from '../../languages';
-import { Register } from '../../models';
-import { Autocomplete, DialogFooter, Input, MultiActionButtonRef, TextArea, Toggle } from '../Base';
+import { Register, RegisterForm } from '../../models';
+import { Autocomplete, DatePicker, DialogFooter, Input, TextArea, Toggle } from '../Base';
 import { MultiActionButtonWrapper } from './MultiActionButtonWrapper';
 
 interface EditRegisterProps {
@@ -11,20 +12,32 @@ interface EditRegisterProps {
 }
 
 function reducer(
-  state: Register,
-  action: { type: keyof Register; newValue: Register[keyof Register] }
+  state: RegisterForm,
+  action: { type: keyof RegisterForm; newValue: RegisterForm[keyof Register] }
 ) {
   const { type, newValue } = action;
   return { ...state, [type]: newValue };
 }
 
 export default function EditRegister({ onSubmit, register }: EditRegisterProps) {
-  const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
+  const { targetOptions, typeOptions } = useContext(RegisterContext);
+  const initialForm: RegisterForm = {
+    ...register,
+    type: typeOptions.find(opt => opt.value === register.type) ?? {
+      value: register.type,
+      key: crypto.randomUUID(),
+    },
+    target: targetOptions.find(opt => opt.value === register.target) ?? {
+      value: register.target,
+      key: crypto.randomUUID(),
+    },
+  };
 
-  const [formState, dispatch] = useReducer(reducer, register);
+  const [formState, dispatch] = useReducer(reducer, initialForm);
 
   return (
     <MultiActionButtonWrapper
+      header={ptBR.editRegister}
       label={ptBR.edit}
       showFromOrigin={false}
       icon={
@@ -44,7 +57,6 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
               value={formState.value}
             />
           </label>
-
           <label className="w-1/3">
             {formState.value > 0 ? ptBR.earning : ptBR.expense}
             <Toggle
@@ -54,22 +66,30 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
             />
           </label>
         </div>
+        <div>
+          {ptBR.date}
+          <DatePicker
+            className="gap-4"
+            monthDropdownProps={{ className: 'w-full' }}
+            onChange={value => dispatch({ type: 'timestamp', newValue: value })}
+            value={formState.timestamp}
+            yearDropdownProps={{ className: 'w-full' }}
+          />
+        </div>
         <label>
           {formState.value > 0 ? ptBR.destination : ptBR.source}
           <Autocomplete
-            options={[]}
-            onChange={(value, event) => {
-              // source
-            }}
+            onChange={value => dispatch({ type: 'target', newValue: value })}
+            options={targetOptions}
+            value={formState.target}
           />
         </label>
         <label>
           {ptBR.type}
           <Autocomplete
-            options={[]}
-            onChange={(value, event) => {
-              // type
-            }}
+            onChange={value => dispatch({ type: 'type', newValue: value })}
+            options={typeOptions}
+            value={formState.type}
           />
         </label>
         <label>

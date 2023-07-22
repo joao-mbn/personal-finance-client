@@ -1,9 +1,3 @@
-import { Register } from '.';
-
-export interface EntryDisplay extends Omit<Register, 'value'> {
-  value: string;
-}
-
 export type Balance = {
   name: string;
   value: number;

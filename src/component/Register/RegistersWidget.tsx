@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { lazy, useMemo, useRef } from 'react';
+import { RegisterContext } from '../../contexts';
 import { Column, DateRange, Register } from '../../models';
 import { RegisterService } from '../../services';
 import { formatDateBR, getDefaultRange, toBRL } from '../../utils';
@@ -31,7 +32,7 @@ export function RegistersWidget() {
           priceWithDate: (
             <div className="flex flex-col items-end gap-1 text-xs">
               <span className="font-bold">{toBRL(r.value)}</span>
-              <span>{formatDateBR(new Date(r.timestamp))}</span>
+              <span>{formatDateBR(r.timestamp)}</span>
             </div>
           ),
           menu: (
@@ -60,11 +61,13 @@ export function RegistersWidget() {
         refetch();
       }}>
       {parsedData?.length && (
-        <Table<(typeof parsedData)[number]>
-          columns={columns}
-          data={parsedData}
-          showHeaders={false}
-        />
+        <RegisterContext.Provider value={{ targetOptions: [], typeOptions: [] }}>
+          <Table<(typeof parsedData)[number]>
+            columns={columns}
+            data={parsedData}
+            showHeaders={false}
+          />
+        </RegisterContext.Provider>
       )}
     </WidgetWithFilter>
   );
