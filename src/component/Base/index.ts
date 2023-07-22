@@ -11,6 +11,7 @@ export type { DialogFooterProps } from './DialogFooter';
 export { Dropdown } from './Dropdown';
 export type { DropdownProps } from './Dropdown';
 export { Input } from './Input';
+export type { InputProps } from './Input';
 export { MultiActionButton } from './MultiActionButton';
 export type { MultiActionButtonProps, MultiActionButtonRef } from './MultiActionButton';
 export { Options, OptionsTrigger } from './Options';

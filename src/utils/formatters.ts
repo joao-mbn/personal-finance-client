@@ -1,15 +1,21 @@
-export function toCurrency(value: number, locale: string, currency: string) {
+export function toCurrency(
+  value: number,
+  locale: string,
+  currency: string,
+  overrides?: Intl.NumberFormatOptions
+) {
   const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
     signDisplay: 'exceptZero',
-    maximumFractionDigits: Math.abs(value) >= 1000 ? 0 : 2,
+    maximumFractionDigits: 2,
+    ...overrides,
   });
   return formatter.format(value);
 }
 
-export function toBRL(value: number) {
-  return toCurrency(value, 'pt-BR', 'BRL');
+export function toBRL(value: number, overrides?: Intl.NumberFormatOptions) {
+  return toCurrency(value, 'pt-BR', 'BRL', overrides);
 }
 
 export function formatDate(value: Date, locale: string) {

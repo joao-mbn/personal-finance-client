@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { HTMLAttributes, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { Input, Options, OptionsTrigger } from '..';
+import { Input, InputProps, Options, OptionsTrigger } from '..';
 import { AppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
 import { AutocompleteOption, PartialBy } from '../../models';
@@ -18,11 +18,16 @@ export interface AutocompleteProps<T extends AutocompleteOption>
   placeholder?: string;
   value?: PartialBy<AutocompleteOption, 'key'>;
   template?: (option: T) => ReactNode;
+  inputProps?: Omit<
+    InputProps,
+    'value' | 'placeholder' | 'disabled' | 'onClick' | 'onChange' | 'inputSize'
+  >;
 }
 
 export function Autocomplete<T extends AutocompleteOption>({
   className,
   disabled = false,
+  inputProps,
   onChange,
   options,
   maxWidth = 'max-w-[5rem]',
@@ -98,7 +103,7 @@ export function Autocomplete<T extends AutocompleteOption>({
           'bg-hoki-50': disabled,
         })}>
         <Input
-          className="flex-grow border-none !shadow-none"
+          className={classNames('flex-grow border-none !shadow-none', inputProps?.className)}
           disabled={disabled}
           inputSize="small"
           placeholder={placeholder}
@@ -116,6 +121,7 @@ export function Autocomplete<T extends AutocompleteOption>({
               setOptionsTranslate();
             }
           }}
+          {...inputProps}
         />
         <OptionsTrigger
           className="w-6 !shadow-none"

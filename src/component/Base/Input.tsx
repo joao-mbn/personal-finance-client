@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { InputHTMLAttributes, forwardRef } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputSize: 'small' | 'medium' | 'large';
 }
 

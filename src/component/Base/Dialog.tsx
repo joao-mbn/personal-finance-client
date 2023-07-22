@@ -70,9 +70,9 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
     <dialog
       ref={setRef}
       className={classNames(
-        'my-0 mr-auto rounded-lg p-0 opacity-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',
+        'my-0 mr-auto rounded-lg p-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',
         className,
-        { 'opacity-100': _open }
+        { 'opacity-100': _open, 'opacity-0': !_open }
       )}
       onClick={e => {
         // when dialog is open, every click on the viewport propagates to the dialog
