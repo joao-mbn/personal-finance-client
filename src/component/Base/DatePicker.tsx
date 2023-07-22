@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Key } from 'react';
 import { Dropdown, DropdownProps } from '.';
 import { DropdownOption } from '../../models';
@@ -14,13 +15,18 @@ export interface DatePickerProps
   yearOptions?: DropdownOption[];
   onChange: (date: Date) => void;
   value?: Date;
+  monthDropdownProps?: Partial<DropdownProps<DropdownOption>>;
+  yearDropdownProps?: Partial<DropdownProps<DropdownOption>>;
 }
 
 export function DatePicker({
+  className,
+  monthDropdownProps,
   monthOptions,
   onChange,
   value,
   yearOptions,
+  yearDropdownProps,
   ...props
 }: DatePickerProps) {
   const _selectedMonth = value?.getMonth() ?? CURRENT_MONTH;
@@ -43,13 +49,14 @@ export function DatePicker({
   }
 
   return (
-    <div className="flex gap-1">
+    <div className={classNames('flex gap-1', className)}>
       <Dropdown
         className="min-w-[5rem]"
         onChange={month => onChangeOption(month, 'month')}
         options={_monthOptions}
         selected={_selectedMonth}
         {...props}
+        {...monthDropdownProps}
       />
       <Dropdown
         className="min-w-[4rem]"
@@ -57,6 +64,7 @@ export function DatePicker({
         options={_yearOptions}
         selected={_selectedYear}
         {...props}
+        {...yearDropdownProps}
       />
     </div>
   );
