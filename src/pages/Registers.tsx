@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Loading, Page } from '../component';
 import { ptBR } from '../languages';
 
-const RegistersWidget = lazy(() => import('../component/RegistersWidget'));
+const RegistersWidget = lazy(() => import('../component/Register/RegistersWidget'));
 
 export default function RegistersPage() {
   return (

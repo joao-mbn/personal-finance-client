@@ -1,5 +1,6 @@
 import { lazy, useEffect, useState } from 'react';
 import { MultiActionButton } from '..';
+import { ptBR } from '../../languages';
 import { DateRange } from '../../models';
 import { FilterIcon } from '../Icons';
 
@@ -26,6 +27,7 @@ export function WidgetFilter({ initialFilter, updateWidgetFilter }: WidgetFilter
         buttonClassName="ml-auto !p-0"
         containerClassName="flex items-center w-min"
         dialogClassName="justify-center overflow-visible"
+        header={ptBR.selectDateRange}
         onClose={() => setShouldSend(true)}
         size="small"
         icon={
