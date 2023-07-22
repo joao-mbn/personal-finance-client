@@ -47,9 +47,9 @@ export function RegistersWidget() {
   }, [data]);
 
   const columns: Column<(typeof parsedData)[number]>[] = [
-    { value: 'typeAndTarget', width: '60%' },
+    { value: 'typeAndTarget' },
     { value: 'priceWithDate', width: '30%' },
-    { value: 'menu' },
+    { value: 'menu', width: '2.5rem' },
   ];
 
   return (
