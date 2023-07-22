@@ -10,6 +10,7 @@ import {
 
 export interface DialogProps extends HTMLAttributes<HTMLDialogElement> {
   containerClassName?: string;
+  header?: ReactNode;
   footer?: ReactNode;
   onClose?: (e: Event) => void;
 }
@@ -24,7 +25,7 @@ export type DialogRef =
   | null;
 
 export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
-  { children, className, containerClassName, footer, onClose }: DialogProps,
+  { children, className, containerClassName, footer, header, onClose }: DialogProps,
   ref
 ) {
   const [_ref, setRef] = useState<Ref>(null);
@@ -83,8 +84,13 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
           'flex flex-col gap-2 rounded-lg bg-white p-2 text-hoki-800',
           containerClassName
         )}>
+        {header && (
+          <h1 className="mb-1 w-full border-b-2 border-b-cerulean-600 pb-1 text-sm font-bold text-hoki-600">
+            {header}
+          </h1>
+        )}
         {children}
-        <footer className="mt-auto">{footer}</footer>
+        {footer && <footer className="mt-auto pt-1">{footer}</footer>}
       </div>
     </dialog>
   );

@@ -8,7 +8,7 @@ const Dialog = lazy(() => import('./Dialog'));
 
 export interface MultiActionButtonProps
   extends Omit<ButtonProps, 'className' | 'children'>,
-    Pick<DialogProps, 'containerClassName' | 'onClose' | 'footer'> {
+    Pick<DialogProps, 'containerClassName' | 'onClose' | 'footer' | 'header'> {
   buttonClassName?: string;
   children: ReactNode;
   dialogClassName?: string;
@@ -28,6 +28,7 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
       containerClassName,
       dialogClassName,
       footer,
+      header,
       onClick,
       onClose,
       showFromOrigin = true,
@@ -66,6 +67,7 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
           className={classNames(dialogClassName, { 'my-auto': !showFromOrigin })}
           containerClassName={containerClassName}
           footer={footer}
+          header={header}
           onClose={onClose}
           ref={setDialogRef}>
           {children}
