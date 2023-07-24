@@ -1,6 +1,7 @@
 export { Autocomplete } from './Autocomplete';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
+export { CurrencyInput } from './CurrencyInput';
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';

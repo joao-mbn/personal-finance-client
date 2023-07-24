@@ -1,14 +1,13 @@
-import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { useCallback, useContext, useReducer, useState } from 'react';
 import { PencilIcon } from '..';
 import { RegisterContext } from '../../contexts';
 import { ptBR } from '../../languages';
 import { Register, RegisterForm } from '../../models';
-import { toBRL } from '../../utils';
 import {
   Autocomplete,
+  CurrencyInput,
   DatePicker,
   DialogFooter,
-  Input,
   MultiActionButtonRef,
   TextArea,
   Toggle,
@@ -24,10 +23,12 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
   const { targetOptions, typeOptions } = useContext(RegisterContext);
   const initialForm: RegisterForm = {
     ...register,
-    type: typeOptions.find(opt => opt.value === register.type) ?? {
-      value: register.type,
-      key: crypto.randomUUID(),
-    },
+    type: register.type
+      ? typeOptions.find(opt => opt.value === register.type) ?? {
+          value: register.type,
+          key: crypto.randomUUID(),
+        }
+      : undefined,
     target: targetOptions.find(opt => opt.value === register.target) ?? {
       value: register.target,
       key: crypto.randomUUID(),
@@ -55,14 +56,6 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
 
   const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
 
-  const firstNumericDigitAtValueInput = 3;
-  const selectionEndRef = useRef<number>(firstNumericDigitAtValueInput);
-  const valueInputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    const selection = selectionEndRef.current;
-    valueInputRef.current?.setSelectionRange(selection, selection);
-  }, [value]);
-
   return (
     <MultiActionButtonWrapper
       header={ptBR.editRegister}
@@ -77,38 +70,27 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
       }>
       <form className="flex w-60 flex-col gap-4">
         <div className="flex gap-4">
-          <label className="w-2/3">
+          <div className="flex flex-col">
             {ptBR.value}
             <div className="flex">
-              <Input
+              <CurrencyInput
                 className="w-full"
                 inputSize="small"
+                onChange={newValue => dispatch({ type: 'value', newValue })}
                 placeholder={ptBR.placeholderValue}
-                ref={valueInputRef}
-                value={toBRL(value)}
-                onChange={event => {
-                  const isNegative = event.target.value.startsWith('-');
-                  const valueStrippedOfNonDigits = event.target.value.replace(/[^\d]/g, '');
-                  const newValue = (Number(valueStrippedOfNonDigits) / 100) * (isNegative ? -1 : 1);
-                  dispatch({ type: 'value', newValue });
-
-                  selectionEndRef.current = Math.max(
-                    firstNumericDigitAtValueInput,
-                    event.target.selectionEnd ?? 0
-                  );
-                }}
+                value={value}
                 required
               />
             </div>
-          </label>
-          <label className="w-1/3">
+          </div>
+          <div className="flex flex-col">
             {value > 0 ? ptBR.earning : value < 0 ? ptBR.expense : <br />}
             <Toggle
               isActive={value > 0}
               onClick={() => dispatch({ type: 'value', newValue: value * -1 })}
               type="button"
             />
-          </label>
+          </div>
         </div>
         <div>
           {ptBR.date}
@@ -120,7 +102,7 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
             yearDropdownProps={{ className: 'w-full' }}
           />
         </div>
-        <label>
+        <div className="flex flex-col">
           {value > 0 ? ptBR.destination : ptBR.source}
           <Autocomplete
             inputProps={{ required: true, minLength: 3, maxLength: 30 }}
@@ -129,8 +111,8 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
             placeholder={ptBR.placeholderTarget}
             value={target}
           />
-        </label>
-        <label>
+        </div>
+        <div className="flex flex-col">
           {ptBR.type}
           <Autocomplete
             inputProps={{ maxLength: 30 }}
@@ -139,8 +121,8 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
             placeholder={ptBR.placeholderType}
             value={type}
           />
-        </label>
-        <label>
+        </div>
+        <div className="flex flex-col">
           {ptBR.comment}
           <TextArea
             inputSize="small"
@@ -149,7 +131,7 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
             placeholder={ptBR.placeholderComment}
             value={comments}
           />
-        </label>
+        </div>
         <DialogFooter
           cancelButton={{
             label: ptBR.cancel,

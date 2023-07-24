@@ -107,7 +107,7 @@ export function Autocomplete<T extends AutocompleteOption>({
           disabled={disabled}
           inputSize="small"
           placeholder={placeholder}
-          value={value?.value ?? ''}
+          value={value.value ?? ''}
           onChange={e => {
             const {
               target: { value },
