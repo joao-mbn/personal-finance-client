@@ -19,9 +19,24 @@ export function RegistersWidget() {
     queryFn: () => RegisterService.getAll(filterRef.current),
   });
 
-  const parsedData = useMemo(() => {
+  const { registers, targetOptions, typeOptions } = data ?? {};
+
+  const parsedTargetOptions = useMemo(
+    () => (targetOptions ?? []).map(opt => ({ key: opt, value: opt })),
+    [data]
+  );
+
+  const parsedTypeOptions = useMemo(
+    () =>
+      (typeOptions ?? [])
+        .filter((opt): opt is string => !!opt)
+        .map(opt => ({ key: opt, value: opt })),
+    [data]
+  );
+
+  const parsedRegisters = useMemo(() => {
     return (
-      data?.map(r => {
+      registers?.map(r => {
         return {
           typeAndTarget: (
             <div className="flex flex-col gap-1 text-xs">
@@ -47,7 +62,7 @@ export function RegistersWidget() {
     );
   }, [data]);
 
-  const columns: Column<(typeof parsedData)[number]>[] = [
+  const columns: Column<(typeof parsedRegisters)[number]>[] = [
     { value: 'typeAndTarget' },
     { value: 'priceWithDate', width: '30%' },
     { value: 'menu', width: '2.5rem' },
@@ -60,11 +75,15 @@ export function RegistersWidget() {
         filterRef.current = filter;
         refetch();
       }}>
-      {parsedData?.length && (
-        <RegisterContext.Provider value={{ targetOptions: [], typeOptions: [] }}>
-          <Table<(typeof parsedData)[number]>
+      {parsedRegisters?.length && (
+        <RegisterContext.Provider
+          value={{
+            targetOptions: parsedTargetOptions ?? [],
+            typeOptions: parsedTypeOptions ?? [],
+          }}>
+          <Table<(typeof parsedRegisters)[number]>
             columns={columns}
-            data={parsedData}
+            data={parsedRegisters}
             showHeaders={false}
           />
         </RegisterContext.Provider>

@@ -5,7 +5,7 @@ export interface Register {
   comments?: string;
   target: string;
   timestamp: Date;
-  type: string;
+  type?: string;
   value: number;
 }
 
@@ -15,5 +15,15 @@ export interface RegisterResponse extends Omit<Register, 'timestamp'> {
 
 export interface RegisterForm extends Omit<Register, 'target' | 'type'> {
   target: AutocompleteOption;
-  type: AutocompleteOption;
+  type?: AutocompleteOption;
+}
+
+export interface RegisterWithOptions {
+  registers: Register[];
+  typeOptions: Register['type'][];
+  targetOptions: Register['target'][];
+}
+
+export interface RegisterResponseWithOptions extends Omit<RegisterWithOptions, 'registers'> {
+  registers: RegisterResponse[];
 }
