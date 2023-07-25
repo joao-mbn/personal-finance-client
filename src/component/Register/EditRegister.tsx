@@ -60,6 +60,7 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
     <MultiActionButtonWrapper
       header={ptBR.editRegister}
       label={ptBR.edit}
+      onClose={() => dispatch({ type: 'reset' })}
       ref={setRef}
       showFromOrigin={false}
       icon={
@@ -141,10 +142,7 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
           cancelButton={{
             label: ptBR.cancel,
             type: 'button',
-            onClick: () => {
-              ref?.dialog?.close();
-              dispatch({ type: 'reset' });
-            },
+            onClick: () => ref?.dialog?.close(),
           }}
         />
       </form>
