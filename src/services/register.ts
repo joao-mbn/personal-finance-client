@@ -1,4 +1,10 @@
-import { DateRange, RegisterResponseWithOptions, RegisterWithOptions } from '../models';
+import {
+  DateRange,
+  Register,
+  RegisterResponse,
+  RegisterResponseWithOptions,
+  RegisterWithOptions,
+} from '../models';
 import { api } from './api';
 
 export namespace RegisterService {
@@ -15,5 +21,10 @@ export namespace RegisterService {
         timestamp: new Date(r.timestamp),
       })),
     };
+  }
+
+  export async function edit(register: Register): Promise<Register> {
+    const { data } = await api.post<RegisterResponse>(`${CONTROLLER}/edit`, register);
+    return { ...data, timestamp: new Date(data.timestamp) };
   }
 }

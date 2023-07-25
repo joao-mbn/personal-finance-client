@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { lazy, useMemo, useRef } from 'react';
 import { RegisterContext } from '../../contexts';
-import { Column, DateRange, Register } from '../../models';
+import { ptBR } from '../../languages';
+import { Column, DateRange, RegisterWithOptions } from '../../models';
 import { RegisterService } from '../../services';
 import { formatDateBR, getDefaultRange, toBRL } from '../../utils';
 import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
@@ -14,15 +15,52 @@ const { FROM_DATE, TO_DATE } = getDefaultRange();
 export function RegistersWidget() {
   const filterRef = useRef<DateRange>({ from: FROM_DATE, to: TO_DATE });
 
+  const getAllQueryKey = ['register', 'all', filterRef.current];
   const { data, refetch } = useQuery({
-    queryKey: ['register', filterRef.current],
+    queryKey: getAllQueryKey,
     queryFn: () => RegisterService.getAll(filterRef.current),
+  });
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: RegisterService.edit,
+    onSuccess: register => {
+      const { id, target, type } = register;
+      queryClient.setQueryData<RegisterWithOptions>(getAllQueryKey, registerWithOptions => {
+        if (!registerWithOptions) return registerWithOptions;
+
+        const { registers, targetOptions, typeOptions } = registerWithOptions;
+        const oldRegisterIndex = registerWithOptions?.registers.findIndex(r => r.id === id);
+
+        if (oldRegisterIndex === -1) return registerWithOptions;
+
+        const newRegisters = [
+          ...registers.slice(0, oldRegisterIndex),
+          register,
+          ...registers.slice(oldRegisterIndex + 1),
+        ];
+
+        const newTargetOptions = [...targetOptions];
+        !targetOptions.some(opt => opt === target) && newTargetOptions?.push(target);
+
+        const newTypeOptions = [...typeOptions];
+        !!type && !typeOptions.some(opt => opt === type) && newTypeOptions?.push(type);
+
+        return {
+          registers: newRegisters,
+          targetOptions: newTargetOptions,
+          typeOptions: newTypeOptions,
+        };
+      });
+      console.info(ptBR.registerEdited);
+      [...document.getElementsByTagName('dialog')].forEach(d => d.close());
+    },
   });
 
   const { registers, targetOptions, typeOptions } = data ?? {};
 
   const parsedTargetOptions = useMemo(
-    () => (targetOptions ?? []).map(opt => ({ key: opt, value: opt })),
+    () => (targetOptions ?? []).sort().map(opt => ({ key: opt, value: opt })),
     [data]
   );
 
@@ -30,6 +68,7 @@ export function RegistersWidget() {
     () =>
       (typeOptions ?? [])
         .filter((opt): opt is string => !!opt)
+        .sort()
         .map(opt => ({ key: opt, value: opt })),
     [data]
   );
@@ -53,7 +92,7 @@ export function RegistersWidget() {
           menu: (
             <RegisterMenu
               onDelete={() => undefined}
-              onEdit={(register: Register) => undefined}
+              onEdit={mutate}
               register={r}
             />
           ),

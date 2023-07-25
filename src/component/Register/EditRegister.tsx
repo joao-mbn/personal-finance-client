@@ -68,20 +68,24 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
           viewBox="-4 -1 30 30"
         />
       }>
-      <form className="flex w-60 flex-col gap-4">
+      <form
+        className="flex w-60 flex-col gap-4"
+        onSubmit={event => {
+          event.preventDefault();
+          const { type, target } = formState;
+          onSubmit({ ...formState, type: type?.value, target: target.value });
+        }}>
         <div className="flex gap-4">
           <div className="flex flex-col">
             {ptBR.value}
-            <div className="flex">
-              <CurrencyInput
-                className="w-full"
-                inputSize="small"
-                onChange={newValue => dispatch({ type: 'value', newValue })}
-                placeholder={ptBR.placeholderValue}
-                value={value}
-                required
-              />
-            </div>
+            <CurrencyInput
+              className="w-full"
+              inputSize="small"
+              onChange={newValue => dispatch({ type: 'value', newValue })}
+              placeholder={ptBR.placeholderValue}
+              value={value}
+              required
+            />
           </div>
           <div className="flex flex-col">
             {value > 0 ? ptBR.earning : value < 0 ? ptBR.expense : <br />}
@@ -133,6 +137,7 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
           />
         </div>
         <DialogFooter
+          confirmButton={{ label: ptBR.confirm, type: 'submit' }}
           cancelButton={{
             label: ptBR.cancel,
             type: 'button',
@@ -140,11 +145,6 @@ export default function EditRegister({ onSubmit, register }: EditRegisterProps) 
               ref?.dialog?.close();
               dispatch({ type: 'reset' });
             },
-          }}
-          confirmButton={{
-            label: ptBR.confirm,
-            type: 'button',
-            onClick: () => ref?.dialog?.close(),
           }}
         />
       </form>
