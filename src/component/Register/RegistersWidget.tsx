@@ -91,6 +91,7 @@ export function RegistersWidget() {
           ),
           menu: (
             <RegisterMenu
+              key={crypto.randomUUID()}
               onDelete={() => undefined}
               onEdit={mutate}
               register={r}
