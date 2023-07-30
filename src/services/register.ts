@@ -1,5 +1,6 @@
 import {
   DateRange,
+  NewRegister,
   Register,
   RegisterResponse,
   RegisterResponseWithOptions,
@@ -11,7 +12,7 @@ export namespace RegisterService {
   const CONTROLLER = 'register';
 
   export async function getAll(filter?: DateRange): Promise<RegisterWithOptions> {
-    const { data } = await api.get<RegisterResponseWithOptions>(`${CONTROLLER}/getAll`, {
+    const { data } = await api.get<RegisterResponseWithOptions>(CONTROLLER, {
       params: filter,
     });
     return {
@@ -23,8 +24,18 @@ export namespace RegisterService {
     };
   }
 
-  export async function edit(register: Register): Promise<Register> {
-    const { data } = await api.post<RegisterResponse>(`${CONTROLLER}/edit`, register);
+  export async function createOne(register: NewRegister): Promise<Register> {
+    const { data } = await api.post<RegisterResponse>(CONTROLLER, register);
     return { ...data, timestamp: new Date(data.timestamp) };
+  }
+
+  export async function updateOne(register: Register): Promise<Register> {
+    const { data } = await api.post<RegisterResponse>(`${CONTROLLER}/${register.id}`, register);
+    return { ...data, timestamp: new Date(data.timestamp) };
+  }
+
+  export async function deleteOne(registerId: string) {
+    const { data } = await api.delete<string>(`${CONTROLLER}/${registerId}`);
+    return data;
   }
 }

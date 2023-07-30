@@ -1,13 +1,15 @@
 import { AutocompleteOption } from './option';
 
 export interface Register {
-  id?: string;
+  id: string;
   comments?: string;
   target: string;
   timestamp: Date;
   type?: string;
   value: number;
 }
+
+export interface NewRegister extends Omit<Register, 'id'> {}
 
 export interface RegisterResponse extends Omit<Register, 'timestamp'> {
   timestamp: string;

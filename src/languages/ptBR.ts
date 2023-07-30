@@ -36,7 +36,7 @@ export const ptBR = {
   registers: 'Registros',
   registerCreated: 'Registro criado com sucesso.',
   registerDeleted: 'Registro apagado com sucesso.',
-  registerEdited: 'Registro atualizado com sucesso.',
+  registerUpdated: 'Registro atualizado com sucesso.',
   selectDateRange: 'Selecione um período',
   source: 'Origem',
   sync: 'Sinc.',

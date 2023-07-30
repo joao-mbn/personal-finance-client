@@ -22,8 +22,8 @@ export function RegistersWidget() {
   });
 
   const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: RegisterService.edit,
+  const { mutate: updateOne } = useMutation({
+    mutationFn: RegisterService.updateOne,
     onSuccess: register => {
       const { id, target, type } = register;
       queryClient.setQueryData<RegisterWithOptions>(getAllQueryKey, registerWithOptions => {
@@ -36,7 +36,7 @@ export function RegistersWidget() {
 
         const newRegisters = [
           ...registers.slice(0, oldRegisterIndex),
-          register,
+          { ...register },
           ...registers.slice(oldRegisterIndex + 1),
         ];
 
@@ -52,7 +52,30 @@ export function RegistersWidget() {
           typeOptions: newTypeOptions,
         };
       });
-      console.info(ptBR.registerEdited);
+      console.info(ptBR.registerUpdated);
+      [...document.getElementsByTagName('dialog')].forEach(d => d.close());
+    },
+  });
+
+  const { mutate: deleteOne } = useMutation({
+    mutationFn: RegisterService.deleteOne,
+    onSuccess: registerId => {
+      queryClient.setQueryData<RegisterWithOptions>(getAllQueryKey, registerWithOptions => {
+        if (!registerWithOptions) return registerWithOptions;
+
+        const { registers, targetOptions, typeOptions } = registerWithOptions;
+        const oldRegisterIndex = registerWithOptions?.registers.findIndex(r => r.id === registerId);
+
+        if (oldRegisterIndex === -1) return registerWithOptions;
+
+        const newRegisters = [
+          ...registers.slice(0, oldRegisterIndex),
+          ...registers.slice(oldRegisterIndex + 1),
+        ];
+
+        return { registers: newRegisters, targetOptions, typeOptions };
+      });
+      console.info(ptBR.registerDeleted);
       [...document.getElementsByTagName('dialog')].forEach(d => d.close());
     },
   });
@@ -92,8 +115,8 @@ export function RegistersWidget() {
           menu: (
             <RegisterMenu
               key={crypto.randomUUID()}
-              onDelete={() => undefined}
-              onEdit={mutate}
+              onDelete={() => deleteOne(r.id)}
+              onEdit={updateOne}
               register={r}
             />
           ),

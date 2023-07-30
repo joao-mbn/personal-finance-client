@@ -17,6 +17,6 @@ api.interceptors.response.use(
     const _error = error as AxiosError;
     console.error(_error.response?.data ?? _error.code);
 
-    return Promise.reject(error);
+    return Promise.reject(_error);
   }
 );
