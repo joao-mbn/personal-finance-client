@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { forwardRef } from 'react';
 import { MultiActionButton, MultiActionButtonProps, MultiActionButtonRef } from '../Base';
 
-export const MultiActionButtonWrapper = forwardRef<MultiActionButtonRef, MultiActionButtonProps>(
+export const MultiActionButtonOption = forwardRef<MultiActionButtonRef, MultiActionButtonProps>(
   function MultiActionButtonWrapper(props: MultiActionButtonProps, ref) {
     return (
       <MultiActionButton
@@ -22,4 +22,4 @@ export const MultiActionButtonWrapper = forwardRef<MultiActionButtonRef, MultiAc
   }
 );
 
-export default MultiActionButtonWrapper;
+export default MultiActionButtonOption;

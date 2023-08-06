@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ptBR } from '../../languages';
 import { DialogFooter, MultiActionButtonRef } from '../Base';
 import { TrashBinIcon } from '../Icons';
-import { MultiActionButtonWrapper } from './MultiActionButtonWrapper';
+import { MultiActionButtonOption } from './MultiActionButtonWrapper';
 
 interface DeleteRegisterProps {
   onDelete: () => void;
@@ -12,7 +12,7 @@ export default function DeleteRegister({ onDelete }: DeleteRegisterProps) {
   const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
 
   return (
-    <MultiActionButtonWrapper
+    <MultiActionButtonOption
       header={ptBR.deleteRegister}
       label={ptBR.delete}
       ref={setRef}
@@ -46,6 +46,6 @@ export default function DeleteRegister({ onDelete }: DeleteRegisterProps) {
         />
       }>
       {ptBR.deleteRegisterWarning}
-    </MultiActionButtonWrapper>
+    </MultiActionButtonOption>
   );
 }

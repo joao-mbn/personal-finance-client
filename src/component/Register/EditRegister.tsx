@@ -3,7 +3,7 @@ import { PencilIcon } from '..';
 import { ptBR } from '../../languages';
 import { Register } from '../../models';
 import { MultiActionButtonRef } from '../Base';
-import { MultiActionButtonWrapper } from './MultiActionButtonWrapper';
+import { MultiActionButtonOption } from './MultiActionButtonWrapper';
 import { RegisterFormComponent, RegisterFormRef } from './RegisterForm';
 
 interface RegisterFormProps {
@@ -16,7 +16,7 @@ export default function EditRegister({ onSubmit, register }: RegisterFormProps) 
   const [formRef, setFormRef] = useState<RegisterFormRef | null>(null);
 
   return (
-    <MultiActionButtonWrapper
+    <MultiActionButtonOption
       header={ptBR.editRegister}
       label={ptBR.edit}
       onClose={() => formRef?.reset()}
@@ -34,6 +34,6 @@ export default function EditRegister({ onSubmit, register }: RegisterFormProps) 
         ref={setFormRef}
         register={register}
       />
-    </MultiActionButtonWrapper>
+    </MultiActionButtonOption>
   );
 }

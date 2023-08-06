@@ -22,7 +22,6 @@ export function formatDate(value: Date, locale: string) {
   const formatter = new Intl.DateTimeFormat(locale, {
     year: '2-digit',
     month: '2-digit',
-    day: '2-digit',
   });
   return formatter.format(value);
 }

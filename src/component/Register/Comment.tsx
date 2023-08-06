@@ -1,7 +1,7 @@
 import { CommentIcon } from '..';
 import { ptBR } from '../../languages';
 import { Register } from '../../models';
-import { MultiActionButtonWrapper } from './MultiActionButtonWrapper';
+import { MultiActionButtonOption } from './MultiActionButtonWrapper';
 
 interface CommentProps {
   register: Register;
@@ -9,7 +9,7 @@ interface CommentProps {
 
 export default function Comment({ register }: CommentProps) {
   return (
-    <MultiActionButtonWrapper
+    <MultiActionButtonOption
       containerClassName="max-w-[theme(spacing.40)] max-h-[theme(spacing.60)]"
       disabled={!register.comments}
       label={ptBR.comment}
@@ -20,6 +20,6 @@ export default function Comment({ register }: CommentProps) {
         />
       }>
       {register.comments}
-    </MultiActionButtonWrapper>
+    </MultiActionButtonOption>
   );
 }
