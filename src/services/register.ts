@@ -11,7 +11,7 @@ import { api } from './api';
 export namespace RegisterService {
   const CONTROLLER = 'register';
 
-  export async function getAll(filter?: DateRange): Promise<RegisterWithOptions> {
+  export async function getMany(filter?: DateRange): Promise<RegisterWithOptions> {
     const { data } = await api.get<RegisterResponseWithOptions>(CONTROLLER, {
       params: filter,
     });

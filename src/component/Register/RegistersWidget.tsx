@@ -9,6 +9,7 @@ import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
 
 const Table = lazy(() => import('../Table/Table'));
 const RegisterMenu = lazy(() => import('./RegisterMenu'));
+const CreateRegister = lazy(() => import('./CreateRegister'));
 
 const { FROM_DATE, TO_DATE } = getDefaultRange();
 
@@ -18,10 +19,22 @@ export function RegistersWidget() {
   const getAllQueryKey = ['register', 'all', filterRef.current];
   const { data, refetch } = useQuery({
     queryKey: getAllQueryKey,
-    queryFn: () => RegisterService.getAll(filterRef.current),
+    queryFn: () => RegisterService.getMany(filterRef.current),
   });
 
+  function closeAllDialogs() {
+    [...document.getElementsByTagName('dialog')].forEach(d => d.close());
+  }
+
   const queryClient = useQueryClient();
+  const { mutate: createOne } = useMutation({
+    mutationFn: RegisterService.createOne,
+    onSuccess: register => {
+      console.info(ptBR.registerCreated);
+      closeAllDialogs();
+    },
+  });
+
   const { mutate: updateOne } = useMutation({
     mutationFn: RegisterService.updateOne,
     onSuccess: register => {
@@ -53,7 +66,7 @@ export function RegistersWidget() {
         };
       });
       console.info(ptBR.registerUpdated);
-      [...document.getElementsByTagName('dialog')].forEach(d => d.close());
+      closeAllDialogs();
     },
   });
 
@@ -76,20 +89,20 @@ export function RegistersWidget() {
         return { registers: newRegisters, targetOptions, typeOptions };
       });
       console.info(ptBR.registerDeleted);
-      [...document.getElementsByTagName('dialog')].forEach(d => d.close());
+      closeAllDialogs();
     },
   });
 
-  const { registers, targetOptions, typeOptions } = data ?? {};
+  const { registers, targetOptions: rawTargetOptions, typeOptions: rawTypeOptions } = data ?? {};
 
-  const parsedTargetOptions = useMemo(
-    () => (targetOptions ?? []).sort().map(opt => ({ key: opt, value: opt })),
+  const targetOptions = useMemo(
+    () => (rawTargetOptions ?? []).sort().map(opt => ({ key: opt, value: opt })),
     [data]
   );
 
-  const parsedTypeOptions = useMemo(
+  const typeOptions = useMemo(
     () =>
-      (typeOptions ?? [])
+      (rawTypeOptions ?? [])
         .filter((opt): opt is string => !!opt)
         .sort()
         .map(opt => ({ key: opt, value: opt })),
@@ -132,26 +145,23 @@ export function RegistersWidget() {
   ];
 
   return (
-    <WidgetWithFilter
-      initialFilter={filterRef.current}
-      updateWidgetFilter={filter => {
-        filterRef.current = filter;
-        refetch();
-      }}>
-      {parsedRegisters?.length && (
-        <RegisterContext.Provider
-          value={{
-            targetOptions: parsedTargetOptions ?? [],
-            typeOptions: parsedTypeOptions ?? [],
-          }}>
+    <RegisterContext.Provider value={{ targetOptions, typeOptions }}>
+      <WidgetWithFilter
+        initialFilter={filterRef.current}
+        updateWidgetFilter={filter => {
+          filterRef.current = filter;
+          refetch();
+        }}>
+        {parsedRegisters.length && (
           <Table<(typeof parsedRegisters)[number]>
             columns={columns}
             data={parsedRegisters}
             showHeaders={false}
           />
-        </RegisterContext.Provider>
-      )}
-    </WidgetWithFilter>
+        )}
+      </WidgetWithFilter>
+      <CreateRegister onCreate={createOne} />
+    </RegisterContext.Provider>
   );
 }
 

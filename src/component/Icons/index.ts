@@ -9,5 +9,6 @@ export { GearIcon } from './GearIcon';
 export { GoogleIcon } from './GoogleIcon';
 export { LogoIcon } from './LogoIcon';
 export { PencilIcon } from './PencilIcon';
+export { PlusIcon } from './PlusIcon';
 export { SyncIcon } from './SyncIcon';
 export { TrashBinIcon } from './TrashBinIcon';
