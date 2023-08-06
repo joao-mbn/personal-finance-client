@@ -1,7 +1,11 @@
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
 import { EllipsisIcon } from '..';
 import { Register } from '../../models';
-import { MultiActionButton, MultiActionButtonRef } from '../Base';
+import { MultiActionButton } from '../Base';
+
+const DeleteRegister = lazy(() => import('./DeleteRegister'));
+const Comment = lazy(() => import('./Comment'));
+const EditRegister = lazy(() => import('./EditRegister'));
 
 interface RegisterMenuProps {
   register: Register;
@@ -9,19 +13,11 @@ interface RegisterMenuProps {
   onEdit: (register: Register) => void;
 }
 
-const DeleteRegister = lazy(() => import('./DeleteRegister'));
-const Comment = lazy(() => import('./Comment'));
-const EditRegister = lazy(() => import('./EditRegister'));
-
 export default function RegisterMenu({ register, onDelete, onEdit }: RegisterMenuProps) {
-  const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
-
   return (
     <div className="flex h-full w-full flex-col">
       <MultiActionButton
         buttonClassName="!p-0"
-        onMouseEnter={() => ref?.dialog?.showModal()}
-        ref={setRef}
         size="small"
         icon={
           <EllipsisIcon
