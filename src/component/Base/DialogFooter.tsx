@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Button, ButtonProps } from '.';
+import { ptBR } from '../../languages';
 
 export interface DialogFooterProps {
   confirmButton: ButtonProps;
@@ -12,11 +13,13 @@ export function DialogFooter({ confirmButton, cancelButton, className }: DialogF
     <div className={classNames('flex h-8 justify-end gap-2 pb-1', className)}>
       <Button
         importance="secondary"
+        label={ptBR.cancel}
         size="small"
         {...cancelButton}
       />
       <Button
         importance="primary"
+        label={ptBR.confirm}
         size="small"
         {...confirmButton}
       />

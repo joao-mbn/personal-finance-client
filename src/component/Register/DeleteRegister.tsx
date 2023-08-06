@@ -19,10 +19,7 @@ export default function DeleteRegister({ onDelete }: DeleteRegisterProps) {
       showFromOrigin={false}
       footer={
         <DialogFooter
-          cancelButton={{
-            label: ptBR.cancel,
-            onClick: () => ref?.dialog?.close(),
-          }}
+          cancelButton={{ onClick: () => ref?.dialog?.close() }}
           confirmButton={{
             className: '!justify-center',
             label: ptBR.delete,

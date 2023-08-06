@@ -1,15 +1,8 @@
-import {
-  forwardRef,
-  useCallback,
-  useContext,
-  useImperativeHandle,
-  useMemo,
-  useReducer,
-} from 'react';
-import { RegisterContext } from '../../contexts';
+import { forwardRef, useImperativeHandle } from 'react';
 import { ptBR } from '../../languages';
-import { Register, RegisterForm } from '../../models';
+import { Register } from '../../models';
 import { Autocomplete, CurrencyInput, DatePicker, DialogFooter, TextArea, Toggle } from '../Base';
+import { useRegisterForm } from './useRegisterForm';
 
 interface RegisterFormProps {
   onSubmit: (register: Register) => void;
@@ -23,42 +16,7 @@ export interface RegisterFormRef {
 
 export const RegisterFormComponent = forwardRef<RegisterFormRef, RegisterFormProps>(
   function RegisterFormComponent({ onSubmit, onCancel, register }, ref) {
-    const { targetOptions, typeOptions } = useContext(RegisterContext);
-
-    const initialForm: RegisterForm = useMemo(
-      () => ({
-        ...register,
-        type: register.type
-          ? typeOptions.find(opt => opt.value === register.type) ?? {
-              value: register.type,
-              key: crypto.randomUUID(),
-            }
-          : undefined,
-        target: targetOptions.find(opt => opt.value === register.target) ?? {
-          value: register.target,
-          key: crypto.randomUUID(),
-        },
-      }),
-      [register]
-    );
-
-    const reducer = useCallback(
-      (
-        state: RegisterForm,
-        action:
-          | { type: keyof RegisterForm; newValue: RegisterForm[keyof Register] }
-          | { type: 'reset' }
-      ) => {
-        const { type } = action;
-        if (type === 'reset') return initialForm;
-
-        const { newValue } = action;
-        return { ...state, [type]: newValue };
-      },
-      []
-    );
-
-    const [formState, dispatch] = useReducer(reducer, initialForm);
+    const { formState, dispatch, targetOptions, typeOptions } = useRegisterForm(register);
     const { target, timestamp, type, value, comments } = formState;
 
     useImperativeHandle<RegisterFormRef, RegisterFormRef>(
@@ -137,8 +95,8 @@ export const RegisterFormComponent = forwardRef<RegisterFormRef, RegisterFormPro
           />
         </div>
         <DialogFooter
-          cancelButton={{ label: ptBR.cancel, type: 'button', onClick: onCancel }}
-          confirmButton={{ label: ptBR.confirm, type: 'submit' }}
+          cancelButton={{ type: 'button', onClick: onCancel }}
+          confirmButton={{ type: 'submit' }}
         />
       </form>
     );
