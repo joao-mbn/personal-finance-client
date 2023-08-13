@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { NewRegister, Register } from '../../models';
 import { MultiActionButton, MultiActionButtonRef } from '../Base';
 import { PlusIcon } from '../Icons';
-import { RegisterFormComponent, RegisterFormRef } from './RegisterForm';
+import { RegisterFormRef } from './RegisterForm';
+
+const RegisterFormComponentCopy = lazy(() => import('./RegisterFormCopy'));
 
 interface CreateRegisterProps {
   onCreate: (register: NewRegister) => void;
@@ -36,7 +38,7 @@ export default function CreateRegister({ onCreate }: CreateRegisterProps) {
         />
       }>
       <div className="flex flex-col gap-1 whitespace-normal break-words">
-        <RegisterFormComponent
+        <RegisterFormComponentCopy
           onCancel={() => ref?.dialog?.close()}
           onSubmit={onCreate}
           ref={setFormRef}

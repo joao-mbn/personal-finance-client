@@ -1,4 +1,6 @@
-export type FormField<V> = {
+import { useForm } from './useForm';
+
+export type FormField<V = unknown> = {
   initialValue: V;
   currentValue: V;
   isEqual?: (newValue: V, initialValue: V) => boolean;
@@ -14,9 +16,6 @@ export type Action<T, V> =
   | { type: 'reset'; newValue: FormState<T, V> }
   | { type: 'register'; field: keyof T; newValue: Partial<FormField<V>> };
 
-export type Form<T, V> = {
-  formState: FormState<T, V>;
-  setValue: (field: keyof T, newValue: V) => void;
-  reset: () => void;
-  register: (field: keyof T, fns: Pick<FormField<V>, 'isEqual' | 'validator'>) => void;
-};
+export type UseFormReturn<T extends Record<string, unknown>> = ReturnType<typeof useForm<T>>;
+
+export type FormProps<T extends Record<string, unknown>> = Omit<UseFormReturn<T>, 'Form'>;

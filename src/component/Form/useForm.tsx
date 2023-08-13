@@ -2,7 +2,9 @@ import { FormHTMLAttributes, Reducer, useMemo, useReducer } from 'react';
 import { createFormContext } from './FormContext';
 import { Action, FormField, FormState } from './form';
 
-export function useForm<T extends Record<string, unknown>, V = T[keyof T]>(initialValues: T) {
+export function useForm<T extends Record<string, unknown>>(initialValues: T) {
+  type V = T[keyof T];
+
   const initialState = useMemo(() => {
     const formState = {} as FormState<T, V>;
 
@@ -25,12 +27,29 @@ export function useForm<T extends Record<string, unknown>, V = T[keyof T]>(initi
   );
 
   const reset = () => dispatch({ type: 'reset', newValue: initialState });
-  const setValue = (field: keyof T, newValue: V) => dispatch({ field, newValue });
   const register = (field: keyof T, fns: Pick<FormField<V>, 'isEqual' | 'validator'>) =>
     dispatch({ type: 'register', newValue: fns, field });
 
+  const setValue = (field: keyof T, newValue: V) => dispatch({ field, newValue });
+  const getValues = () => {
+    const values = {} as T;
+    for (const entry of Object.entries(formState)) {
+      const [key, value] = entry as [keyof T, FormField<V>];
+      values[key] = value.currentValue;
+    }
+    return values;
+  };
+
+  const form = {
+    formState,
+    getValues,
+    register,
+    reset,
+    setValue,
+  };
+
   function FormComponent({ ...props }: FormHTMLAttributes<HTMLFormElement>) {
-    const FormContext = useMemo(() => createFormContext<T, V>(), []);
+    const FormContext = useMemo(() => createFormContext<T>(), []);
 
     return (
       <FormContext.Provider value={form}>
@@ -38,13 +57,6 @@ export function useForm<T extends Record<string, unknown>, V = T[keyof T]>(initi
       </FormContext.Provider>
     );
   }
-
-  const form = {
-    formState,
-    setValue,
-    reset,
-    register,
-  };
 
   return { ...form, Form: FormComponent };
 }
@@ -67,7 +79,7 @@ function reducer<T, V>(state: FormState<T, V>, action: Action<T, V>) {
     updatedFieldState.currentValue = newValue;
   }
 
-  const { isDirty, isValid } = runChecks(updatedFieldState);
+  const { isDirty, isValid } = runChecks<V>(updatedFieldState);
   return { ...state, [field]: { ...updatedFieldState, isDirty, isValid } };
 }
 
