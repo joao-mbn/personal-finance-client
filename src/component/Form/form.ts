@@ -17,5 +17,3 @@ export type Action<T, V> =
   | { type: 'register'; field: keyof T; newValue: Partial<FormField<V>> };
 
 export type UseFormReturn<T extends Record<string, unknown>> = ReturnType<typeof useForm<T>>;
-
-export type FormProps<T extends Record<string, unknown>> = Omit<UseFormReturn<T>, 'Form'>;

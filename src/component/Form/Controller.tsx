@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ValueOf } from '../../models';
 import { useFormContext } from './FormContext';
 import { FormState } from './form';
@@ -26,9 +27,9 @@ export function Controller<T extends Record<string, unknown>, K extends keyof T 
 
   const { formState, setValue, register } = useFormContext<T>();
 
-  // useEffect(() => {
-  //   register(field, { validator, isEqual });
-  // }, [validator, isEqual]);
+  useEffect(() => {
+    register(field, { validator, isEqual });
+  }, [field, validator, isEqual]);
 
   const formField = formState[field];
   const onChange = (newValue: V) => setValue(field, newValue);

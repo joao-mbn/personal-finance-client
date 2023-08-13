@@ -1,5 +1,4 @@
-import { FormHTMLAttributes, Reducer, useMemo, useReducer } from 'react';
-import { createFormContext } from './FormContext';
+import { Reducer, useMemo, useReducer } from 'react';
 import { Action, FormField, FormState } from './form';
 
 export function useForm<T extends Record<string, unknown>>(initialValues: T) {
@@ -48,17 +47,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
     setValue,
   };
 
-  function FormComponent({ ...props }: FormHTMLAttributes<HTMLFormElement>) {
-    const FormContext = useMemo(() => createFormContext<T>(), []);
-
-    return (
-      <FormContext.Provider value={form}>
-        <form {...props} />
-      </FormContext.Provider>
-    );
-  }
-
-  return { ...form, Form: FormComponent };
+  return { ...form };
 }
 
 function reducer<T, V>(state: FormState<T, V>, action: Action<T, V>) {

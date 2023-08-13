@@ -25,5 +25,5 @@ export function useRegisterForm(register: Register) {
 
   const form = useForm<RegisterForm>(initialForm);
 
-  return { targetOptions, typeOptions, initialForm, ...form };
+  return { initialForm, ...form };
 }

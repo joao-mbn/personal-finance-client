@@ -4,6 +4,7 @@ import { ptBR } from '../../languages';
 import { AutocompleteOption, Register, RegisterForm } from '../../models';
 import { Autocomplete, CurrencyInput, DatePicker, DialogFooter, TextArea, Toggle } from '../Base';
 import { Controller } from '../Form/Controller';
+import { FormComponent } from '../Form/FormComponent';
 import { useRegisterForm } from './useRegisterForm';
 
 interface RegisterFormProps {
@@ -19,15 +20,17 @@ export interface RegisterFormRef {
 export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFormProps>(
   function RegisterFormComponentCopy({ onSubmit, onCancel, register }, ref) {
     const { targetOptions, typeOptions } = useContext(RegisterContext);
-    const { formState, reset, getValues, setValue, Form } = useRegisterForm(register);
+    const { ...formProps } = useRegisterForm(register);
+    const { formState, getValues, reset, setValue } = formProps;
 
     const value = formState.value.currentValue as number;
 
     useImperativeHandle<RegisterFormRef, RegisterFormRef>(ref, () => ({ reset }), []);
 
     return (
-      <Form
+      <FormComponent
         className="flex w-60 flex-col gap-4"
+        formProps={formProps}
         onSubmit={event => {
           event.preventDefault();
           const { type, target, ...rest } = getValues();
@@ -125,7 +128,7 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
           cancelButton={{ type: 'button', onClick: onCancel }}
           confirmButton={{ type: 'submit' }}
         />
-      </Form>
+      </FormComponent>
     );
   }
 );
