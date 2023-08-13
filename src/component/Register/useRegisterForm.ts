@@ -1,6 +1,7 @@
-import { useCallback, useContext, useMemo, useReducer } from 'react';
+import { useContext, useMemo } from 'react';
 import { RegisterContext } from '../../contexts';
 import { Register, RegisterForm } from '../../models';
+import { useForm } from '../Form/useForm';
 
 export function useRegisterForm(register: Register) {
   const { targetOptions, typeOptions } = useContext(RegisterContext);
@@ -22,23 +23,7 @@ export function useRegisterForm(register: Register) {
     [register]
   );
 
-  const reducer = useCallback(
-    (
-      state: RegisterForm,
-      action:
-        | { type: keyof RegisterForm; newValue: RegisterForm[keyof Register] }
-        | { type: 'reset' }
-    ) => {
-      const { type } = action;
-      if (type === 'reset') return initialForm;
+  const form = useForm<RegisterForm>(initialForm);
 
-      const { newValue } = action;
-      return { ...state, [type]: newValue };
-    },
-    []
-  );
-
-  const [formState, dispatch] = useReducer(reducer, initialForm);
-
-  return { formState, dispatch, targetOptions, typeOptions };
+  return { targetOptions, typeOptions, initialForm, ...form };
 }

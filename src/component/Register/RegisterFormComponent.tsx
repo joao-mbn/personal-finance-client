@@ -4,7 +4,7 @@ import { ptBR } from '../../languages';
 import { AutocompleteOption, Register, RegisterForm } from '../../models';
 import { Autocomplete, CurrencyInput, DatePicker, DialogFooter, TextArea, Toggle } from '../Base';
 import { Controller } from '../Form/Controller';
-import { useRegisterFormCopy } from './useRegisterFormCopy';
+import { useRegisterForm } from './useRegisterForm';
 
 interface RegisterFormProps {
   onSubmit: (register: Register) => void;
@@ -19,7 +19,7 @@ export interface RegisterFormRef {
 export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFormProps>(
   function RegisterFormComponentCopy({ onSubmit, onCancel, register }, ref) {
     const { targetOptions, typeOptions } = useContext(RegisterContext);
-    const { formState, reset, getValues, setValue, Form } = useRegisterFormCopy(register);
+    const { formState, reset, getValues, setValue, Form } = useRegisterForm(register);
 
     const value = formState.value.currentValue as number;
 
@@ -92,7 +92,7 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
         <div className="flex flex-col">
           {ptBR.type}
           <Controller<RegisterForm>
-            field="target"
+            field="type"
             render={({ currentValue }, onChange) => (
               <Autocomplete
                 inputProps={{ maxLength: 30 }}
@@ -107,7 +107,7 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
         <div className="flex flex-col">
           {ptBR.comment}
           <Controller<RegisterForm>
-            field="target"
+            field="comments"
             render={({ currentValue }, onChange) => (
               <TextArea
                 inputSize="small"

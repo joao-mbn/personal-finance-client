@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { PencilIcon } from '..';
 import { ptBR } from '../../languages';
 import { Register } from '../../models';
 import { MultiActionButtonRef } from '../Base';
 import { MultiActionButtonOption } from './MultiActionButtonWrapper';
-import { RegisterFormComponent, RegisterFormRef } from './RegisterForm';
+import { RegisterFormRef } from './RegisterFormComponent';
+
+const RegisterFormComponent = lazy(() => import('./RegisterFormComponent'));
 
 interface RegisterFormProps {
   onSubmit: (register: Register) => void;
