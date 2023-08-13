@@ -5,6 +5,7 @@ export const ptBR = {
   comment: 'Comentário',
   configuration: 'Config.',
   confirm: 'Confirmar',
+  contextIsNull: 'Contexto está nulo',
   dashboard: 'Dashboard',
   date: 'Data',
   debts: 'Dívidas',
