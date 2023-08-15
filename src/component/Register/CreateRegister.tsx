@@ -1,5 +1,6 @@
 import { lazy, useState } from 'react';
-import { NewRegister, Register } from '../../models';
+import { ptBR } from '../../languages';
+import { NewRegister } from '../../models';
 import { MultiActionButton, MultiActionButtonRef } from '../Base';
 import { PlusIcon } from '../Icons';
 import { RegisterFormRef } from './RegisterFormComponent';
@@ -14,18 +15,10 @@ export default function CreateRegister({ onCreate }: CreateRegisterProps) {
   const [ref, setRef] = useState<MultiActionButtonRef | null>(null);
   const [formRef, setFormRef] = useState<RegisterFormRef | null>(null);
 
-  const newRegister: Register = {
-    id: '',
-    target: '',
-    timestamp: new Date(),
-    value: 0,
-    comments: '',
-    type: '',
-  };
-
   return (
     <MultiActionButton
       buttonClassName="fixed right-10 bottom-24 z-10 rounded-full !p-2 shadow-md"
+      header={ptBR.createRegister}
       importance="primary"
       onClose={() => formRef?.reset()}
       ref={setRef}
@@ -37,14 +30,11 @@ export default function CreateRegister({ onCreate }: CreateRegisterProps) {
           viewBox="4 4 16 16"
         />
       }>
-      <div className="flex flex-col gap-1 whitespace-normal break-words">
-        <RegisterFormComponent
-          onCancel={() => ref?.dialog?.close()}
-          onSubmit={onCreate}
-          ref={setFormRef}
-          register={newRegister}
-        />
-      </div>
+      <RegisterFormComponent
+        onCancel={() => ref?.dialog?.close()}
+        onSubmit={onCreate}
+        ref={setFormRef}
+      />
     </MultiActionButton>
   );
 }

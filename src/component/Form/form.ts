@@ -1,19 +1,33 @@
 import { useForm } from './useForm';
 
-export type FormField<V = unknown> = {
-  initialValue: V;
-  currentValue: V;
-  isEqual?: (newValue: V, initialValue: V) => boolean;
+export type StateAction<T, K extends keyof T = keyof T> =
+  | { type?: undefined; field: K; newValue: T[K] }
+  | { type: 'reset'; newValue: T };
+
+export type FieldMetadata<T, K extends keyof T = keyof T> = {
+  initialValue: T[K];
   isDirty: boolean;
-  validator?: (newValue: V) => boolean;
   isValid: boolean;
 };
 
-export type FormState<T, V> = Record<keyof T, FormField<V>>;
+export type Metadata<T, K extends keyof T = keyof T> = Record<K, FieldMetadata<T, K>>;
 
-export type Action<T, V> =
-  | { type?: undefined; field: keyof T; newValue: V }
-  | { type: 'reset'; newValue: FormState<T, V> }
-  | { type: 'register'; field: keyof T; newValue: Partial<FormField<V>> };
+export type MetadataAction<T, K extends keyof T = keyof T> = {
+  field: K;
+  currentValue: T[K];
+  fieldCheckers: Partial<FieldCheckers<T, K>>;
+};
+
+export type FieldCheckers<T, K extends keyof T = keyof T> = {
+  equalityComparer?: (newValue: T[K], initialValue: T[K]) => boolean;
+  validator?: (newValue: T[K]) => boolean;
+};
+
+export type Checkers<T, K extends keyof T = keyof T> = Record<K, FieldCheckers<T[K]>>;
+
+export type CheckersAction<T, K extends keyof T = keyof T> = {
+  field: K;
+  fieldCheckers: Partial<FieldCheckers<T, K>>;
+};
 
 export type UseFormReturn<T extends Record<string, unknown>> = ReturnType<typeof useForm<T>>;

@@ -1,38 +1,31 @@
 import { useEffect } from 'react';
-import { ValueOf } from '../../models';
 import { useFormContext } from './FormContext';
-import { FormState } from './form';
+import { FieldCheckers, FieldMetadata } from './form';
 
-interface ControllerProps<
-  T extends Record<string, unknown>,
-  K extends keyof T = keyof T,
-  V extends ValueOf<T> = ValueOf<T>
-> {
+export interface ControllerProps<T extends Record<string, unknown>, K extends keyof T = keyof T> {
   field: K;
-  validator?: FormState<T, V>[K]['validator'];
-  isEqual?: FormState<T, V>[K]['isEqual'];
+  validator?: FieldCheckers<T>['validator'];
+  equalityComparer?: FieldCheckers<T>['equalityComparer'];
   render: (
-    formField: Pick<FormState<T, V>[K], 'currentValue' | 'isDirty' | 'isValid'>,
-    onChange: (newValue: V) => void
+    metadata: Pick<FieldMetadata<T>, 'isDirty' | 'isValid'>,
+    onChange: (newValue: T[K]) => void
   ) => JSX.Element;
 }
 
 export function Controller<T extends Record<string, unknown>, K extends keyof T = keyof T>({
   field,
   validator,
-  isEqual,
+  equalityComparer,
   render,
 }: ControllerProps<T, K>) {
-  type V = ValueOf<T>;
-
-  const { formState, setValue, register } = useFormContext<T>();
+  const { metadata, setValue, registerCheckers } = useFormContext<T>();
 
   useEffect(() => {
-    register(field, { validator, isEqual });
-  }, [field, validator, isEqual]);
+    registerCheckers(field, { validator, equalityComparer });
+  }, [field, validator, equalityComparer]);
 
-  const formField = formState[field];
-  const onChange = (newValue: V) => setValue(field, newValue);
+  const { isDirty, isValid } = metadata[field];
+  const onChange = (newValue: T[K]) => setValue(field, newValue);
 
-  return render(formField, onChange);
+  return render({ isDirty, isValid }, onChange);
 }

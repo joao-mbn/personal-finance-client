@@ -17,6 +17,7 @@ export const ptBR = {
   earning: 'Recebimento',
   edit: 'Editar',
   editRegister: 'Editar registro',
+  createRegister: 'Criar registro',
   error: 'Erro',
   expense: 'Gasto',
   from: 'de',
