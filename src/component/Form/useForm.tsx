@@ -17,14 +17,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
   const [metadata, metadataDispatch] = useReducer<Reducer<Metadata<T>, MetadataAction<T>>, T>(
     metadataReducer,
     initialValues,
-    initialValues =>
-      Object.entries(initialValues).reduce(
-        (acc, [currKey, currValue]) => ({
-          ...acc,
-          [currKey as keyof T]: { initialValue: currValue, isDirty: false, isValid: true },
-        }),
-        {} as Metadata<T>
-      )
+    generateMetadataInitialValues
   );
 
   const [checkers, checkersDispatch] = useReducer<Reducer<Checkers<T>, CheckersAction<T>>>(
@@ -34,8 +27,8 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
 
   const reset = useCallback(() => {
     stateDispatch({ type: 'reset', newValue: initialValues });
-    // TODO: reset metadata
-    // TODO: reset checkers
+    metadataDispatch({ type: 'reset', initialValue: generateMetadataInitialValues(initialValues) });
+    checkersDispatch({ type: 'reset', checkers: {} as Checkers<T> });
   }, [initialValues]);
 
   const setValue = useCallback(
@@ -44,11 +37,10 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
       metadataDispatch({
         field,
         fieldCheckers: checkers[field] as Partial<FieldCheckers<T>>,
-        currentMetadata: metadata[field],
         currentValue: newValue,
       });
     },
-    [metadata, checkers]
+    [checkers]
   );
 
   const registerCheckers = useCallback(
@@ -57,11 +49,10 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
       metadataDispatch({
         field,
         fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>>,
-        currentMetadata: metadata[field],
         currentValue: state[field],
       });
     },
-    [metadata, state]
+    [state]
   );
 
   const isDirty = useMemo(() => Object.values(metadata).some(m => m.isDirty), [metadata]);
@@ -91,21 +82,36 @@ function stateReducer<T>(state: T, action: StateAction<T>) {
   return { ...state, [field]: newValue };
 }
 
+function generateMetadataInitialValues<T extends Record<string, unknown>>(initialValues: T) {
+  return Object.entries(initialValues).reduce(
+    (acc, [currKey, currValue]) => ({
+      ...acc,
+      [currKey as keyof T]: { initialValue: currValue, isDirty: false, isValid: true },
+    }),
+    {} as Metadata<T>
+  );
+}
+
 function metadataReducer<T>(state: Metadata<T>, action: MetadataAction<T>) {
-  const { field, currentValue, fieldCheckers: checkers, currentMetadata } = action;
-  const { initialValue } = state[field];
+  const { type } = action;
+  if (type === 'reset') return action.initialValue;
+
+  const { field, currentValue, fieldCheckers: checkers } = action;
+  const { initialValue, isDirty: prevIsDirty, isValid: prevIsValid } = state[field];
   const { equalityComparer, validator } = checkers;
-  const { isDirty: currentIsDirty, isValid: currentIsValid } = currentMetadata;
 
   const isValid = validator?.(currentValue) ?? true;
   const isDirty = equalityComparer?.(currentValue, initialValue) ?? currentValue === initialValue;
 
-  if (currentIsDirty === isDirty && currentIsValid === isValid) return state;
+  if (prevIsDirty === isDirty && prevIsValid === isValid) return state;
 
   return { ...state, [field]: { ...state[field], isDirty, isValid } };
 }
 
 function checkersReducer<T>(state: Checkers<T>, action: CheckersAction<T>) {
+  const { type } = action;
+  if (type === 'reset') return action.checkers;
+
   const { fieldCheckers, field } = action;
   return { ...state, [field]: { ...state[field], ...fieldCheckers } };
 }
