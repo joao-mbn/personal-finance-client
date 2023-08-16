@@ -1,4 +1,4 @@
-import { Reducer, useMemo, useReducer } from 'react';
+import { Reducer, useCallback, useMemo, useReducer } from 'react';
 import {
   Checkers,
   CheckersAction,
@@ -32,28 +32,37 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
     {} as Checkers<T>
   );
 
-  const reset = () => stateDispatch({ type: 'reset', newValue: initialValues });
+  const reset = useCallback(() => {
+    stateDispatch({ type: 'reset', newValue: initialValues });
+    // TODO: reset metadata
+    // TODO: reset checkers
+  }, [initialValues]);
 
-  const setValue = <K extends keyof T = keyof T>(field: K, newValue: T[K]) => {
-    stateDispatch({ field, newValue });
-    metadataDispatch({
-      field,
-      fieldCheckers: checkers[field] as Partial<FieldCheckers<T>>,
-      currentValue: newValue,
-    });
-  };
+  const setValue = useCallback(
+    <K extends keyof T = keyof T>(field: K, newValue: T[K]) => {
+      stateDispatch({ field, newValue });
+      metadataDispatch({
+        field,
+        fieldCheckers: checkers[field] as Partial<FieldCheckers<T>>,
+        currentMetadata: metadata[field],
+        currentValue: newValue,
+      });
+    },
+    [metadata, checkers]
+  );
 
-  const registerCheckers = <K extends keyof T>(
-    field: K,
-    fieldCheckers: Partial<FieldCheckers<T>>
-  ) => {
-    checkersDispatch({ field, fieldCheckers });
-    metadataDispatch({
-      field,
-      fieldCheckers,
-      currentValue: state[field],
-    });
-  };
+  const registerCheckers = useCallback(
+    <K extends keyof T>(field: K, fieldCheckers: Partial<FieldCheckers<T, K>>) => {
+      checkersDispatch({ field, fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>> });
+      metadataDispatch({
+        field,
+        fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>>,
+        currentMetadata: metadata[field],
+        currentValue: state[field],
+      });
+    },
+    [metadata, state]
+  );
 
   const isDirty = useMemo(() => Object.values(metadata).some(m => m.isDirty), [metadata]);
   const isValid = useMemo(() => Object.values(metadata).every(m => m.isValid), [metadata]);
@@ -83,17 +92,20 @@ function stateReducer<T>(state: T, action: StateAction<T>) {
 }
 
 function metadataReducer<T>(state: Metadata<T>, action: MetadataAction<T>) {
-  const { field, currentValue, fieldCheckers: checkers } = action;
+  const { field, currentValue, fieldCheckers: checkers, currentMetadata } = action;
   const { initialValue } = state[field];
   const { equalityComparer, validator } = checkers;
+  const { isDirty: currentIsDirty, isValid: currentIsValid } = currentMetadata;
 
   const isValid = validator?.(currentValue) ?? true;
   const isDirty = equalityComparer?.(currentValue, initialValue) ?? currentValue === initialValue;
+
+  if (currentIsDirty === isDirty && currentIsValid === isValid) return state;
 
   return { ...state, [field]: { ...state[field], isDirty, isValid } };
 }
 
 function checkersReducer<T>(state: Checkers<T>, action: CheckersAction<T>) {
-  const { fieldCheckers: checkers, field } = action;
-  return { ...state, [field]: { ...state[field], ...checkers } };
+  const { fieldCheckers, field } = action;
+  return { ...state, [field]: { ...state[field], ...fieldCheckers } };
 }

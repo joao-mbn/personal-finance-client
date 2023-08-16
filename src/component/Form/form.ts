@@ -15,6 +15,7 @@ export type Metadata<T, K extends keyof T = keyof T> = Record<K, FieldMetadata<T
 export type MetadataAction<T, K extends keyof T = keyof T> = {
   field: K;
   currentValue: T[K];
+  currentMetadata: Partial<FieldMetadata<T, K>>;
   fieldCheckers: Partial<FieldCheckers<T, K>>;
 };
 

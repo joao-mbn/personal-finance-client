@@ -1,10 +1,11 @@
 import { forwardRef, useContext, useImperativeHandle } from 'react';
 import { RegisterContext } from '../../contexts';
 import { ptBR } from '../../languages';
-import { Register, RegisterForm } from '../../models';
+import { AutocompleteOption, Register, RegisterForm } from '../../models';
 import { Autocomplete, CurrencyInput, DatePicker, DialogFooter, TextArea, Toggle } from '../Base';
 import { Controller } from '../Form/Controller';
 import { FormComponent } from '../Form/FormComponent';
+import { FieldCheckers } from '../Form/form';
 import { useRegisterForm } from './useRegisterForm';
 
 interface RegisterFormProps {
@@ -17,6 +18,25 @@ export interface RegisterFormRef {
   reset: () => void;
 }
 
+type T = Omit<RegisterForm, 'id'>;
+const checkers: { [K in keyof T]: FieldCheckers<T, K> } = {
+  value: {
+    validator: (value: number) => value !== 0,
+  },
+  timestamp: {
+    validator: (value: Date) => value && !isNaN(value.getTime()),
+  },
+  type: {
+    validator: (value?: AutocompleteOption) => (value?.value.length ?? 0) < 30,
+  },
+  target: {
+    validator: (value: AutocompleteOption) => value.value.length > 3 && value.value.length < 30,
+  },
+  comments: {
+    validator: (value?: string) => (value?.length ?? 0) < 200,
+  },
+};
+
 export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFormProps>(
   function RegisterFormComponentCopy({ onSubmit, onCancel, register }, ref) {
     const { targetOptions, typeOptions } = useContext(RegisterContext);
@@ -24,7 +44,7 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
     const { setValue, state, reset } = formProps;
     const { target, type, timestamp, value, comments } = state;
 
-    useImperativeHandle<RegisterFormRef, RegisterFormRef>(ref, () => ({ reset }), []);
+    useImperativeHandle<RegisterFormRef, RegisterFormRef>(ref, () => ({ reset }), [reset]);
 
     return (
       <FormComponent
@@ -35,8 +55,8 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
           onSubmit({ ...state, type: type?.value, target: target.value });
         }}>
         <Controller<RegisterForm, 'value'>
+          checkers={checkers['value']}
           field="value"
-          validator={value => value !== 0}
           render={({ isDirty, isValid }, onChange) => (
             <div className="flex gap-4">
               <div className="flex flex-col">
