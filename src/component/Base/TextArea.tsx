@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { TextareaHTMLAttributes, forwardRef, useImperativeHandle, useState } from 'react';
 import { DragIcon } from '../Icons';
 
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   inputSize: 'small' | 'medium' | 'large';
 }
 

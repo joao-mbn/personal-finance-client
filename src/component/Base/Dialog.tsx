@@ -64,7 +64,7 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
 
     _ref.addEventListener('close', _onClose);
     return () => _ref.removeEventListener('close', _onClose);
-  }, [_ref]);
+  }, [_ref, onClose]);
 
   return (
     <dialog
@@ -79,19 +79,21 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
         // but if the click was inside the child div, the target won't be the dialog.
         e.target === _ref && _ref.close();
       }}>
-      <div
-        className={classNames(
-          'flex flex-col gap-2 rounded-lg bg-white p-2 text-hoki-800',
-          containerClassName
-        )}>
-        {header && (
-          <h1 className="mb-1 w-full border-b-2 border-b-cerulean-600 pb-1 text-sm font-bold text-hoki-600">
-            {header}
-          </h1>
-        )}
-        {children}
-        {footer && <footer className="mt-auto pt-1">{footer}</footer>}
-      </div>
+      {_open ? (
+        <div
+          className={classNames(
+            'flex flex-col gap-2 rounded-lg bg-white p-2 text-hoki-800',
+            containerClassName
+          )}>
+          {header && (
+            <h1 className="mb-1 w-full border-b-2 border-b-cerulean-600 pb-1 text-sm font-bold text-hoki-600">
+              {header}
+            </h1>
+          )}
+          {children}
+          {footer && <footer className="mt-auto pt-1">{footer}</footer>}
+        </div>
+      ) : null}
     </dialog>
   );
 });

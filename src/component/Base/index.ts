@@ -1,7 +1,8 @@
 export { Autocomplete } from './Autocomplete';
+export type { AutocompleteProps } from './Autocomplete';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
-export { CurrencyInput } from './CurrencyInput';
+export * from './CurrencyInput';
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
@@ -17,5 +18,5 @@ export { MultiActionButton } from './MultiActionButton';
 export type { MultiActionButtonProps, MultiActionButtonRef } from './MultiActionButton';
 export { Options, OptionsTrigger } from './Options';
 export type { OptionsProps } from './Options';
-export { TextArea } from './TextArea';
+export * from './TextArea';
 export { Toggle } from './Toggle';
