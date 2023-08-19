@@ -1,6 +1,6 @@
 import { Context, createContext, useContext } from 'react';
+import { UseFormReturn } from '.';
 import { ptBR } from '../../languages';
-import { UseFormReturn } from './form';
 
 let FormContext: unknown = null;
 

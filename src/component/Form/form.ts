@@ -1,4 +1,4 @@
-import { useForm } from './useForm';
+import { useForm } from '.';
 
 export type StateAction<T, K extends keyof T = keyof T> =
   | { type?: undefined; field: K; newValue: T[K] }
@@ -17,7 +17,7 @@ export type MetadataAction<T, K extends keyof T = keyof T> =
       type?: undefined;
       field: K;
       currentValue: T[K];
-      fieldCheckers: Partial<FieldCheckers<T, K>>;
+      fieldCheckers?: Partial<FieldCheckers<T, K>>;
     }
   | { type: 'reset'; initialValue: Metadata<T, K> };
 

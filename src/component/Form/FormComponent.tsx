@@ -1,6 +1,5 @@
 import { FormHTMLAttributes, useMemo } from 'react';
-import { createFormContext } from './FormContext';
-import { UseFormReturn } from './form';
+import { UseFormReturn, createFormContext } from '.';
 
 interface FormComponentProps<T extends Record<string, unknown>>
   extends FormHTMLAttributes<HTMLFormElement> {

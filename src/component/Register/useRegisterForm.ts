@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { RegisterContext } from '../../contexts';
 import { Register, RegisterForm } from '../../models';
-import { useForm } from '../Form/useForm';
+import { useForm } from '../Form';
 
 const defaultRegister: RegisterForm = {
   id: '',

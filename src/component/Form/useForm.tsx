@@ -1,12 +1,5 @@
 import { Reducer, useCallback, useMemo, useReducer } from 'react';
-import {
-  Checkers,
-  CheckersAction,
-  FieldCheckers,
-  Metadata,
-  MetadataAction,
-  StateAction,
-} from './form';
+import { Checkers, CheckersAction, FieldCheckers, Metadata, MetadataAction, StateAction } from '.';
 
 export function useForm<T extends Record<string, unknown>>(initialValues: T) {
   const [state, stateDispatch] = useReducer<Reducer<T, StateAction<T>>>(
@@ -36,7 +29,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
       stateDispatch({ field, newValue });
       metadataDispatch({
         field,
-        fieldCheckers: checkers[field] as Partial<FieldCheckers<T>>,
+        fieldCheckers: checkers[field] as Partial<FieldCheckers<T>> | undefined,
         currentValue: newValue,
       });
     },
@@ -48,7 +41,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
       checkersDispatch({ field, fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>> });
       metadataDispatch({
         field,
-        fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>>,
+        fieldCheckers: fieldCheckers as Partial<FieldCheckers<T>> | undefined,
         currentValue: state[field],
       });
     },
@@ -96,12 +89,12 @@ function metadataReducer<T>(state: Metadata<T>, action: MetadataAction<T>) {
   const { type } = action;
   if (type === 'reset') return action.initialValue;
 
-  const { field, currentValue, fieldCheckers: checkers } = action;
+  const { field, currentValue, fieldCheckers } = action;
   const { initialValue, isDirty: prevIsDirty, isValid: prevIsValid } = state[field];
-  const { equalityComparer, validator } = checkers;
 
-  const isValid = validator?.(currentValue) ?? true;
-  const isDirty = equalityComparer?.(currentValue, initialValue) ?? currentValue === initialValue;
+  const isValid = fieldCheckers?.validator?.(currentValue) ?? true;
+  const isDirty =
+    fieldCheckers?.equalityComparer?.(currentValue, initialValue) ?? currentValue !== initialValue;
 
   if (prevIsDirty === isDirty && prevIsValid === isValid) return state;
 

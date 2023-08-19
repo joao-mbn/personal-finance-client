@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useFormContext } from './FormContext';
-import { FieldCheckers, FieldMetadata } from './form';
+import { FieldCheckers, FieldMetadata, useFormContext } from '.';
 
 export interface ControllerProps<T extends Record<string, unknown>, K extends keyof T = keyof T> {
   field: K;
