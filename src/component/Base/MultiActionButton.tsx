@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactNode, forwardRef, lazy, useImperativeHandle } from 'react';
+import { ReactNode, forwardRef, lazy, useCallback, useImperativeHandle } from 'react';
 import { Button, ButtonProps, DialogProps } from '..';
 import { useShowDialogFromOrigin } from '../../hooks';
 import { DialogRef } from './Dialog';
@@ -39,9 +39,9 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
     const { dialogRef, buttonRef, setButtonRef, setDialogRef, showDialogFromOrigin } =
       useShowDialogFromOrigin();
 
-    function showModal() {
+    const showModal = useCallback(() => {
       showFromOrigin ? showDialogFromOrigin() : dialogRef?.showModal();
-    }
+    }, [dialogRef, showDialogFromOrigin, showFromOrigin]);
 
     useImperativeHandle<MultiActionButtonRef, MultiActionButtonRef>(
       ref,
@@ -49,7 +49,7 @@ export const MultiActionButton = forwardRef<MultiActionButtonRef, MultiActionBut
         dialog: dialogRef ? { ...dialogRef, showModal } : null,
         button: buttonRef,
       }),
-      [dialogRef, buttonRef]
+      [dialogRef, showModal, buttonRef]
     );
 
     return (

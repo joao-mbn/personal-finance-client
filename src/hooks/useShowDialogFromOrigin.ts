@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { DialogRef } from '../component';
 import { AppContext } from '../contexts';
 import { REM_PX_RATIO } from '../utils';
@@ -17,7 +17,7 @@ export const useShowDialogFromOrigin = () => {
     viewportDimensions: { height: vh, width: vw },
   } = useContext(AppContext);
 
-  function showDialogFromOrigin() {
+  const showDialogFromOrigin = useCallback(() => {
     if (!dialogRef || !buttonRef) return;
 
     const {
@@ -37,7 +37,7 @@ export const useShowDialogFromOrigin = () => {
 
     dialogRef.setStyle({ top, marginRight });
     dialogRef.showModal();
-  }
+  }, [buttonRef, dialogRef, vh, vw]);
 
   return { buttonRef, dialogRef, setButtonRef, setDialogRef, showDialogFromOrigin };
 };

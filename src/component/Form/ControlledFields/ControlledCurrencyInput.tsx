@@ -17,7 +17,6 @@ export function ControlledCurrencyInput<
     <ControlledFieldBase<T, K>
       {...props}
       render={({ isDirty, isValid }, onChange) => {
-        console.log(isDirty);
         return (
           <CurrencyInput
             onChange={onChange as (value: number) => void}

@@ -93,8 +93,9 @@ function metadataReducer<T>(state: Metadata<T>, action: MetadataAction<T>) {
   const { initialValue, isDirty: prevIsDirty, isValid: prevIsValid } = state[field];
 
   const isValid = fieldCheckers?.validator?.(currentValue) ?? true;
-  const isDirty =
-    fieldCheckers?.equalityComparer?.(currentValue, initialValue) ?? currentValue !== initialValue;
+  const isDirty = fieldCheckers?.equalityComparer
+    ? !fieldCheckers.equalityComparer(currentValue, initialValue)
+    : currentValue !== initialValue;
 
   if (prevIsDirty === isDirty && prevIsValid === isValid) return state;
 
