@@ -10,8 +10,9 @@ import {
 
 export interface DialogProps extends HTMLAttributes<HTMLDialogElement> {
   containerClassName?: string;
-  header?: ReactNode;
   footer?: ReactNode;
+  header?: ReactNode;
+  headerClassName?: string;
   onClose?: (e: Event) => void;
 }
 
@@ -25,7 +26,16 @@ export type DialogRef =
   | null;
 
 export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
-  { children, className, containerClassName, footer, header, onClose, ...props }: DialogProps,
+  {
+    children,
+    className,
+    containerClassName,
+    footer,
+    header,
+    headerClassName,
+    onClose,
+    ...props
+  }: DialogProps,
   ref
 ) {
   const [_ref, setRef] = useState<Ref>(null);
@@ -87,7 +97,11 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
             containerClassName
           )}>
           {header && (
-            <h1 className="mb-1 w-full border-b-2 border-b-cerulean-600 pb-1 text-sm font-bold text-hoki-600">
+            <h1
+              className={classNames(
+                headerClassName,
+                'mb-1 w-full border-b-2 border-b-cerulean-600 pb-1 text-sm font-bold text-hoki-600'
+              )}>
               {header}
             </h1>
           )}
