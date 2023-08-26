@@ -25,7 +25,7 @@ export type DialogRef =
   | null;
 
 export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
-  { children, className, containerClassName, footer, header, onClose }: DialogProps,
+  { children, className, containerClassName, footer, header, onClose, ...props }: DialogProps,
   ref
 ) {
   const [_ref, setRef] = useState<Ref>(null);
@@ -68,6 +68,7 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
 
   return (
     <dialog
+      {...props}
       ref={setRef}
       className={classNames(
         'my-0 mr-auto rounded-lg p-0 shadow-lg shadow-hoki-900 transition-opacity duration-300',

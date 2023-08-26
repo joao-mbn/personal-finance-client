@@ -5,7 +5,8 @@
 @layer base {
   input,
   button,
-  textarea {
+  textarea,
+  dialog {
     @apply outline-none;
   }
 }

@@ -6,6 +6,7 @@ export default {
       fontSize: {
         tiny: ['0.625rem', { lineHeight: '0.75rem' }],
       },
+      spacing: { '1/2vh': '50vh' },
       colors: {
         cerulean: {
           50: '#effaff',
