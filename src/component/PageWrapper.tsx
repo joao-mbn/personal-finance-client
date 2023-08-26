@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useContext, useRef } from 'react';
+import { useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AppContext } from '../contexts';
 import { useRect } from '../hooks';
@@ -11,17 +11,18 @@ interface PageWrapperProps {
 }
 
 export function PageWrapper({ isAtBase }: PageWrapperProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const rect = useRect(ref.current);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const rect = useRect(ref);
   const {
     viewportDimensions: { height: vh },
   } = useContext(AppContext);
+
   const willScroll = rect?.height && rect.height > vh - MENU_BAR_HEIGHT * REM_PX_RATIO;
 
   return (
-    <div className="h-full w-screen">
+    <div className={classNames('h-full w-screen')}>
       <div
-        ref={ref}
+        ref={setRef}
         className={classNames('h-full bg-hoki-50', {
           'pb-20': willScroll && !isAtBase,
           'h-screen': isAtBase,

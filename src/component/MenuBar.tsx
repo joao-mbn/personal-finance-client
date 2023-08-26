@@ -39,14 +39,10 @@ const options = [
 ] as const;
 
 export function MenuBar() {
-  const height = `h-[${MENU_BAR_HEIGHT}rem]`;
-
   return (
     <footer
-      className={classNames(
-        'z-2 fixed bottom-0 w-full bg-cerulean-100 py-2 shadow shadow-cerulean-950',
-        height
-      )}>
+      className={'z-2 fixed bottom-0 w-full bg-cerulean-100 py-2 shadow shadow-cerulean-950'}
+      style={{ height: `${MENU_BAR_HEIGHT}rem` }}>
       <nav className="flex w-full justify-around">
         {options.map(({ path, name, icon }) => (
           <NavLink
