@@ -2,23 +2,23 @@ import classNames from 'classnames';
 import { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
 import { Dialog, DialogProps, DialogRef } from '.';
 import { ErrorIcon, InfoIcon, SuccessIcon } from '..';
+import { ptBR } from '../../languages';
 
 export interface ToasterProps extends Omit<DialogProps, 'header'> {
-  title: string;
+  title?: string;
+  message: string;
   duration?: number;
   type?: 'error' | 'info' | 'success';
 }
 
-export type ToasterRef =
-  | (DialogRef & {
-      invoke: () => void;
-    })
-  | null;
+export type ToasterRef = (DialogRef & { invoke: () => void }) | null;
 
 export const Toaster = forwardRef<ToasterRef, ToasterProps>(function Toaster(
-  { title, duration = 5000, type = 'info', ...props }: ToasterProps,
+  { title, message, className, duration = 3000, type = 'info', ...props }: ToasterProps,
   ref
 ) {
+  const _title =
+    title ?? ((type === 'error' && ptBR.error) || (type === 'success' && ptBR.success));
   const [_ref, setRef] = useState<DialogRef>(null);
   const [translation, setTranslation] = useState('');
 
@@ -44,17 +44,18 @@ export const Toaster = forwardRef<ToasterRef, ToasterProps>(function Toaster(
       headerClassName={getClassName(type)}
       ref={setRef}
       className={classNames(
-        props.className,
-        'top-full w-56 transition-transform duration-300 ease-linear',
-        translation
+        className,
+        translation,
+        'top-full z-50 w-56 transition-transform ease-linear'
       )}
       header={
         <span className="flex gap-1">
           {getIcon(type)}
-          {title}
+          {_title}
         </span>
-      }
-    />
+      }>
+      {message}
+    </Dialog>
   );
 });
 

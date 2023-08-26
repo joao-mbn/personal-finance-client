@@ -1,4 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useContext } from 'react';
+import { AppContext } from '../../contexts';
 import { ptBR } from '../../languages';
 import { DateRange, Register, RegisterWithOptions } from '../../models';
 import { RegisterService } from '../../services';
@@ -12,6 +14,7 @@ export function useRegisterCrud(filter: DateRange) {
   });
 
   const queryClient = useQueryClient();
+  const { invoke } = useContext(AppContext);
 
   const { mutate: createOne } = useMutation({
     mutationFn: RegisterService.createOne,
@@ -48,8 +51,8 @@ export function useRegisterCrud(filter: DateRange) {
         };
       });
 
-      console.info(ptBR.registerCreated);
       closeAllDialogs();
+      invoke({ type: 'success', message: ptBR.registerCreated });
     },
   });
 
@@ -84,8 +87,8 @@ export function useRegisterCrud(filter: DateRange) {
         };
       });
 
-      console.info(ptBR.registerUpdated);
       closeAllDialogs();
+      invoke({ type: 'success', message: ptBR.registerUpdated });
     },
   });
 
@@ -108,8 +111,8 @@ export function useRegisterCrud(filter: DateRange) {
         return { registers: newRegisters, targetOptions, typeOptions };
       });
 
-      console.info(ptBR.registerDeleted);
       closeAllDialogs();
+      invoke({ type: 'success', message: ptBR.registerDeleted });
     },
   });
 

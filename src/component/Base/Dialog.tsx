@@ -18,7 +18,7 @@ export interface DialogProps extends HTMLAttributes<HTMLDialogElement> {
 
 type Ref = HTMLDialogElement | null;
 export type DialogRef =
-  | (Pick<HTMLDialogElement, 'open' | 'close'> & {
+  | (Pick<HTMLDialogElement, 'close'> & {
       show: () => void;
       showModal: () => void;
       setStyle: (style?: Partial<CSSStyleDeclaration>) => void;
@@ -41,6 +41,7 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
   const [_ref, setRef] = useState<Ref>(null);
 
   // this state is needed as new ref is not sent after openning/closing.
+  // if this property needs to be passed into the ref, a solution for hindering infinite loops for the Toaster will have to be thought.
   const [_open, setOpen] = useState(false);
 
   useImperativeHandle<DialogRef, DialogRef>(
@@ -57,11 +58,10 @@ export const Dialog = forwardRef<DialogRef, DialogProps>(function Dialog(
               setOpen(true);
             },
             close: () => _ref.close(),
-            open: _open,
             setStyle: style => Object.assign(_ref.style, style),
           }
         : null,
-    [_ref, _open]
+    [_ref]
   );
 
   useEffect(() => {

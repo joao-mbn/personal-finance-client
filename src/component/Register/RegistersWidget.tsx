@@ -20,7 +20,7 @@ export function RegistersWidget() {
 
   const targetOptions = useMemo(
     () => (rawTargetOptions ?? []).sort().map(opt => ({ key: opt, value: opt })),
-    [data]
+    [rawTargetOptions]
   );
 
   const typeOptions = useMemo(
@@ -29,7 +29,7 @@ export function RegistersWidget() {
         .filter((opt): opt is string => !!opt)
         .sort()
         .map(opt => ({ key: opt, value: opt })),
-    [data]
+    [rawTypeOptions]
   );
 
   const parsedRegisters = useMemo(() => {
@@ -59,7 +59,7 @@ export function RegistersWidget() {
         };
       }) ?? []
     );
-  }, [data]);
+  }, [registers]);
 
   const columns: Column<(typeof parsedRegisters)[number]>[] = [
     { value: 'typeAndTarget' },
