@@ -6,7 +6,7 @@ interface AppContextProps {
   hasSession: boolean;
   setHasSession: React.Dispatch<React.SetStateAction<boolean>>;
   viewport: { vh: number; vw: number };
-  invoke: ReturnType<typeof useToaster>['invoke'];
+  invokeToaster: ReturnType<typeof useToaster>['invokeToaster'];
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);

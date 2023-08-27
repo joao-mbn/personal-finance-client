@@ -8,7 +8,7 @@ export function useToaster() {
     title: '',
   });
 
-  const invoke = (props: ToasterProps) => setToasterProps(props);
+  const invokeToaster = (props: ToasterProps) => setToasterProps(props);
 
   useEffect(() => {
     !!toasterProps.message && _ref?.invoke();
@@ -21,8 +21,5 @@ export function useToaster() {
     />
   );
 
-  return {
-    Toaster: toasterProps.message ? _Toaster : null,
-    invoke,
-  };
+  return { Toaster: toasterProps.message ? _Toaster : null, invokeToaster };
 }

@@ -13,7 +13,7 @@ export function useRegisterCrud(filter: DateRange) {
   });
 
   const queryClient = useQueryClient();
-  const { invoke } = useAppContext();
+  const { invokeToaster: invoke } = useAppContext();
 
   const { mutate: createOne } = useMutation({
     mutationFn: RegisterService.createOne,

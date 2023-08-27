@@ -2,7 +2,7 @@ import { Button, Page } from '../component';
 import { useToaster } from '../hooks/useToaster';
 
 export default function SyncPage() {
-  const { Toaster, invoke } = useToaster();
+  const { Toaster, invokeToaster: invoke } = useToaster();
 
   return (
     <Page>
