@@ -1,3 +1,3 @@
-export { BaseChart } from './BaseChart';
-export { BarLabel, BarLegend, BarRect, Grid } from './ChartBlocks';
-export { ChartWrapper } from './ChartWrapper';
+export * from './BaseChart';
+export * from './ChartBlocks';
+export * from './ChartWrapper';
