@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { forwardRef, useContext, useImperativeHandle } from 'react';
-import { RegisterContext } from '../../contexts';
+import { forwardRef, useImperativeHandle } from 'react';
+import { useRegisterContext } from '../../contexts';
 import { ptBR } from '../../languages';
 import { AutocompleteOption, Register, RegisterForm } from '../../models';
 import { DialogFooter, Toggle } from '../Base';
@@ -54,7 +54,7 @@ const checkers: { [K in keyof T]: FieldCheckers<T, K> } = {
 
 export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFormProps>(
   function RegisterFormComponentCopy({ onSubmit, onCancel, register }, ref) {
-    const { targetOptions, typeOptions } = useContext(RegisterContext);
+    const { targetOptions, typeOptions } = useRegisterContext();
     const formProps = useRegisterForm(register);
     const { setValue, state, reset, isValid, isDirty } = formProps;
     const { target, type, timestamp, value, comments } = state;

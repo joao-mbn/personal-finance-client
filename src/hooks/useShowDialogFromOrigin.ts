@@ -1,6 +1,6 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { DialogRef } from '../component';
-import { AppContext } from '../contexts';
+import { useAppContext } from '../contexts';
 import { REM_PX_RATIO } from '../utils';
 
 /**
@@ -14,8 +14,8 @@ export const useShowDialogFromOrigin = () => {
   const [dialogRef, setDialogRef] = useState<DialogRef>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const {
-    viewportDimensions: { height: vh, width: vw },
-  } = useContext(AppContext);
+    viewport: { vh, vw },
+  } = useAppContext();
 
   const showDialogFromOrigin = useCallback(() => {
     if (!dialogRef || !buttonRef) return;

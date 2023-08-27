@@ -1,9 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../component';
-import { AppContext } from '../contexts/AppContext';
+import { useAppContext } from '../contexts';
 import { Message } from '../models';
 import { AuthService } from '../services';
 
@@ -33,7 +33,7 @@ export default function RootPage() {
   const { pathname } = useLocation();
   const isAtBase = pathname === '/' || pathname === '/home';
 
-  const { setHasSession: updateSessionStatusGlobally } = useContext(AppContext);
+  const { setHasSession: updateSessionStatusGlobally } = useAppContext();
 
   useEffect(() => {
     updateSessionStatusGlobally(hasSession);

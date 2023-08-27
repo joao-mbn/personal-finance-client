@@ -1,5 +1,5 @@
-import { useContext, useMemo } from 'react';
-import { RegisterContext } from '../../contexts';
+import { useMemo } from 'react';
+import { useRegisterContext } from '../../contexts';
 import { Register, RegisterForm } from '../../models';
 import { useForm } from '../Form';
 
@@ -13,7 +13,7 @@ const defaultRegister: RegisterForm = {
 };
 
 export function useRegisterForm(register?: Register) {
-  const { targetOptions, typeOptions } = useContext(RegisterContext);
+  const { targetOptions, typeOptions } = useRegisterContext();
 
   const initialForm: RegisterForm = useMemo(() => {
     return register

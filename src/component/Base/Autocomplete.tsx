@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { HTMLAttributes, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import { HTMLAttributes, ReactNode, useEffect, useMemo, useState } from 'react';
 import { Input, InputProps, Options, OptionsTrigger } from '..';
-import { AppContext } from '../../contexts';
+import { useAppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
 import { AutocompleteOption, PartialBy } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
@@ -44,8 +44,8 @@ export function Autocomplete<T extends AutocompleteOption>({
 
   const isInPath = useClickPath(containerRef);
   const {
-    viewportDimensions: { height: vh },
-  } = useContext(AppContext);
+    viewport: { vh },
+  } = useAppContext();
   const optionsContainerMaxHeight = 10 * REM_PX_RATIO;
 
   useEffect(() => {

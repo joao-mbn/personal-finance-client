@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useContext } from 'react';
-import { AppContext } from '../../contexts';
+import { useAppContext } from '../../contexts';
 import { ptBR } from '../../languages';
 import { DateRange, Register, RegisterWithOptions } from '../../models';
 import { RegisterService } from '../../services';
@@ -14,7 +13,7 @@ export function useRegisterCrud(filter: DateRange) {
   });
 
   const queryClient = useQueryClient();
-  const { invoke } = useContext(AppContext);
+  const { invoke } = useAppContext();
 
   const { mutate: createOne } = useMutation({
     mutationFn: RegisterService.createOne,

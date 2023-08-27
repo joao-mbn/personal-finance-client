@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { HTMLAttributes, Key, ReactNode, useContext, useEffect, useState } from 'react';
+import { HTMLAttributes, Key, ReactNode, useEffect, useState } from 'react';
 import { Options, OptionsTrigger } from '..';
-import { AppContext } from '../../contexts';
+import { useAppContext } from '../../contexts';
 import { useClickPath } from '../../hooks';
 import { DropdownOption } from '../../models';
 import { REM_PX_RATIO } from '../../utils';
@@ -36,8 +36,8 @@ export function Dropdown<T extends DropdownOption>({
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
   const isInPath = useClickPath(containerRef);
   const {
-    viewportDimensions: { height: vh },
-  } = useContext(AppContext);
+    viewport: { vh },
+  } = useAppContext();
 
   useEffect(() => {
     !disabled && setIsActive(isInPath);

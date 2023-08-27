@@ -39,12 +39,12 @@ const router = createBrowserRouter([
 
 function App() {
   const [hasSession, setHasSession] = useState(false);
-  const viewportDimensions = useViewport();
+  const viewport = useViewport();
   const { Toaster, invoke } = useToaster();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ hasSession, setHasSession, viewportDimensions, invoke }}>
+      <AppContext.Provider value={{ hasSession, setHasSession, viewport, invoke }}>
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>

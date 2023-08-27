@@ -9,11 +9,11 @@ function subscribe(callback: () => void) {
   return () => window.removeEventListener('resize', callback);
 }
 
-const viewport = { width: 0, height: 0 };
+const viewport = { vw: 0, vh: 0 };
 function getSnapshot() {
-  if (window.innerHeight !== viewport.height || window.innerWidth !== viewport.width) {
-    viewport.height = window.innerHeight;
-    viewport.width = window.innerWidth;
+  if (window.innerHeight !== viewport.vh || window.innerWidth !== viewport.vw) {
+    viewport.vh = window.innerHeight;
+    viewport.vw = window.innerWidth;
   }
 
   return viewport;

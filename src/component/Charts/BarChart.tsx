@@ -1,7 +1,7 @@
 import { extent, scaleBand, scaleDiverging } from 'd3';
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
-import { ChartWrapperContext } from '../../contexts';
+import { useChartWrapperContext } from '../../contexts';
 import { useLetterWidthEstimate } from '../../hooks';
 import { REM_PX_RATIO, toBRL } from '../../utils';
 
@@ -22,7 +22,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
   const letterWidth = useLetterWidthEstimate({ size: FONT_SIZE });
   const {
     dimensions: { width: containerWidth, height: containerHeight },
-  } = useContext(ChartWrapperContext);
+  } = useChartWrapperContext();
 
   const height = Math.max(containerHeight - 1 * REM_PX_RATIO, 0);
   const boundsHeight = Math.max(height - MARGIN.top - MARGIN.bottom, 0);

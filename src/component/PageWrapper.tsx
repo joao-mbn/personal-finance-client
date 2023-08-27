@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { AppContext } from '../contexts';
+import { useAppContext } from '../contexts';
 import { useRect } from '../hooks';
 import { MENU_BAR_HEIGHT, REM_PX_RATIO } from '../utils';
 import { MenuBar } from './MenuBar';
@@ -14,8 +14,8 @@ export function PageWrapper({ isAtBase }: PageWrapperProps) {
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const rect = useRect(ref);
   const {
-    viewportDimensions: { height: vh },
-  } = useContext(AppContext);
+    viewport: { vh },
+  } = useAppContext();
 
   const willScroll = rect?.height && rect.height > vh - MENU_BAR_HEIGHT * REM_PX_RATIO;
 

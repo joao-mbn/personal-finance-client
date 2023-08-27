@@ -1,16 +1,17 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useToaster } from '../hooks';
+import { contextIsNotNull } from '../utils';
 
 interface AppContextProps {
   hasSession: boolean;
   setHasSession: React.Dispatch<React.SetStateAction<boolean>>;
-  viewportDimensions: { height: number; width: number };
+  viewport: { vh: number; vw: number };
   invoke: ReturnType<typeof useToaster>['invoke'];
 }
 
-export const AppContext = createContext<AppContextProps>({
-  hasSession: false,
-  invoke: () => undefined,
-  setHasSession: () => undefined,
-  viewportDimensions: { height: 0, width: 0 },
-});
+export const AppContext = createContext<AppContextProps | null>(null);
+
+export function useAppContext() {
+  const context = useContext(AppContext);
+  return contextIsNotNull(context);
+}

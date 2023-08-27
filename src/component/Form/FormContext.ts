@@ -1,6 +1,6 @@
 import { Context, createContext, useContext } from 'react';
 import { UseFormReturn } from '.';
-import { ptBR } from '../../languages';
+import { contextIsNotNull } from '../../utils';
 
 let FormContext: unknown = null;
 
@@ -11,8 +11,5 @@ export function createFormContext<T extends Record<string, unknown>>() {
 
 export function useFormContext<T extends Record<string, unknown>>() {
   const _Context = useContext(FormContext as Context<UseFormReturn<T> | null>);
-
-  if (!_Context) throw new Error(ptBR.contextIsNull);
-
-  return _Context;
+  return contextIsNotNull(_Context);
 }
