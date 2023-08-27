@@ -3,7 +3,7 @@ import { Suspense, lazy, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Loading } from './component';
 import { AppContext } from './contexts';
-import { useToaster, useViewport } from './hooks';
+import { useAxiosInterceptors, useToaster, useViewport } from './hooks';
 import RootPage, { rootLoader } from './pages/Root';
 
 const ErrorPage = lazy(() => import('./pages/Error'));
@@ -41,6 +41,7 @@ function App() {
   const [hasSession, setHasSession] = useState(false);
   const viewport = useViewport();
   const { Toaster, invokeToaster } = useToaster();
+  useAxiosInterceptors(invokeToaster);
 
   return (
     <QueryClientProvider client={queryClient}>

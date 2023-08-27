@@ -6,7 +6,7 @@ import {
   RegisterResponseWithOptions,
   RegisterWithOptions,
 } from '../models';
-import { api } from './api';
+import { api } from './';
 
 export namespace RegisterService {
   const CONTROLLER = 'register';

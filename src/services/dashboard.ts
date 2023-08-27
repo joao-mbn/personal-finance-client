@@ -9,7 +9,7 @@ import {
   MonthDebt,
   MonthEntry,
 } from '../models';
-import { api } from './api';
+import { api } from './';
 
 export namespace DashboardService {
   const CONTROLLER = 'dashboard';
