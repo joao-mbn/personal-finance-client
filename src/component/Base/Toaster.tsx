@@ -14,9 +14,10 @@ export interface ToasterProps extends Omit<DialogProps, 'header'> {
 export type ToasterRef = (DialogRef & { invoke: () => void }) | null;
 
 export const Toaster = forwardRef<ToasterRef, ToasterProps>(function Toaster(
-  { title, message, className, duration = 3000, type = 'info', ...props }: ToasterProps,
+  { title, message, className, duration, type = 'info', ...props }: ToasterProps,
   ref
 ) {
+  const _duration = duration ?? ((type === 'error' && 5000) || 3000);
   const _title =
     title ?? ((type === 'error' && ptBR.error) || (type === 'success' && ptBR.success));
   const [_ref, setRef] = useState<DialogRef>(null);
@@ -30,8 +31,8 @@ export const Toaster = forwardRef<ToasterRef, ToasterProps>(function Toaster(
       setTranslation('translate-y-1/2vh');
 
       setTimeout(() => _ref?.close(), 300);
-    }, duration);
-  }, [_ref, duration]);
+    }, _duration);
+  }, [_ref, _duration]);
 
   useImperativeHandle<ToasterRef, ToasterRef>(ref, () => (_ref ? { ..._ref, invoke } : null), [
     _ref,

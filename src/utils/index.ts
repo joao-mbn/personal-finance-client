@@ -3,3 +3,4 @@ export * from './context';
 export * from './datetime';
 export * from './dom';
 export * from './formatters';
+export * from './parser';

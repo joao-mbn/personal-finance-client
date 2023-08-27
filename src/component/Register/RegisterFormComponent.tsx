@@ -112,7 +112,6 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
             options: targetOptions,
             placeholder: ptBR.placeholderTarget,
             inputProps: {
-              minLength: REGISTER_OPTION_MIN_LENGTH,
               maxLength: REGISTER_OPTION_MAX_LENGTH,
             },
           }}
