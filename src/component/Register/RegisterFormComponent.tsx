@@ -38,17 +38,17 @@ const checkers: { [K in keyof T]: FieldCheckers<T, K> } = {
   },
   type: {
     validator: (value?: AutocompleteOption) =>
-      (value?.value.length ?? 0) < REGISTER_OPTION_MAX_LENGTH,
+      (value?.value.length ?? 0) <= REGISTER_OPTION_MAX_LENGTH,
     equalityComparer: (newValue, initialValue) => newValue?.value === initialValue?.value,
   },
   target: {
     validator: (value: AutocompleteOption) =>
-      value.value.length > REGISTER_OPTION_MIN_LENGTH &&
-      value.value.length < REGISTER_OPTION_MAX_LENGTH,
+      value.value.length >= REGISTER_OPTION_MIN_LENGTH &&
+      value.value.length <= REGISTER_OPTION_MAX_LENGTH,
     equalityComparer: (newValue, initialValue) => newValue?.value === initialValue?.value,
   },
   comments: {
-    validator: (value?: string) => (value?.length ?? 0) < REGISTER_COMMENT_MAX_LENGTH,
+    validator: (value?: string) => (value?.length ?? 0) <= REGISTER_COMMENT_MAX_LENGTH,
   },
 };
 
