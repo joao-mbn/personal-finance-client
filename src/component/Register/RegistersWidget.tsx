@@ -1,4 +1,5 @@
 import { lazy, useMemo, useRef } from 'react';
+import { DefaultSuspense } from '..';
 import { RegisterContext } from '../../contexts';
 import { Column, DateRange } from '../../models';
 import { formatDateBR, getDefaultRange, toBRL } from '../../utils';
@@ -49,12 +50,14 @@ export function RegistersWidget() {
             </div>
           ),
           menu: (
-            <RegisterMenu
-              key={crypto.randomUUID()}
-              onDelete={() => deleteOne(r.id)}
-              onEdit={updateOne}
-              register={r}
-            />
+            <DefaultSuspense message="">
+              <RegisterMenu
+                key={crypto.randomUUID()}
+                onDelete={() => deleteOne(r.id)}
+                onEdit={updateOne}
+                register={r}
+              />
+            </DefaultSuspense>
           ),
         };
       }) ?? []
@@ -83,7 +86,12 @@ export function RegistersWidget() {
           />
         )}
       </WidgetWithFilter>
-      <CreateRegister onCreate={createOne} />
+      <DefaultSuspense
+        message=""
+        backdrop
+        centerOfScreen>
+        <CreateRegister onCreate={createOne} />
+      </DefaultSuspense>
     </RegisterContext.Provider>
   );
 }

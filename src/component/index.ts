@@ -1,8 +1,8 @@
 export * from './Base';
+export { Loading } from './Base/Loading';
 export * from './Charts';
 export { GoogleSignIn } from './GoogleSignIn';
 export * from './Icons';
-export { Loading } from './Loading';
 export { Logo } from './Logo';
 export { MenuBar } from './MenuBar';
 export { Page } from './Page';

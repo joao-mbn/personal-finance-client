@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { EllipsisIcon } from '..';
 import { Register } from '../../models';
-import { MultiActionButton } from '../Base';
+import { DefaultSuspense, MultiActionButton } from '../Base';
 
 const DeleteRegister = lazy(() => import('./DeleteRegister'));
 const Comment = lazy(() => import('./Comment'));
@@ -28,10 +28,14 @@ export default function RegisterMenu({ register, onDelete, onEdit }: RegisterMen
         flat>
         <div className="flex flex-col gap-1 whitespace-normal break-words">
           <Comment register={register} />
-          <EditRegister
-            onSubmit={onEdit}
-            register={register}
-          />
+          <DefaultSuspense
+            backdrop
+            centerOfScreen>
+            <EditRegister
+              onSubmit={onEdit}
+              register={register}
+            />
+          </DefaultSuspense>
           <DeleteRegister onDelete={onDelete} />
         </div>
       </MultiActionButton>

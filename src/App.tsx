@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Suspense, lazy, useState } from 'react';
+import { lazy, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Loading } from './component';
+import { DefaultSuspense } from './component';
 import { AppContext } from './contexts';
 import { useAxiosInterceptors, useToaster, useViewport } from './hooks';
 import RootPage, { rootLoader } from './pages/Root';
@@ -46,9 +46,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={{ hasSession, setHasSession, viewport, invokeToaster }}>
-        <Suspense fallback={<Loading />}>
+        <DefaultSuspense>
           <RouterProvider router={router} />
-        </Suspense>
+        </DefaultSuspense>
         {Toaster}
       </AppContext.Provider>
     </QueryClientProvider>

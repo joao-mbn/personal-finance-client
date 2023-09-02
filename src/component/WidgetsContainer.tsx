@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, createElement, lazy } from 'react';
-import { Loading } from '.';
+import { createElement, lazy } from 'react';
+import { DefaultSuspense } from '.';
 import { DashboardWidget } from '../models';
 import { DashboardService } from '../services';
 
@@ -31,11 +31,7 @@ export function WidgetsContainer() {
   return (
     <div className="flex flex-col gap-4 overflow-x-hidden p-0.5">
       {data?.map(widget => (
-        <Suspense
-          fallback={<Loading />}
-          key={widget}>
-          {createElement(widgetsMapper[widget])}
-        </Suspense>
+        <DefaultSuspense key={widget}>{createElement(widgetsMapper[widget])}</DefaultSuspense>
       ))}
     </div>
   );
