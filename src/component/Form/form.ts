@@ -8,6 +8,7 @@ export type FieldMetadata<T, K extends keyof T = keyof T> = {
   initialValue: T[K];
   isDirty: boolean;
   isValid: boolean;
+  errorMessage: string;
 };
 
 export type Metadata<T, K extends keyof T = keyof T> = Record<K, FieldMetadata<T, K>>;
@@ -23,7 +24,7 @@ export type MetadataAction<T, K extends keyof T = keyof T> =
 
 export type FieldCheckers<T, K extends keyof T = keyof T> = {
   equalityComparer?: (newValue: T[K], initialValue: T[K]) => boolean;
-  validator?: (newValue: T[K]) => boolean;
+  validator?: (newValue: T[K]) => true | string;
 };
 
 export type Checkers<T, K extends keyof T = keyof T> = Record<K, FieldCheckers<T[K]>>;

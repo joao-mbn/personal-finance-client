@@ -3,12 +3,14 @@ import { forwardRef, useImperativeHandle } from 'react';
 import { useRegisterContext } from '../../contexts';
 import { ptBR } from '../../languages';
 import { AutocompleteOption, Register, RegisterForm } from '../../models';
+import { fillStringTemplate } from '../../utils';
 import { DialogFooter, Toggle } from '../Base';
 import {
   ControlledAutocomplete,
   ControlledCurrencyInput,
   ControlledDatePicker,
   ControlledTextArea,
+  ControllerErrorMessage,
   FieldCheckers,
   FormComponent,
 } from '../Form';
@@ -31,24 +33,48 @@ const REGISTER_COMMENT_MAX_LENGTH = 200;
 type T = Omit<RegisterForm, 'id'>;
 const checkers: { [K in keyof T]: FieldCheckers<T, K> } = {
   value: {
-    validator: (value: number) => value !== 0,
+    validator: (value: number) =>
+      value !== 0 || fillStringTemplate(ptBR.isRequired, { field: ptBR.value }),
   },
   timestamp: {
-    validator: (value: Date) => value && !isNaN(value.getTime()),
+    validator: (value: Date) =>
+      (value && !isNaN(value.getTime())) ||
+      fillStringTemplate(ptBR.isRequired, { field: ptBR.timestamp }),
   },
   type: {
     validator: (value?: AutocompleteOption) =>
-      (value?.value.length ?? 0) <= REGISTER_OPTION_MAX_LENGTH,
+      (value?.value.length ?? 0) <= REGISTER_OPTION_MAX_LENGTH ||
+      fillStringTemplate(ptBR.exceededMaxLength, {
+        field: ptBR.type,
+        length: REGISTER_OPTION_MAX_LENGTH.toString(),
+      }),
     equalityComparer: (newValue, initialValue) => newValue?.value === initialValue?.value,
   },
   target: {
-    validator: (value: AutocompleteOption) =>
-      value.value.length >= REGISTER_OPTION_MIN_LENGTH &&
-      value.value.length <= REGISTER_OPTION_MAX_LENGTH,
+    validator: (value: AutocompleteOption) => {
+      if (value.value.length < REGISTER_OPTION_MIN_LENGTH) {
+        return fillStringTemplate(ptBR.belowMinLength, {
+          field: ptBR.target,
+          length: REGISTER_OPTION_MIN_LENGTH.toString(),
+        });
+      }
+      return (
+        value.value.length <= REGISTER_OPTION_MAX_LENGTH ||
+        fillStringTemplate(ptBR.exceededMaxLength, {
+          field: ptBR.target,
+          length: REGISTER_OPTION_MAX_LENGTH.toString(),
+        })
+      );
+    },
     equalityComparer: (newValue, initialValue) => newValue?.value === initialValue?.value,
   },
   comments: {
-    validator: (value?: string) => (value?.length ?? 0) <= REGISTER_COMMENT_MAX_LENGTH,
+    validator: (value?: string) =>
+      (value?.length ?? 0) <= REGISTER_COMMENT_MAX_LENGTH ||
+      fillStringTemplate(ptBR.exceededMaxLength, {
+        field: ptBR.comment,
+        length: REGISTER_COMMENT_MAX_LENGTH.toString(),
+      }),
   },
 };
 
@@ -69,33 +95,40 @@ export const RegisterFormComponentCopy = forwardRef<RegisterFormRef, RegisterFor
           event.preventDefault();
           onSubmit({ ...state, type: type?.value, target: target.value });
         }}>
-        <div className="flex gap-4">
-          <ControlledCurrencyInput<RegisterForm, 'value'>
-            checkers={checkers['value']}
-            field="value"
-            label={ptBR.value}
-            value={value}
-            currencyInputProps={{
-              className: 'w-full',
-              inputSize: 'small',
-              placeholder: ptBR.placeholderValue,
-            }}
-          />
-          <div className="w-2/5">
-            <span
-              className={classNames('text-hoki-800', {
-                'opacity-70': value !== 0,
-                'opacity-40': value === 0,
-              })}>
-              {value >= 0 ? ptBR.earning : ptBR.expense}
-            </span>
-            <Toggle
-              disabled={value === 0}
-              isActive={value > 0}
-              onClick={() => setValue('value', value * -1)}
-              type="button"
+        <div className="flex flex-col gap-1">
+          <div className="flex gap-4">
+            <ControlledCurrencyInput<RegisterForm, 'value'>
+              checkers={checkers['value']}
+              errorMessageProps={{ className: 'hidden' }}
+              field="value"
+              label={ptBR.value}
+              value={value}
+              currencyInputProps={{
+                className: 'w-full',
+                inputSize: 'small',
+                placeholder: ptBR.placeholderValue,
+              }}
             />
+            <div className="flex w-2/5 flex-col gap-1">
+              <span
+                className={classNames('text-hoki-800', {
+                  'opacity-70': value !== 0,
+                  'opacity-40': value === 0,
+                })}>
+                {value >= 0 ? ptBR.earning : ptBR.expense}
+              </span>
+              <Toggle
+                disabled={value === 0}
+                isActive={value > 0}
+                onClick={() => setValue('value', value * -1)}
+                type="button"
+              />
+            </div>
           </div>
+          <ControllerErrorMessage<RegisterForm, 'value'>
+            className="break-words"
+            field="value"
+          />
         </div>
         <ControlledDatePicker<RegisterForm, 'timestamp'>
           checkers={checkers['timestamp']}

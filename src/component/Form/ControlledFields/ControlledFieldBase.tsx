@@ -1,37 +1,38 @@
 import {
   Controller,
+  ControllerErrorMessage,
+  ControllerErrorMessageProps,
   ControllerLabel,
   ControllerLabelProps,
   ControllerProps,
-  useFormContext,
 } from '..';
 
 export interface ControlledFieldBaseProps<
   T extends Record<string, unknown>,
   K extends keyof T = keyof T
 > extends ControllerProps<T, K>,
-    Pick<ControllerLabelProps, 'label'> {
-  labelProps?: Omit<ControllerLabelProps, 'label' | 'isDirty' | 'isValid'>;
+    Pick<ControllerLabelProps<T, K>, 'label'> {
+  labelProps?: Omit<ControllerLabelProps<T, K>, 'label'>;
+  errorMessageProps?: Omit<ControllerErrorMessageProps<T, K>, 'field'>;
 }
 
 export function ControlledFieldBase<
   T extends Record<string, unknown>,
   K extends keyof T = keyof T
->({ field, label, labelProps, ...props }: ControlledFieldBaseProps<T, K>) {
-  const { metadata } = useFormContext<T>();
-
-  const { isDirty, isValid } = metadata[field];
-
+>({ field, label, labelProps, errorMessageProps, ...props }: ControlledFieldBaseProps<T, K>) {
   return (
-    <div>
-      <ControllerLabel
+    <div className="flex flex-col gap-1">
+      <ControllerLabel<T, K>
         {...labelProps}
-        isDirty={isDirty}
-        isValid={isValid}
+        field={field}
         label={label}
       />
       <Controller<T, K>
         {...props}
+        field={field}
+      />
+      <ControllerErrorMessage<T, K>
+        {...errorMessageProps}
         field={field}
       />
     </div>

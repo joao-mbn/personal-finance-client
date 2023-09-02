@@ -51,7 +51,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
   const isDirty = useMemo(() => Object.values(metadata).some(m => m.isDirty), [metadata]);
   const isValid = useMemo(() => Object.values(metadata).every(m => m.isValid), [metadata]);
 
-  const form = {
+  return {
     initialValues,
     isDirty,
     isValid,
@@ -61,8 +61,6 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
     setValue,
     state,
   };
-
-  return { ...form };
 }
 
 function stateReducer<T>(state: T, action: StateAction<T>) {
@@ -92,14 +90,17 @@ function metadataReducer<T>(state: Metadata<T>, action: MetadataAction<T>) {
   const { field, currentValue, fieldCheckers } = action;
   const { initialValue, isDirty: prevIsDirty, isValid: prevIsValid } = state[field];
 
-  const isValid = fieldCheckers?.validator?.(currentValue) ?? true;
+  const validationResult = fieldCheckers?.validator?.(currentValue) ?? true;
+  const isValid = validationResult === true;
+  const errorMessage = isValid ? '' : validationResult;
+
   const isDirty = fieldCheckers?.equalityComparer
     ? !fieldCheckers.equalityComparer(currentValue, initialValue)
     : currentValue !== initialValue;
 
   if (prevIsDirty === isDirty && prevIsValid === isValid) return state;
 
-  return { ...state, [field]: { ...state[field], isDirty, isValid } };
+  return { ...state, [field]: { ...state[field], isDirty, isValid, errorMessage } };
 }
 
 function checkersReducer<T>(state: Checkers<T>, action: CheckersAction<T>) {

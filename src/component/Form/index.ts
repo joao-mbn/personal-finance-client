@@ -1,6 +1,5 @@
 export * from './ControlledFields';
 export * from './Controller';
-export * from './ControllerLabel';
 export * from './FormComponent';
 export * from './FormContext';
 export * from './form';
