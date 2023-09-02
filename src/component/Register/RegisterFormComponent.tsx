@@ -34,7 +34,7 @@ type T = Omit<RegisterForm, 'id'>;
 const checkers: { [K in keyof T]: FieldCheckers<T, K> } = {
   value: {
     validator: (value: number) =>
-      value !== 0 || fillStringTemplate(ptBR.isRequired, { field: ptBR.value }),
+      value !== 0 || fillStringTemplate(ptBR.cannotBeNullOrZero, { field: ptBR.value }),
   },
   timestamp: {
     validator: (value: Date) =>
