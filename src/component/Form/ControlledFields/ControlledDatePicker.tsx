@@ -15,7 +15,7 @@ export function ControlledDatePicker<
   return (
     <ControlledFieldBase<T, K>
       {...props}
-      render={({ isDirty, isValid }, onChange) => (
+      render={(_, onChange) => (
         <DatePicker
           className="gap-4"
           monthDropdownProps={{ className: 'w-full' }}

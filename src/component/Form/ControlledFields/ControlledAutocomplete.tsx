@@ -21,9 +21,10 @@ export function ControlledAutocomplete<
       {...props}
       render={({ isDirty, isValid }, onChange) => (
         <Autocomplete
+          {...autocompleteProps}
+          error={isDirty && !isValid}
           onChange={onChange as (value: AutocompleteOption) => void}
           value={value}
-          {...autocompleteProps}
         />
       )}
     />

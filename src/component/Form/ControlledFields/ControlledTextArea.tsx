@@ -19,6 +19,7 @@ export function ControlledTextArea<T extends Record<string, unknown>, K extends 
       {...props}
       render={({ isDirty, isValid }, onChange) => (
         <TextArea
+          error={isDirty && !isValid}
           onChange={event => (onChange as (value: string) => void)(event.target.value)}
           value={value}
           {...textAreaProps}

@@ -9,6 +9,11 @@ import { REM_PX_RATIO } from '../../utils';
 export interface AutocompleteProps<T extends AutocompleteOption>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   disabled?: boolean;
+  error?: boolean;
+  inputProps?: Omit<
+    InputProps,
+    'value' | 'placeholder' | 'disabled' | 'onClick' | 'onChange' | 'inputSize'
+  >;
   maxWidth?: string;
   onChange: (
     value: AutocompleteOption,
@@ -18,15 +23,12 @@ export interface AutocompleteProps<T extends AutocompleteOption>
   placeholder?: string;
   value?: PartialBy<AutocompleteOption, 'key'>;
   template?: (option: T) => ReactNode;
-  inputProps?: Omit<
-    InputProps,
-    'value' | 'placeholder' | 'disabled' | 'onClick' | 'onChange' | 'inputSize'
-  >;
 }
 
 export function Autocomplete<T extends AutocompleteOption>({
   className,
   disabled = false,
+  error = false,
   inputProps,
   onChange,
   options,
@@ -98,13 +100,15 @@ export function Autocomplete<T extends AutocompleteOption>({
       <div
         ref={setHeaderRef}
         className={classNames('flex w-full rounded-3xl border border-hoki-300', {
-          'bg-white text-hoki-800 shadow transition-shadow focus-within:border-cerulean-800 focus-within:shadow-inner hover:border-cerulean-600':
-            !disabled,
+          'bg-white shadow transition-shadow focus-within:shadow-inner': !disabled,
+          'text-hoki-800 shadow focus-within:shadow-inner': !disabled && !error,
+          'border border-red-700': !disabled && error,
           'bg-hoki-50': disabled,
         })}>
         <Input
           className={classNames('flex-grow border-none !shadow-none', inputProps?.className)}
           disabled={disabled}
+          error={error}
           inputSize="small"
           placeholder={placeholder}
           value={value.value ?? ''}

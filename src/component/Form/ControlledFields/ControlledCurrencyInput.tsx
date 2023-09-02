@@ -19,9 +19,10 @@ export function ControlledCurrencyInput<
       render={({ isDirty, isValid }, onChange) => {
         return (
           <CurrencyInput
+            {...currencyInputProps}
+            error={isDirty && !isValid}
             onChange={onChange as (value: number) => void}
             value={value}
-            {...currencyInputProps}
           />
         );
       }}

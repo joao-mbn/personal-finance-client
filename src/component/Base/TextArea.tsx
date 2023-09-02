@@ -4,12 +4,13 @@ import { DragIcon } from '../Icons';
 
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   inputSize: 'small' | 'medium' | 'large';
+  error?: boolean;
 }
 
 type Ref = HTMLTextAreaElement | null;
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function Input(
-  { className, inputSize, disabled, ...props }: TextAreaProps,
+  { className, inputSize, disabled, error = false, ...props }: TextAreaProps,
   ref
 ) {
   const [_ref, setRef] = useState<Ref>(null);
@@ -20,8 +21,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   return (
     <div
       className={classNames('overflow-hidden rounded-2xl border border-hoki-300', {
+        'shadow focus:shadow-inner active:shadow-inner': !disabled,
         'hover:border-cerulean-600 focus:border-cerulean-800 focus:shadow-inner active:border-cerulean-800 active:shadow-inner':
-          !disabled,
+          !disabled && !error,
+        'border-red-700 text-red-700 shadow-sm shadow-red-900': !disabled && error,
       })}>
       <textarea
         {...props}
@@ -45,6 +48,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
           'hover:cursor-row-resize hover:bg-cerulean-600 hover:fill-white': !disabled,
           'bg-hoki-200 fill-hoki-800': !isDragging && !disabled,
           '!bg-cerulean-800 fill-white': isDragging,
+          '!bg-red-700 fill-white': !disabled && error,
         })}
         onMouseDown={e => {
           if (disabled || !_ref) return;
