@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { BarLabel, BarLegend, BarRect, BaseChart } from '.';
 import { useChartWrapperContext } from '../../contexts';
 import { useLetterWidthEstimate } from '../../hooks';
-import { REM_PX_RATIO, toBRL } from '../../utils';
+import { REM_PX_RATIO, formatCurrency } from '../../utils';
 
 const MARGIN = { top: 30, right: 12, bottom: 30, left: 12 };
 const BAR_PADDING = 0.1;
@@ -110,7 +110,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
                 <BarLabel
                   fontSize={FONT_SIZE}
                   height={MIN_HEIGHT_FOR_TEXT_DISPLAY}
-                  label={toBRL(value)}
+                  label={formatCurrency(value, 'pt-BR', 'BRL')}
                   width={barWidth}
                   x={x}
                   y={y + (barHeight - FONT_SIZE) / 2}

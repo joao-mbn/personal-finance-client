@@ -2,7 +2,7 @@ import { lazy, useMemo, useRef } from 'react';
 import { DefaultSuspense } from '..';
 import { RegisterContext } from '../../contexts';
 import { Column, DateRange } from '../../models';
-import { formatDateBR, getDefaultRange, toBRL } from '../../utils';
+import { formatCurrency, formatDate, getDefaultRange } from '../../utils';
 import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
 import { useRegisterCrud } from './useRegisterCrud';
 
@@ -45,8 +45,8 @@ export function RegistersWidget() {
           ),
           priceWithDate: (
             <div className="flex flex-col items-end gap-1 text-xs">
-              <span className="font-bold">{toBRL(r.value)}</span>
-              <span>{formatDateBR(r.timestamp)}</span>
+              <span className="font-bold">{formatCurrency(r.value, 'pt-BR', 'BRL')}</span>
+              <span>{formatDate(r.timestamp, 'pt-BR')}</span>
             </div>
           ),
           menu: (

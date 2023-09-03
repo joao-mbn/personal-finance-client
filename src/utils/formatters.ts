@@ -1,21 +1,43 @@
-export function toCurrency(
-  value: number,
-  locale: string,
-  currency: string,
-  overrides?: Intl.NumberFormatOptions
-) {
+export function formatNumber(locale: string, value: number, options?: Intl.NumberFormatOptions) {
   const formatter = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency,
-    signDisplay: 'exceptZero',
     maximumFractionDigits: 2,
-    ...overrides,
+    ...options,
   });
   return formatter.format(value);
 }
 
-export function toBRL(value: number, overrides?: Intl.NumberFormatOptions) {
-  return toCurrency(value, 'pt-BR', 'BRL', overrides);
+export function formatCurrency(
+  value: number,
+  locale: string,
+  currency: string,
+  options?: Intl.NumberFormatOptions
+) {
+  return formatNumber(locale, value, {
+    currency,
+    style: 'currency',
+    signDisplay: 'exceptZero',
+    ...options,
+  });
+}
+
+export function getCurrencySymbol(locale: string, currency: string) {
+  return (
+    new Intl.NumberFormat(locale, { style: 'currency', currency })
+      .formatToParts(1)
+      .find(p => p.type === 'currency')?.value ?? '$'
+  );
+}
+
+export function getThousandSeparator(locale: string) {
+  return (
+    new Intl.NumberFormat(locale).formatToParts(1000).find(p => p.type === 'group')?.value ?? ''
+  );
+}
+
+export function getDecimalSeparator(locale: string) {
+  return (
+    new Intl.NumberFormat(locale).formatToParts(1.1).find(p => p.type === 'decimal')?.value ?? ''
+  );
 }
 
 export function formatDate(value: Date, locale: string) {
@@ -24,8 +46,4 @@ export function formatDate(value: Date, locale: string) {
     month: '2-digit',
   });
   return formatter.format(value);
-}
-
-export function formatDateBR(value: Date) {
-  return formatDate(value, 'pt-BR');
 }

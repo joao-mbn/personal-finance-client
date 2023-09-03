@@ -4,7 +4,7 @@ import { lazy, useMemo, useRef } from 'react';
 import { ptBR } from '../../languages';
 import { Column, DashboardWidget, DateRange } from '../../models';
 import { DashboardService } from '../../services';
-import { formatDateBR, getDefaultRange, getTimeDiff, toBRL } from '../../utils';
+import { formatCurrency, formatDate, getDefaultRange, getTimeDiff } from '../../utils';
 import { WidgetWithFilter } from '../Widget/WidgetWithFilter';
 
 const Table = lazy(() => import('../Table/Table'));
@@ -35,9 +35,9 @@ export function DueSoonBillsWidget() {
                     'font-bold': timeDiff && timeDiff < 0,
                     'text-cerulean-800': timeDiff && timeDiff > 0 && timeDiff < 7,
                   })}>
-                  {toBRL(d.value)}
+                  {formatCurrency(d.value, 'pt-BR', 'BRL')}
                 </span>
-                <span>{formatDateBR(new Date(d.dueDate))}</span>
+                <span>{formatDate(new Date(d.dueDate), 'pt-BR')}</span>
               </div>
             ),
           };

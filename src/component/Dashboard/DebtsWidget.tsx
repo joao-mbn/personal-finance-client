@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import { ptBR } from '../../languages';
 import { DashboardWidget, Debt } from '../../models';
 import { DashboardService } from '../../services';
-import { toBRL } from '../../utils';
+import { formatCurrency } from '../../utils';
 import { Widget } from '../Widget/Widget';
 
 const BarChart = lazy(() => import('../Charts/BarChart'));
@@ -22,7 +22,7 @@ export function DebtsWidget() {
         <div className="flex gap-1">
           <span>{ptBR.totalDebts}:</span>
           <span className="font-bold text-cerulean-800">
-            {data?.totalDebts ? toBRL(data.totalDebts) : '???'}
+            {data?.totalDebts ? formatCurrency(data.totalDebts, 'pt-BR', 'BRL') : '???'}
           </span>
         </div>
       }>
