@@ -34,7 +34,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
   const xScale = useMemo(() => {
     const groups = data.map(d => d[indexBy] as string);
     return scaleBand().domain(groups).range([0, boundsWidth]).padding(BAR_PADDING);
-  }, [data]);
+  }, [boundsWidth, data, indexBy]);
 
   const minMax = useMemo(() => {
     const values = data.flatMap(d => valueKeys.map(key => (isNaN(+d[key]) ? 0 : +d[key])));
@@ -43,7 +43,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
     const max = minMax[1] ?? 50;
 
     return { min, max };
-  }, [data]);
+  }, [data, valueKeys]);
   const { min, max } = minMax;
 
   const yScale = useMemo(() => {
@@ -55,7 +55,7 @@ export function BarChart<T>({ data, indexBy, overlapBars, valueKeys }: Diverging
       .domain([min - allowance, 0, max + allowance])
       .range([0, boundsHeight * poundedOrigin, boundsHeight])
       .clamp(true);
-  }, [minMax]);
+  }, [boundsHeight, max, min]);
 
   const origin = yScale(0);
 
